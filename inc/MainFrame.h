@@ -71,6 +71,7 @@ namespace GrayscaleConverter
 		Model& m_model;
 
 		// Virtual event handlers, overide them in your derived class
+		virtual void OnUpdateUI(wxUpdateUIEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_Duotone(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_PickColour(wxCommandEvent& event) { event.Skip(); }
@@ -94,7 +95,6 @@ namespace GrayscaleConverter
 		virtual void OnMenuSelection_SaveConfig(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnMenuSelection_Exit(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnMenuSelection_GoFullscreen(wxCommandEvent& event) { event.Skip(); }
-
 
 	public:
 

@@ -42,6 +42,7 @@ namespace GrayscaleConverter
 		void OnMenuSelection_SaveConfig(wxCommandEvent& event);
 		void OnMenuSelection_Exit(wxCommandEvent& event);
 		void OnMenuSelection_GoFullscreen(wxCommandEvent& event);
+		void OnUpdateUI(wxUpdateUIEvent& event);
 	public:
 		/** Constructor */
 		ControllerFrame(wxWindow* parent, Model& newModel);

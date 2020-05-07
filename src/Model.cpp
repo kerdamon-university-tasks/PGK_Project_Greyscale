@@ -6,10 +6,8 @@ namespace GrayscaleConverter
 	Model::Model()
 		:
 		m_originalImage{ wxImage{} },
-		m_imageThumbnail{ wxImage{} }
+		m_imageThumbnail{ new wxImage{} }
 	{
-		m_originalImage = wxImage{};
-		m_imageThumbnail = wxImage{};
 		wxInitAllImageHandlers();
 	}
 
@@ -31,7 +29,7 @@ namespace GrayscaleConverter
 	/// Model getters
 	const wxImage& Model::GetImageThumbnail() const
 	{
-		return m_imageThumbnail;
+		return *m_imageThumbnail;
 	}
 
 	/// End Model getters
@@ -71,8 +69,9 @@ namespace GrayscaleConverter
 	/// End Model setters
 
 
-	void Model::LoadImageFromFile()
+	void Model::LoadImageFromFile(const wxString& filePath)
 	{
+		m_imageThumbnail = new wxImage{filePath};
 		//TODO zaklepac
 	}
 

@@ -23,7 +23,7 @@ namespace GrayscaleConverter
 		void SetGreenChannel(int);
 		void SetIsFixedColor(bool);
 
-		void LoadImageFromFile();
+		void LoadImageFromFile(const wxString& filePath);
 		void SaveImageToFile() const;
 		void ConvertToDuechrome();
 		void ConvertToGreyScale();
@@ -36,7 +36,7 @@ namespace GrayscaleConverter
 		void AdjustImageThumbnail();
 		
 		wxImage m_originalImage;
-		wxImage m_imageThumbnail;
+		wxImage* m_imageThumbnail;
 
 		const int m_maxImageThumbnailSize = 500;
 		
