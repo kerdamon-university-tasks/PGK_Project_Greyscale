@@ -5,20 +5,25 @@
 
 #include "inc/Model.h"
 
-class ImageView final : public wxPanel
+namespace GrayscaleConverter
 {
-public:
 
-	ImageView(wxWindow* parent, Model newModel, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 524288 | wxBORDER_NONE)
-		:
-		wxPanel(parent, winid, pos, size, style),
-		m_model{ newModel }
-	{}
+	class ImageView final : public wxPanel
+	{
+	public:
 
-	void Update() override;
+		ImageView(wxWindow* parent, Model newModel, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 524288 | wxBORDER_NONE)
+			:
+			wxPanel(parent, winid, pos, size, style),
+			m_model{ newModel }
+		{}
 
-private:
+		void Update() override;
 
-	Model& m_model;
-	
-};
+	private:
+
+		Model& m_model;
+
+	};
+
+}
