@@ -23,17 +23,13 @@ namespace GrayscaleConverter
 		void OnButtonClick_Duotone(wxCommandEvent& event);
 		void OnButtonClick_PickColour(wxCommandEvent& event);
 		void OnCheckBox_KeepOneHue(wxCommandEvent& event);
-		//void OnScrollChanged_HueIntesivity( wxScrollEvent& event );
 		void OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event);
 		void OnText_ChangeHueIntensivity(wxCommandEvent& event);
 		void OnButtonClick_RaspberriesButton(wxCommandEvent& event);
-		//void OnScrollChanged_ChangeRedChannel( wxScrollEvent& event );
 		void OnScrollThumbTrack_ChangeRedChannel(wxScrollEvent& event);
 		void OnText_ChangeRedChannel(wxCommandEvent& event);
-		//void OnScrollChanged_ChangeGreenChannel( wxScrollEvent& event );
 		void OnScrollThumbTrack_ChangeGreenChannel(wxScrollEvent& event);
 		void OnText_ChangeGreenChannel(wxCommandEvent& event);
-		//void OnScrollChanged_ChangeBlueChannel( wxScrollEvent& event );
 		void OnScrollThumbTrack_ChangeBlueChannel(wxScrollEvent& event);
 		void OnText_ChangeBlueChannel(wxCommandEvent& event);
 		void OnMenuSelection_LoadImage(wxCommandEvent& event);
@@ -43,6 +39,8 @@ namespace GrayscaleConverter
 		void OnMenuSelection_Exit(wxCommandEvent& event);
 		void OnMenuSelection_GoFullscreen(wxCommandEvent& event);
 		void OnUpdateUI(wxUpdateUIEvent& event);
+
+		//void WarningIfNotSaved(bool isResultImageSaved, bool isConfigSaved);
 	public:
 		/** Constructor */
 		ControllerFrame(wxWindow* parent, Model& newModel);
@@ -50,6 +48,11 @@ namespace GrayscaleConverter
 		///
 	private:
 
+		bool IsResultImageSaved() { return true; }
+		bool IsConfigSaved() { return true; }
+
 	};
+
+
 }
 #endif // __ControllerFrame__
