@@ -128,6 +128,7 @@ namespace GrayscaleConverter
 
 	void ControllerFrame::OnUpdateUI(wxUpdateUIEvent& event)
 	{
-		//m_view->Update();
+		//if(m_imageIsLoaded)
+		//	m_view->Update();
 	}
 }

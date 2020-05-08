@@ -47,6 +47,8 @@ namespace GrayscaleConverter
 		/** Constructor */
 		ControllerFrame(wxWindow* parent, Model& newModel);
 		//// end generated class members
+		///
+	private:
 
 	};
 }
