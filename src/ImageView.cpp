@@ -7,12 +7,12 @@ namespace GrayscaleConverter
 	{
 		auto imageThumbnail = m_model.GetImageThumbnail();
 		
-		imageThumbnail->Rescale(wxPanel::GetSize().x, wxPanel::GetSize().y);
+		imageThumbnail.Rescale(wxPanel::GetSize().x, wxPanel::GetSize().y);
 
 		wxClientDC clientDc{ this };
 		wxBufferedDC bufferedDc{ &clientDc };
 
-		bufferedDc.DrawBitmap(wxBitmap(*imageThumbnail), 0, 0);
+		bufferedDc.DrawBitmap(wxBitmap(imageThumbnail), 0, 0);
 
 		wxPanel::Update();
 	}

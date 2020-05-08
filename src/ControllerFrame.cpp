@@ -19,16 +19,16 @@ namespace GrayscaleConverter
 	{
 		if (m_bichromeButton->GetValue())
 			m_bichromeButton->SetValue(false);
-		//m_model.SetWorkmode(Workmode::GRAYSCALE);
-		//m_model.ApplyParametersToImage();
+		m_model.SetWorkMode(Model::WorkMode::GREYSCALE);
+		m_model.ApplyParametersToImage();
 	}
 
 	void ControllerFrame::OnButtonClick_Bichrome(wxCommandEvent& event)
 	{
 		if (m_grayscaleButton->GetValue())
 			m_grayscaleButton->SetValue(false);
-		//m_model.SetWorkmode(Workmode::Bichrome);
-		//m_model.ApplyParametersToImage();
+		//m_model.SetWorkMode(Model::WorkMode::BICHROME);
+		m_model.ApplyParametersToImage();
 	}
 
 	void ControllerFrame::OnButtonClick_PickColour(wxCommandEvent& event)
@@ -36,17 +36,17 @@ namespace GrayscaleConverter
 		wxColourDialog openColourDialog{ this };
 		if (openColourDialog.ShowModal() == wxID_OK)
 		{
-			//m_model.SetBichromeKeptColour(openColourDialog.GetColourData().GetColour());
-			//m_model.ApplyParametersToImage();
+			//m_model.SetBichromeColour(openColourDialog.GetColourData().GetColour());
+			m_model.ApplyParametersToImage();
 		}
 	}
 
 	void ControllerFrame::OnCheckBox_KeepOneHue(wxCommandEvent& event)
 	{
-		if (m_keepHueCheckBox->IsChecked());
-			//m_model.SetIsKeptHue(true);
+		if (m_keepHueCheckBox->IsChecked())
+			m_model.SetIsKeptHue(true);
 		else;
-			//m_model.SetIsKeptHue(false);
+			m_model.SetIsKeptHue(false);
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event)
@@ -75,6 +75,7 @@ namespace GrayscaleConverter
 
 	void ControllerFrame::OnButtonClick_RaspberriesButton(wxCommandEvent& event)
 	{
+		//TODO zaimplementowac
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_ChangeRedChannel(wxScrollEvent& event)
@@ -135,7 +136,7 @@ namespace GrayscaleConverter
 		if (!m_blueChannelText->GetValue().ToDouble(&value))
 			return;
 
-		m_model.SetBlueChannel(value);
+		//m_model.SetBlueChannel(value);
 	}
 
 	void ControllerFrame::OnText_ChangeBlueChannel(wxCommandEvent& event)
@@ -146,7 +147,7 @@ namespace GrayscaleConverter
 
 		m_blueChannelSlider->SetValue(value);
 
-		m_model.SetBlueChannel(value);
+		//m_model.SetBlueChannel(value);
 	}
 
 	void ControllerFrame::OnMenuSelection_LoadImage(wxCommandEvent& event)
@@ -223,7 +224,7 @@ namespace GrayscaleConverter
 			return;
 		}
 
-		//m_model.SaveImageToFile(saveFileDialog.GetPath());
+		m_model.SaveImageToFile(saveFileDialog.GetPath());
 	}
 
 	void ControllerFrame::OnMenuSelection_SaveConfig(wxCommandEvent& event)
