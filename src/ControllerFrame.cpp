@@ -4,6 +4,7 @@
 #include <wx/filedlg.h>
 #include <wx/log.h>
 #include <wx/wfstream.h>
+#include <wx/colordlg.h>
 
 namespace GrayscaleConverter
 {
@@ -14,35 +15,62 @@ namespace GrayscaleConverter
 		m_raspberriesButton->Hide();
 	}
 
-	/**
-	 * \brief Metoda obslugujaca event do konwersji do odcieni szarosci.
-	 * \param event test
-	 */
 	void ControllerFrame::OnButtonClick_ConvertToGrayscale(wxCommandEvent& event)
 	{
-		// TODO: Implement OnButtonClick_ConvertToGrayscale
+		if (m_bichromeButton->GetValue())
+			m_bichromeButton->SetValue(false);
+		//m_model.SetWorkmode(Workmode::GRAYSCALE);
+		//m_model.ApplyParametersToImage();
 	}
 
-	void ControllerFrame::OnButtonClick_Duotone(wxCommandEvent& event)
+	void ControllerFrame::OnButtonClick_Bichrome(wxCommandEvent& event)
 	{
-		// TODO: Implement OnButtonClick_Duotone
+		if (m_grayscaleButton->GetValue())
+			m_grayscaleButton->SetValue(false);
+		//m_model.SetWorkmode(Workmode::Bichrome);
+		//m_model.ApplyParametersToImage();
 	}
 
 	void ControllerFrame::OnButtonClick_PickColour(wxCommandEvent& event)
 	{
-		// TODO: Implement OnButtonClick_PickColour
+		wxColourDialog openColourDialog{ this };
+		if (openColourDialog.ShowModal() == wxID_OK)
+		{
+			//m_model.SetBichromeKeptColour(openColourDialog.GetColourData().GetColour());
+			//m_model.ApplyParametersToImage();
+		}
 	}
 
 	void ControllerFrame::OnCheckBox_KeepOneHue(wxCommandEvent& event)
 	{
+		if (m_keepHueCheckBox->IsChecked());
+			//m_model.SetIsKeptHue(true);
+		else;
+			//m_model.SetIsKeptHue(false);
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event)
 	{
+		wxString newText;
+		newText << m_hueSlider->GetValue();
+		m_hueSliderText->SetValue(newText);
+		
+		double value;
+		if (!m_hueSliderText->GetValue().ToDouble(&value))
+			return;
+		
+		m_model.SetColorTolerance(value);
 	}
 
 	void ControllerFrame::OnText_ChangeHueIntensivity(wxCommandEvent& event)
 	{
+		long value;
+		if (!m_hueSliderText->GetValue().ToLong(&value))
+			return;
+
+		m_hueSlider->SetValue(value);
+
+		m_model.SetColorTolerance(value);
 	}
 
 	void ControllerFrame::OnButtonClick_RaspberriesButton(wxCommandEvent& event)
@@ -51,30 +79,74 @@ namespace GrayscaleConverter
 
 	void ControllerFrame::OnScrollThumbTrack_ChangeRedChannel(wxScrollEvent& event)
 	{
+		wxString newText;
+		newText << m_redChannelSlider->GetValue();
+		m_redChannelText->SetValue(newText);
+
+		double value;
+		if (!m_redChannelText->GetValue().ToDouble(&value))
+			return;
+
+		//m_model.SetRedChannel(value);
 	}
 
 	void ControllerFrame::OnText_ChangeRedChannel(wxCommandEvent& event)
 	{
-		// TODO: Implement OnText_ChangeRedChannel
+		long value;
+		if (!m_redChannelText->GetValue().ToLong(&value))
+			return;
+
+		m_redChannelSlider->SetValue(value);
+
+		//m_model.SetRedChannel(value);
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_ChangeGreenChannel(wxScrollEvent& event)
 	{
-		
+		wxString newText;
+		newText << m_greenChannelSlider->GetValue();
+		m_greenChannelText->SetValue(newText);
+
+		double value;
+		if (!m_greenChannelText->GetValue().ToDouble(&value))
+			return;
+
+		m_model.SetGreenChannel(value);
 	}
 
 	void ControllerFrame::OnText_ChangeGreenChannel(wxCommandEvent& event)
 	{
-		// TODO: Implement OnText_ChangeGreenChannel
+		long value;
+		if (!m_greenChannelText->GetValue().ToLong(&value))
+			return;
+
+		m_greenChannelSlider->SetValue(value);
+
+		m_model.SetGreenChannel(value);
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_ChangeBlueChannel(wxScrollEvent& event)
 	{
+		wxString newText;
+		newText << m_blueChannelSlider->GetValue();
+		m_blueChannelText->SetValue(newText);
+
+		double value;
+		if (!m_blueChannelText->GetValue().ToDouble(&value))
+			return;
+
+		m_model.SetBlueChannel(value);
 	}
 
 	void ControllerFrame::OnText_ChangeBlueChannel(wxCommandEvent& event)
 	{
-		// TODO: Implement OnText_ChangeBlueChannel
+		long value;
+		if (!m_blueChannelText->GetValue().ToLong(&value))
+			return;
+
+		m_blueChannelSlider->SetValue(value);
+
+		m_model.SetBlueChannel(value);
 	}
 
 	void ControllerFrame::OnMenuSelection_LoadImage(wxCommandEvent& event)
@@ -141,10 +213,10 @@ namespace GrayscaleConverter
 		wxFileDialog saveFileDialog(this, _("Save image to file"), "", "",
 				"JPG files (*.jpg)|*.jpg", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 
-		if (saveFileDialog.ShowModal() == wxID_CANCEL)
-			return;     // the user changed idea...
+		if (saveFileDialog.ShowModal() == wxID_CANCEL)	//nothing selected
+			return;
 
-		const wxFileOutputStream output_stream(saveFileDialog.GetPath());
+		const wxFileOutputStream output_stream(saveFileDialog.GetPath());	//checking if ok
 		if (!output_stream.IsOk())
 		{
 			wxLogError("Cannot save current contents in file '%s'.", saveFileDialog.GetPath());
@@ -159,10 +231,10 @@ namespace GrayscaleConverter
 		wxFileDialog saveFileDialog(this, _("Save config to file"), "", "",
 			"JPG files (*.jpg)|*.jpg", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 
-		if (saveFileDialog.ShowModal() == wxID_CANCEL)
-			return;     // the user changed idea...
+		if (saveFileDialog.ShowModal() == wxID_CANCEL)	//nothing selected
+			return;
 
-		const wxFileOutputStream output_stream(saveFileDialog.GetPath());
+		const wxFileOutputStream output_stream(saveFileDialog.GetPath());	//checking if ok
 		if (!output_stream.IsOk())
 		{
 			wxLogError("Cannot save current contents in file '%s'.", saveFileDialog.GetPath());
@@ -174,12 +246,12 @@ namespace GrayscaleConverter
 
 	void ControllerFrame::OnMenuSelection_Exit(wxCommandEvent& event)
 	{
-		// TODO: Implement OnMenuSelection_Exit
+		Close();
 	}
 
 	void ControllerFrame::OnMenuSelection_GoFullscreen(wxCommandEvent& event)
 	{
-		// TODO: Implement OnMenuSelection_GoFullscreen
+		ShowFullScreen(true);
 	}
 
 	void ControllerFrame::OnUpdateUI(wxUpdateUIEvent& event)

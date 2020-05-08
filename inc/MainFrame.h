@@ -28,6 +28,7 @@
 #include <wx/panel.h>
 #include <wx/menu.h>
 #include <wx/frame.h>
+#include <wx/tglbtn.h>
 
 #include "ImageView.h"
 #include "Model.h"
@@ -48,9 +49,9 @@ namespace GrayscaleConverter
 	private:
 
 	protected:
-		wxButton* m_grayscaleButton;
+		wxToggleButton* m_grayscaleButton;
 		wxStaticLine* m_staticline1;
-		wxButton* m_duotoneButton;
+		wxToggleButton* m_bichromeButton;
 		wxButton* m_pickColourButton;
 		wxStaticLine* m_staticline2;
 		wxCheckBox* m_keepHueCheckBox;
@@ -73,7 +74,7 @@ namespace GrayscaleConverter
 		// Virtual event handlers, overide them in your derived class
 		virtual void OnUpdateUI(wxUpdateUIEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event) { event.Skip(); }
-		virtual void OnButtonClick_Duotone(wxCommandEvent& event) { event.Skip(); }
+		virtual void OnButtonClick_Bichrome(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_PickColour(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnCheckBox_KeepOneHue(wxCommandEvent& event) { event.Skip(); }
 		//virtual void OnScrollChanged_HueIntesivity( wxScrollEvent& event ) { event.Skip(); }
