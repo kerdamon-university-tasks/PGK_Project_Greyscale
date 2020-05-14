@@ -15,8 +15,7 @@ IMPLEMENT_APP(MyApp);
 
 bool MyApp::OnInit()
 {
-	GrayscaleConverter::Model model;
-	auto mainFrame = new GrayscaleConverter::ControllerFrame(nullptr, model);
+    auto mainFrame = new GrayscaleConverter::ControllerFrame{ nullptr };
     mainFrame->Show(true);
     SetTopWindow(mainFrame);
 

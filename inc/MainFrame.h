@@ -69,9 +69,10 @@ namespace GrayscaleConverter
 		wxMenu* m_menu3;
 
 		ImageView* m_view;
-		Model& m_model;
+		//wxPanel* m_view;
+		Model m_model;
 
-		// Virtual event handlers, overide them in your derived class
+		 //Virtual event handlers, overide them in your derived class
 		virtual void OnUpdateUI(wxUpdateUIEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_Bichrome(wxCommandEvent& event) { event.Skip(); }
@@ -97,9 +98,11 @@ namespace GrayscaleConverter
 		virtual void OnMenuSelection_Exit(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnMenuSelection_GoFullscreen(wxCommandEvent& event) { event.Skip(); }
 
+		virtual void OnPaint_RefreshImage(wxPaintEvent& event) { event.Skip(); }
+
 	public:
 
-		Frame(wxWindow* parent, Model& newModel, wxWindowID id = wxID_ANY, const wxString& title = wxT("Conversion to grayscale - project"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1002, 692), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
+		Frame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Conversion to grayscale - project"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1002, 692), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
 
 		~Frame();
 

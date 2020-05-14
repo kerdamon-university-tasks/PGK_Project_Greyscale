@@ -12,10 +12,9 @@
 namespace GrayscaleConverter
 {
 
-	Frame::Frame(wxWindow* parent, Model& newModel, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style)
+	Frame::Frame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style)
 		:
-		wxFrame(parent, id, title, pos, size, style),
-		m_model{ newModel }
+		wxFrame(parent, id, title, pos, size, style)
 	{
 		this->SetSizeHints(wxDefaultSize, wxDefaultSize);
 
@@ -169,6 +168,7 @@ namespace GrayscaleConverter
 		drawAreaSizer = new wxBoxSizer(wxVERTICAL);
 
 		m_view = new ImageView(this, m_model, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+		//m_view = new wxPanel{this};
 		m_view->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
 		m_view->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHTTEXT));
 
@@ -243,11 +243,13 @@ namespace GrayscaleConverter
 		fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_SaveConfig), this, m_saveConfig->GetId());
 		fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_Exit), this, m_exit->GetId());
 		m_menu3->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_GoFullscreen), this, m_fullscreen->GetId());
+
+		Bind(wxEVT_PAINT, wxPaintEventHandler(Frame::OnPaint_RefreshImage), this);
 	}
 
 	Frame::~Frame()
 	{
-		// Disconnect Events
+		 //Disconnect Events
 		this->Disconnect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(Frame::OnUpdateUI));
 		m_grayscaleButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
 		//m_grayscaleButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);

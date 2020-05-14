@@ -19,7 +19,7 @@ namespace GrayscaleConverter
 		{
 		}
 
-		void Update() override;
+		void UpdateImage();
 
 	private:
 

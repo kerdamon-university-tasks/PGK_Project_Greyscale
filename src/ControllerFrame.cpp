@@ -8,11 +8,14 @@
 
 namespace GrayscaleConverter
 {
-	ControllerFrame::ControllerFrame(wxWindow* parent, Model& newModel)
+	ControllerFrame::ControllerFrame(wxWindow* parent)
 		:
-		Frame(parent, newModel)
+		Frame(parent)
 	{
 		m_raspberriesButton->Hide();
+
+		wxImage::AddHandler(new wxJPEGHandler);
+		wxImage::AddHandler(new wxPNGHandler);
 	}
 
 	void ControllerFrame::OnButtonClick_ConvertToGrayscale(wxCommandEvent& event)
@@ -25,10 +28,12 @@ namespace GrayscaleConverter
 
 	void ControllerFrame::OnButtonClick_Bichrome(wxCommandEvent& event)
 	{
-		if (m_grayscaleButton->GetValue())
-			m_grayscaleButton->SetValue(false);
-		//m_model.SetWorkMode(Model::WorkMode::BICHROME);
-		m_model.ApplyParametersToImage();
+		//if (m_grayscaleButton->GetValue())
+		//	m_grayscaleButton->SetValue(false);
+		////m_model.SetWorkMode(Model::WorkMode::BICHROME);
+		//m_model.ApplyParametersToImage();
+		//
+		m_view->Update();
 	}
 
 	void ControllerFrame::OnButtonClick_PickColour(wxCommandEvent& event)
@@ -152,31 +157,45 @@ namespace GrayscaleConverter
 
 	void ControllerFrame::OnMenuSelection_LoadImage(wxCommandEvent& event)
 	{
-		wxString warningNotSavedMessage;
-		if (/*m_model.IsResultImageSaved()*/ true)
-			warningNotSavedMessage.Append("Current image has not been saved!");
-		if (!warningNotSavedMessage.IsEmpty())
+		//wxString warningNotSavedMessage;
+		//if (/*m_model.IsResultImageSaved()*/ true)
+		//	warningNotSavedMessage.Append("Current image has not been saved!");
+		//if (!warningNotSavedMessage.IsEmpty())
+		//{
+		//	warningNotSavedMessage.Append(" Proceed?");
+		//	if (wxMessageBox(warningNotSavedMessage, _("Please confirm"),
+		//		wxICON_QUESTION | wxYES_NO, this) == wxNO)
+		//		return;
+		//}
+
+		////wxFileDialog openFileDialog(this, _("Choose photo"), "", "", "JPG files (*.jpg)|*.jpg", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+		//std::shared_ptr<wxFileDialog> openFileDialog{ new wxFileDialog{this, _("Choose photo"), "", "", "JPG files (*.jpg)|*.jpg", wxFD_OPEN | wxFD_FILE_MUST_EXIST } };
+
+		//if (openFileDialog->ShowModal() == wxID_CANCEL)	//nothing selected
+		//	return;
+
+		//const wxFileInputStream inputStream(openFileDialog->GetPath());	//checking if ok
+		//
+		//if (!inputStream.IsOk())
+		//{
+		//	wxLogError("Cannot open file '%s'.", openFileDialog->GetPath());
+		//	return;
+		//}
+
+		//m_model.LoadImageFromFile(openFileDialog->GetPath());
+		////m_view->Update();
+		///
+		std::shared_ptr<wxFileDialog> WxOpenFileDialog1(new wxFileDialog(this,
+			_("Choose a file"), _(""),
+			_(""), _("JPEG files (*.jpg)|*.jpg"),
+			wxFD_OPEN));
+
+		if (WxOpenFileDialog1->ShowModal() == wxID_OK)
 		{
-			warningNotSavedMessage.Append(" Proceed?");
-			if (wxMessageBox(warningNotSavedMessage, _("Please confirm"),
-				wxICON_QUESTION | wxYES_NO, this) == wxNO)
-				return;
+			//LoadImageFromFile(WxOpenFileDialog1->GetPath(), MyBitmap);
+			m_model.LoadImageFromFile(WxOpenFileDialog1->GetPath());
+			Refresh();
 		}
-
-		wxFileDialog openFileDialog(this, _("Choose photo"), "", "", "JPG files (*.jpg)|*.jpg", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
-		
-		if (openFileDialog.ShowModal() == wxID_CANCEL)	//nothing selected
-			return;
-
-		const wxFileInputStream inputStream(openFileDialog.GetPath());	//checking if ok
-		
-		if (!inputStream.IsOk())
-		{
-			wxLogError("Cannot open file '%s'.", openFileDialog.GetPath());
-			return;
-		}
-
-		m_model.LoadImageFromFile(openFileDialog.GetPath());
 		m_view->Update();
 	}
 
@@ -224,7 +243,7 @@ namespace GrayscaleConverter
 			return;
 		}
 
-		m_model.SaveImageToFile(saveFileDialog.GetPath());
+		//m_model.SaveImageToFile(saveFileDialog.GetPath());
 	}
 
 	void ControllerFrame::OnMenuSelection_SaveConfig(wxCommandEvent& event)
@@ -260,6 +279,16 @@ namespace GrayscaleConverter
 		//if(m_imageIsLoaded)
 		//	m_view->Update();
 	}
+
+	void ControllerFrame::OnPaint_RefreshImage(wxPaintEvent& event)
+	{
+		//wxPaintDC dc(m_view);
+		//PrepareDC(dc);
+		//if (MyBitmap.Ok()) dc.DrawBitmap(MyBitmap, 20, 20);
+		//auto bitmap = m_model.getBitmap();
+		//if (bitmap.Ok()) dc.DrawBitmap(bitmap, 20, 20);
+	}
+
 
 	//void ControllerFrame::WarningIfNotSaved(const bool isResultImageSaved, const bool isConfigSaved)
 	//{

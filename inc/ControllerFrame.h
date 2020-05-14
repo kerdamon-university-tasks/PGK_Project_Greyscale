@@ -40,13 +40,15 @@ namespace GrayscaleConverter
 		void OnMenuSelection_GoFullscreen(wxCommandEvent& event);
 		void OnUpdateUI(wxUpdateUIEvent& event);
 
+		void OnPaint_RefreshImage(wxPaintEvent& event) override;
+
 		//void WarningIfNotSaved(bool isResultImageSaved, bool isConfigSaved);
 	public:
-		/** Constructor */
-		ControllerFrame(wxWindow* parent, Model& newModel);
-		//// end generated class members
-		///
-	private:
+	//	/** Constructor */
+		ControllerFrame(wxWindow* parent);
+	//	//// end generated class members
+	//	///
+	//private:
 
 		bool IsResultImageSaved() { return true; }
 		bool IsConfigSaved() { return true; }

@@ -4,19 +4,15 @@
 namespace GrayscaleConverter
 {
 	Model::Model()
-		:
-		m_originalImage{ new wxImage{} },
-		m_originalImageCopy{ new wxImage{} },
-		m_imageThumbnail{ new wxImage{} },
-		m_imageThumbnailCopy{ new wxImage{} }
 	{
-		wxInitAllImageHandlers();
+		//wxImage::AddHandler(new wxPNGHandler);
+		//wxImage::AddHandler(new wxJPEGHandler);
 	}
 
 	void Model::AdjustImageThumbnail()
 	{
-		const int width = m_originalImage->GetWidth();
-		const int height = m_originalImage->GetHeight();
+		const int width = m_originalImage.GetWidth();
+		const int height = m_originalImage.GetHeight();
 
 		if (width > 500)
 		{
@@ -25,7 +21,7 @@ namespace GrayscaleConverter
 				static_cast<int>(static_cast<float>(width)* scaleFactor),
 				static_cast<int>(static_cast<float>(height)* scaleFactor)
 			);
-			m_imageThumbnail->Resize(newSize, wxPoint(0, 0));
+			m_imageThumbnail.Resize(newSize, wxPoint(0, 0));
 		}
 	}
 
@@ -33,7 +29,7 @@ namespace GrayscaleConverter
 	/// Model getters
 	const wxImage& Model::GetImageThumbnail() const
 	{
-		return *m_imageThumbnail;
+		return m_imageThumbnail;
 	}
 
 
@@ -47,13 +43,19 @@ namespace GrayscaleConverter
 		return m_isConfigSave;
 	}
 
-	void Model::LoadImageFromFile(const wxString& filePath)
+	void Model::LoadImageFromFile(wxString filePath)
 	{
-		m_originalImage = new wxImage{ filePath };
-		m_originalImageCopy = new wxImage{ *m_originalImage };
-		m_imageThumbnail = new wxImage{ *m_originalImage };
-		AdjustImageThumbnail();
-		m_imageThumbnailCopy = new wxImage{ *m_imageThumbnail };
+		if (!m_originalImage.LoadFile(filePath, wxBITMAP_TYPE_JPEG))
+		{
+			wxLogError(_("Nie gasi"));
+		}
+		m_originalBitmap = wxBitmap(m_originalImage);
+
+		//m_originalImage = image;
+		//m_originalImageCopy = wxImage{ m_originalImage };
+		//m_imageThumge{ m_originalImage };
+		//AdjustImageThumbnailbnail = wxIma();
+		//m_imageThumbnailCopy = wxImage{ m_imageThumbnail };
 	}
 
 	void Model::LoadConfigFromFile(const wxString& filePath)
@@ -66,19 +68,19 @@ namespace GrayscaleConverter
 		switch (m_mode)
 		{
 			case WorkMode::BICHROME:
-				ImageConversion::ConvertToBichrome(*m_originalImageCopy);
+				ImageConversion::ConvertToBichrome(m_originalImageCopy);
 				break;
 			case WorkMode::GREYSCALE:
-				ImageConversion::ConvertToGreyScale(*m_originalImageCopy);
+				ImageConversion::ConvertToGreyScale(m_originalImageCopy);
 				break;
 			case WorkMode::NONE:
 				break;			
 		}
 
-		if (!m_originalImageCopy->SaveFile(filename))
-		{
+		//if (!m_originalImageCopy->SaveFile(filename))
+		//{
 			/* rzucenie jakiegos wyjatku */
-		};
+		//};
 	}
 
 	void Model::SaveConfigToFile(const wxString& filePath) const
@@ -91,10 +93,10 @@ namespace GrayscaleConverter
 		switch (m_mode)
 		{
 		case WorkMode::BICHROME:
-			ImageConversion::ConvertToBichrome(*m_imageThumbnailCopy);
+			ImageConversion::ConvertToBichrome(m_imageThumbnailCopy);
 			break;
 		case WorkMode::GREYSCALE:
-			ImageConversion::ConvertToGreyScale(*m_imageThumbnailCopy);
+			ImageConversion::ConvertToGreyScale(m_imageThumbnailCopy);
 			break;
 		case WorkMode::NONE:
 			break;
