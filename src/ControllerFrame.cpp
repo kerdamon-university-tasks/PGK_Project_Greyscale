@@ -194,9 +194,10 @@ namespace GrayscaleConverter
 		{
 			//LoadImageFromFile(WxOpenFileDialog1->GetPath(), MyBitmap);
 			m_model.LoadImageFromFile(WxOpenFileDialog1->GetPath());
-			Refresh();
+			//Refresh();
+			m_isImageLoaded = true;
 		}
-		m_view->Update();
+		m_view->UpdateImage();
 	}
 
 	void ControllerFrame::OnMenuSelection_LoadConfig(wxCommandEvent& event)
@@ -276,17 +277,14 @@ namespace GrayscaleConverter
 
 	void ControllerFrame::OnUpdateUI(wxUpdateUIEvent& event)
 	{
-		//if(m_imageIsLoaded)
-		//	m_view->Update();
+		//if(m_isImageLoaded)
+		//	m_view->UpdateImage();
 	}
 
 	void ControllerFrame::OnPaint_RefreshImage(wxPaintEvent& event)
 	{
-		//wxPaintDC dc(m_view);
-		//PrepareDC(dc);
-		//if (MyBitmap.Ok()) dc.DrawBitmap(MyBitmap, 20, 20);
-		//auto bitmap = m_model.getBitmap();
-		//if (bitmap.Ok()) dc.DrawBitmap(bitmap, 20, 20);
+		if (m_isImageLoaded)
+			m_view->UpdateImage();
 	}
 
 

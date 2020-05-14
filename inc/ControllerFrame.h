@@ -48,11 +48,13 @@ namespace GrayscaleConverter
 		ControllerFrame(wxWindow* parent);
 	//	//// end generated class members
 	//	///
-	//private:
+	private:
 
 		bool IsResultImageSaved() { return true; }
 		bool IsConfigSaved() { return true; }
 
+		bool m_isImageLoaded = false;
+		
 	};
 
 

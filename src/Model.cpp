@@ -14,9 +14,9 @@ namespace GrayscaleConverter
 		const int width = m_originalImage.GetWidth();
 		const int height = m_originalImage.GetHeight();
 
-		if (width > 500)
+		if (width > m_maxImageThumbnailSize)
 		{
-			const auto scaleFactor = 500.f / static_cast<float>(width);
+			const auto scaleFactor = m_maxImageThumbnailSize / static_cast<float>(width);
 			const wxSize newSize(
 				static_cast<int>(static_cast<float>(width)* scaleFactor),
 				static_cast<int>(static_cast<float>(height)* scaleFactor)
@@ -49,12 +49,10 @@ namespace GrayscaleConverter
 		{
 			wxLogError(_("Nie gasi"));
 		}
-		m_originalBitmap = wxBitmap(m_originalImage);
 
-		//m_originalImage = image;
 		//m_originalImageCopy = wxImage{ m_originalImage };
-		//m_imageThumge{ m_originalImage };
-		//AdjustImageThumbnailbnail = wxIma();
+		//m_imageThumbnail = wxImage{ m_originalImage };
+		//AdjustImageThumbnail();
 		//m_imageThumbnailCopy = wxImage{ m_imageThumbnail };
 	}
 

@@ -18,6 +18,7 @@ namespace GrayscaleConverter
 		Model();
 		/// image thumbnail getter
 		const wxImage& GetImageThumbnail() const;
+		wxImage GetImage() const { return m_originalImage; }
 		bool GetIsResultSaved() const;
 		bool GetIsConfigSaved() const;
 
@@ -40,14 +41,11 @@ namespace GrayscaleConverter
 		/// EASTERKURWA EGG
 		void EasterEgg();
 
-		wxBitmap GetBitmap() { return m_originalBitmap; }
-		
 	private:
 
 		void AdjustImageThumbnail();
 		
 		wxImage m_originalImage;
-		wxBitmap m_originalBitmap;
 		wxImage m_originalImageCopy;
 		wxImage m_imageThumbnail;
 		wxImage m_imageThumbnailCopy;
