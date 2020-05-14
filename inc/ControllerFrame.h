@@ -20,20 +20,16 @@ namespace GrayscaleConverter
 	protected:
 		// Handlers for Frame events.
 		void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event);
-		void OnButtonClick_Duotone(wxCommandEvent& event);
+		void OnButtonClick_Bichrome(wxCommandEvent& event);
 		void OnButtonClick_PickColour(wxCommandEvent& event);
 		void OnCheckBox_KeepOneHue(wxCommandEvent& event);
-		//void OnScrollChanged_HueIntesivity( wxScrollEvent& event );
 		void OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event);
 		void OnText_ChangeHueIntensivity(wxCommandEvent& event);
 		void OnButtonClick_RaspberriesButton(wxCommandEvent& event);
-		//void OnScrollChanged_ChangeRedChannel( wxScrollEvent& event );
 		void OnScrollThumbTrack_ChangeRedChannel(wxScrollEvent& event);
 		void OnText_ChangeRedChannel(wxCommandEvent& event);
-		//void OnScrollChanged_ChangeGreenChannel( wxScrollEvent& event );
 		void OnScrollThumbTrack_ChangeGreenChannel(wxScrollEvent& event);
 		void OnText_ChangeGreenChannel(wxCommandEvent& event);
-		//void OnScrollChanged_ChangeBlueChannel( wxScrollEvent& event );
 		void OnScrollThumbTrack_ChangeBlueChannel(wxScrollEvent& event);
 		void OnText_ChangeBlueChannel(wxCommandEvent& event);
 		void OnMenuSelection_LoadImage(wxCommandEvent& event);
@@ -42,11 +38,25 @@ namespace GrayscaleConverter
 		void OnMenuSelection_SaveConfig(wxCommandEvent& event);
 		void OnMenuSelection_Exit(wxCommandEvent& event);
 		void OnMenuSelection_GoFullscreen(wxCommandEvent& event);
-	public:
-		/** Constructor */
-		ControllerFrame(wxWindow* parent, Model& newModel);
-		//// end generated class members
+		void OnUpdateUI(wxUpdateUIEvent& event);
 
+		void OnPaint_RefreshImage(wxPaintEvent& event) override;
+
+		//void WarningIfNotSaved(bool isResultImageSaved, bool isConfigSaved);
+	public:
+	//	/** Constructor */
+		ControllerFrame(wxWindow* parent);
+	//	//// end generated class members
+	//	///
+	private:
+
+		bool IsResultImageSaved() { return true; }
+		bool IsConfigSaved() { return true; }
+
+		bool m_isImageLoaded = false;
+		
 	};
+
+
 }
 #endif // __ControllerFrame__

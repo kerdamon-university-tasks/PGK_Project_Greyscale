@@ -12,10 +12,9 @@
 namespace GrayscaleConverter
 {
 
-	Frame::Frame(wxWindow* parent, Model& newModel, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style)
+	Frame::Frame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style)
 		:
-		wxFrame(parent, id, title, pos, size, style),
-		m_model{ newModel }
+		wxFrame(parent, id, title, pos, size, style)
 	{
 		this->SetSizeHints(wxDefaultSize, wxDefaultSize);
 
@@ -25,7 +24,9 @@ namespace GrayscaleConverter
 		wxBoxSizer* barSizer;
 		barSizer = new wxBoxSizer(wxVERTICAL);
 
-		m_grayscaleButton = new wxButton(this, wxID_ANY, wxT("Convert to grayscale"), wxDefaultPosition, wxDefaultSize, 0);
+		
+		m_grayscaleButton = new wxToggleButton{ this, wxID_ANY, wxT("Convert to grayscale"), wxDefaultPosition, wxDefaultSize, 0 };
+		//m_grayscaleButton = new wxButton(this, wxID_ANY, wxT("Convert to grayscale"), wxDefaultPosition, wxDefaultSize, 0);
 		barSizer->Add(m_grayscaleButton, 0, wxALL | wxEXPAND, 8);
 
 		m_staticline1 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
@@ -34,8 +35,9 @@ namespace GrayscaleConverter
 		wxBoxSizer* duotoneSizer;
 		duotoneSizer = new wxBoxSizer(wxHORIZONTAL);
 
-		m_duotoneButton = new wxButton(this, wxID_ANY, wxT("Duotone"), wxDefaultPosition, wxDefaultSize, 0);
-		duotoneSizer->Add(m_duotoneButton, 1, wxALL | wxEXPAND, 8);
+		m_bichromeButton = new wxToggleButton(this, wxID_ANY, wxT("Convert to bichrome"), wxDefaultPosition, wxDefaultSize, 0);
+		//m_bichromeButton = new wxButton(this, wxID_ANY, wxT("Convert to bichrome"), wxDefaultPosition, wxDefaultSize, 0);
+		duotoneSizer->Add(m_bichromeButton, 1, wxALL | wxEXPAND, 8);
 
 		m_pickColourButton = new wxButton(this, wxID_ANY, wxT("Colour"), wxDefaultPosition, wxDefaultSize, 0);
 		duotoneSizer->Add(m_pickColourButton, 1, wxALIGN_CENTER | wxALL, 8);
@@ -166,6 +168,7 @@ namespace GrayscaleConverter
 		drawAreaSizer = new wxBoxSizer(wxVERTICAL);
 
 		m_view = new ImageView(this, m_model, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+		//m_view = new wxPanel{this};
 		m_view->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
 		m_view->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHTTEXT));
 
@@ -218,21 +221,20 @@ namespace GrayscaleConverter
 		this->Centre(wxBOTH);
 
 		// Connect Events
-		m_grayscaleButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
-		m_duotoneButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Duotone), NULL, this);
+		this->Connect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(Frame::OnUpdateUI));
+		m_grayscaleButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
+		//m_grayscaleButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
+		m_bichromeButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
+		//m_bichromeButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
 		m_pickColourButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_PickColour), NULL, this);
 		m_keepHueCheckBox->Connect(wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler(Frame::OnCheckBox_KeepOneHue), NULL, this);
-		//m_hueSlider->Connect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollChanged_HueIntesivity ), NULL, this );
 		m_hueSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
 		m_hueSliderText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeHueIntensivity), NULL, this);
 		m_raspberriesButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_RaspberriesButton), NULL, this);
-		//m_redChannelSlider->Connect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollChanged_ChangeRedChannel ), NULL, this );
 		m_redChannelSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeRedChannel), NULL, this);
 		m_redChannelText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeRedChannel), NULL, this);
-		//m_greenChannelSlider->Connect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollChanged_ChangeGreenChannel ), NULL, this );
 		m_greenChannelSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeGreenChannel), NULL, this);
 		m_greenChannelText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeGreenChannel), NULL, this);
-		//m_blueChannelSlider->Connect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollChanged_ChangeBlueChannel ), NULL, this );
 		m_blueChannelSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeBlueChannel), NULL, this);
 		m_blueChannelText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeBlueChannel), NULL, this);
 		fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_LoadImage), this, m_loadImage->GetId());
@@ -241,13 +243,18 @@ namespace GrayscaleConverter
 		fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_SaveConfig), this, m_saveConfig->GetId());
 		fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_Exit), this, m_exit->GetId());
 		m_menu3->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_GoFullscreen), this, m_fullscreen->GetId());
+
+		Bind(wxEVT_PAINT, wxPaintEventHandler(Frame::OnPaint_RefreshImage), this);
 	}
 
 	Frame::~Frame()
 	{
-		// Disconnect Events
-		m_grayscaleButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
-		m_duotoneButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Duotone), NULL, this);
+		 //Disconnect Events
+		this->Disconnect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(Frame::OnUpdateUI));
+		m_grayscaleButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
+		//m_grayscaleButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
+		m_bichromeButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
+		//m_bichromeButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
 		m_pickColourButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_PickColour), NULL, this);
 		m_keepHueCheckBox->Disconnect(wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler(Frame::OnCheckBox_KeepOneHue), NULL, this);
 		//m_hueSlider->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollChanged_HueIntesivity ), NULL, this );

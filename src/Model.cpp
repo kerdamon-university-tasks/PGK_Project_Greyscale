@@ -4,26 +4,24 @@
 namespace GrayscaleConverter
 {
 	Model::Model()
-		:
-		m_originalImage{ wxImage{} },
-		m_imageThumbnail{ wxImage{} }
 	{
-		m_originalImage = wxImage{};
-		m_imageThumbnail = wxImage{};
-		wxInitAllImageHandlers();
+		//wxImage::AddHandler(new wxPNGHandler);
+		//wxImage::AddHandler(new wxJPEGHandler);
 	}
 
 	void Model::AdjustImageThumbnail()
 	{
-		const auto imageSize = m_originalImage.GetSize();
-		if (imageSize.x > m_maxImageThumbnailSize)
+		const int width = m_originalImage.GetWidth();
+		const int height = m_originalImage.GetHeight();
+
+		if (width > m_maxImageThumbnailSize)
 		{
-			const auto scaleFactor = static_cast<float>(m_maxImageThumbnailSize) / static_cast<float>(imageSize.x);
+			const auto scaleFactor = m_maxImageThumbnailSize / static_cast<float>(width);
 			const wxSize newSize(
-				static_cast<int>(static_cast<float>(imageSize.x) * scaleFactor),
-				static_cast<int>(static_cast<float>(imageSize.y) * scaleFactor)
+				static_cast<int>(static_cast<float>(width)* scaleFactor),
+				static_cast<int>(static_cast<float>(height)* scaleFactor)
 			);
-			m_originalImage.Resize(newSize, wxPoint(0, 0));
+			m_imageThumbnail.Resize(newSize, wxPoint(0, 0));
 		}
 	}
 
@@ -34,63 +32,73 @@ namespace GrayscaleConverter
 		return m_imageThumbnail;
 	}
 
-	/// End Model getters
 
-
-	///// Model setters
-	//void Model::SetFixedColor(ColorChannel channel)
-	//{
-	//	m_fixedColor = channel;
-	//}
-
-	//void Model::SetColorTolerance(float tolerance)
-	//{
-	//	m_colorTolerance = tolerance;
-	//}
-
-	//void Model::SetRedChannel(int value)
-	//{
-	//	m_redChannel = value;
-	//}
-
-	//void Model::SetBlueChannel(int value)
-	//{
-	//	m_blueChannel = value;
-	//}
-
-	//void Model::SetGreenChannel(int value)
-	//{
-	//	m_greenChannel = value;
-	//}
-
-	//void Model::SetIsFixedColor(bool flag)
-	//{
-	//	m_isFixedColor = flag;
-	//}
-
-	/// End Model setters
-
-
-	void Model::LoadImageFromFile()
+	bool Model::GetIsResultSaved() const
 	{
-		//TODO zaklepac
+		return m_isResultSaved;
 	}
 
-	void Model::SaveImageToFile() const
+	bool Model::GetIsConfigSaved() const
 	{
-		//TODO zaklepac
+		return m_isConfigSave;
 	}
 
-	void Model::ConvertToDuechrome()
+	void Model::LoadImageFromFile(wxString filePath)
 	{
-		/// TODO tu pewnie beda liczone jakies parametry ktre przekarzemy do funkcji nizej
-		m_originalImage = ImageConversion::ConvertToDuechrome(m_originalImage);
+		if (!m_originalImage.LoadFile(filePath, wxBITMAP_TYPE_JPEG))
+		{
+			wxLogError(_("Nie gasi"));
+		}
+
+		//m_originalImageCopy = wxImage{ m_originalImage };
+		//m_imageThumbnail = wxImage{ m_originalImage };
+		//AdjustImageThumbnail();
+		//m_imageThumbnailCopy = wxImage{ m_imageThumbnail };
 	}
 
-	void Model::ConvertToGreyScale()
+	void Model::LoadConfigFromFile(const wxString& filePath)
 	{
-		/// TODO tu pewnie beda liczone jakies parametry ktre przekarzemy do funkcji nizej
-		m_originalImage = ImageConversion::ConvertToGreyScale(m_originalImage);
+		
+	}
+
+	void Model::SaveImageToFile(const wxString& filename)
+	{
+		switch (m_mode)
+		{
+			case WorkMode::BICHROME:
+				ImageConversion::ConvertToBichrome(m_originalImageCopy);
+				break;
+			case WorkMode::GREYSCALE:
+				ImageConversion::ConvertToGreyScale(m_originalImageCopy);
+				break;
+			case WorkMode::NONE:
+				break;			
+		}
+
+		//if (!m_originalImageCopy->SaveFile(filename))
+		//{
+			/* rzucenie jakiegos wyjatku */
+		//};
+	}
+
+	void Model::SaveConfigToFile(const wxString& filePath) const
+	{
+		
+	}
+
+	void Model::ApplyParametersToImage()
+	{
+		switch (m_mode)
+		{
+		case WorkMode::BICHROME:
+			ImageConversion::ConvertToBichrome(m_imageThumbnailCopy);
+			break;
+		case WorkMode::GREYSCALE:
+			ImageConversion::ConvertToGreyScale(m_imageThumbnailCopy);
+			break;
+		case WorkMode::NONE:
+			break;
+		}
 	}
 
 	void EasterEgg()
