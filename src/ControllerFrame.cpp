@@ -24,6 +24,7 @@ namespace GreyscaleConverter
 			m_bichromeButton->SetValue(false);
 		m_model.SetWorkMode(Model::WorkMode::GREYSCALE);
 		m_model.ApplyParametersToThumbnail();
+		m_view->UpdateImage();
 	}
 
 	void ControllerFrame::OnButtonClick_Bichrome(wxCommandEvent& event)
@@ -93,7 +94,8 @@ namespace GreyscaleConverter
 		if (!m_redChannelText->GetValue().ToDouble(&value))
 			return;
 
-		//m_model.SetRedChannel(value);
+		m_model.SetRedChannel(value);
+		m_view->UpdateImage();
 	}
 
 	void ControllerFrame::OnText_ChangeRedChannel(wxCommandEvent& event)
@@ -104,7 +106,8 @@ namespace GreyscaleConverter
 
 		m_redChannelSlider->SetValue(value);
 
-		//m_model.SetRedChannel(value);
+		m_model.SetRedChannel(value);
+		m_view->UpdateImage();
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_ChangeGreenChannel(wxScrollEvent& event)
@@ -118,6 +121,7 @@ namespace GreyscaleConverter
 			return;
 
 		m_model.SetGreenChannel(value);
+		m_view->UpdateImage();
 	}
 
 	void ControllerFrame::OnText_ChangeGreenChannel(wxCommandEvent& event)
@@ -129,6 +133,7 @@ namespace GreyscaleConverter
 		m_greenChannelSlider->SetValue(value);
 
 		m_model.SetGreenChannel(value);
+		m_view->UpdateImage();
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_ChangeBlueChannel(wxScrollEvent& event)
@@ -141,7 +146,8 @@ namespace GreyscaleConverter
 		if (!m_blueChannelText->GetValue().ToDouble(&value))
 			return;
 
-		//m_model.SetBlueChannel(value);
+		m_model.SetBlueChannel(value);
+		m_view->UpdateImage();
 	}
 
 	void ControllerFrame::OnText_ChangeBlueChannel(wxCommandEvent& event)
@@ -152,7 +158,8 @@ namespace GreyscaleConverter
 
 		m_blueChannelSlider->SetValue(value);
 
-		//m_model.SetBlueChannel(value);
+		m_model.SetBlueChannel(value);
+		m_view->UpdateImage();
 	}
 
 	void ControllerFrame::OnMenuSelection_LoadImage(wxCommandEvent& event)

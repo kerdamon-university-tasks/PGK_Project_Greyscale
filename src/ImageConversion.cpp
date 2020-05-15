@@ -8,9 +8,9 @@ namespace GreyscaleConverter
         /// TODO bichromia
     }
 
-    void ImageConversion::ConvertToGreyScale(wxImage& image)
+    void ImageConversion::ConvertToGreyScale(wxImage& orgImage, wxImage& copyImage, int chRed, int chGreen, int chBlue)
     {
-        //image = image.ConvertToGreyscale(0.3, 0.3, 0.3);
+        copyImage = orgImage.ConvertToGreyscale(chRed / 200., chGreen / 200., chBlue / 200.);
     }
 
 }

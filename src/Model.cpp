@@ -49,7 +49,7 @@ namespace GreyscaleConverter
 				ImageConversion::ConvertToBichrome(m_originalImageCopy);
 				break;
 			case WorkMode::GREYSCALE:
-				ImageConversion::ConvertToGreyScale(m_originalImageCopy);
+				ImageConversion::ConvertToGreyScale(m_imageThumbnail,m_imageThumbnailCopy,m_redChannel,m_greenChannel,m_blueChannel);
 				break;
 			case WorkMode::NONE:
 			default:
@@ -75,7 +75,7 @@ namespace GreyscaleConverter
 			ImageConversion::ConvertToBichrome(m_imageThumbnailCopy);
 			break;
 		case WorkMode::GREYSCALE:
-			ImageConversion::ConvertToGreyScale(m_imageThumbnailCopy);
+			ImageConversion::ConvertToGreyScale(m_imageThumbnail,m_imageThumbnailCopy,m_redChannel,m_greenChannel,m_blueChannel);
 			break;
 		case WorkMode::NONE:
 			break;
