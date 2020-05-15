@@ -26,7 +26,7 @@ namespace GreyscaleConverter
 		void ApplyParametersToThumbnail();
 
 		//getters
-		const wxImage& GetImageThumbnail() const { return m_imageThumbnail; }
+		const wxImage& GetImageThumbnail() const { return m_imageThumbnailCopy; }
 		bool GetIsResultSaved() const { return m_isResultSaved; }
 		bool GetIsConfigSaved() const { return m_isConfigSaved; }
 

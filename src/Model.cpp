@@ -21,7 +21,7 @@ namespace GreyscaleConverter
 			width = static_cast<int>(static_cast<float>(width) * scaleFactor);
 			height = static_cast<int>(static_cast<float>(height) * scaleFactor);
 			
-			m_imageThumbnail.Rescale(width, height);
+			m_imageThumbnail.Rescale(width, height,wxIMAGE_QUALITY_HIGH);
 		}
 	}
 

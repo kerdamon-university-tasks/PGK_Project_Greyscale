@@ -10,7 +10,7 @@ namespace GreyscaleConverter
 
     void ImageConversion::ConvertToGreyScale(wxImage& image)
     {
-        /// TODO konwersja do odcieni szarosci
+        //image = image.ConvertToGreyscale(0.3, 0.3, 0.3);
     }
 
 }
