@@ -6,7 +6,7 @@
 #include <wx/wfstream.h>
 #include <wx/colordlg.h>
 
-namespace GrayscaleConverter
+namespace GreyscaleConverter
 {
 	ControllerFrame::ControllerFrame(wxWindow* parent)
 		:
@@ -14,8 +14,8 @@ namespace GrayscaleConverter
 	{
 		m_raspberriesButton->Hide();
 
-		wxImage::AddHandler(new wxJPEGHandler);
-		wxImage::AddHandler(new wxPNGHandler);
+		//wxImage::AddHandler(new wxJPEGHandler);
+		//wxImage::AddHandler(new wxPNGHandler);
 	}
 
 	void ControllerFrame::OnButtonClick_ConvertToGrayscale(wxCommandEvent& event)
@@ -23,7 +23,7 @@ namespace GrayscaleConverter
 		if (m_bichromeButton->GetValue())
 			m_bichromeButton->SetValue(false);
 		m_model.SetWorkMode(Model::WorkMode::GREYSCALE);
-		m_model.ApplyParametersToImage();
+		m_model.ApplyParametersToThumbnail();
 	}
 
 	void ControllerFrame::OnButtonClick_Bichrome(wxCommandEvent& event)
@@ -31,7 +31,7 @@ namespace GrayscaleConverter
 		//if (m_grayscaleButton->GetValue())
 		//	m_grayscaleButton->SetValue(false);
 		////m_model.SetWorkMode(Model::WorkMode::BICHROME);
-		//m_model.ApplyParametersToImage();
+		//m_model.ApplyParametersToThumbnail();
 		//
 		m_view->Update();
 	}
@@ -42,7 +42,7 @@ namespace GrayscaleConverter
 		if (openColourDialog.ShowModal() == wxID_OK)
 		{
 			//m_model.SetBichromeColour(openColourDialog.GetColourData().GetColour());
-			m_model.ApplyParametersToImage();
+			m_model.ApplyParametersToThumbnail();
 		}
 	}
 

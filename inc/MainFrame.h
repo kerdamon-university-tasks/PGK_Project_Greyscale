@@ -41,7 +41,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 ///
 
-namespace GrayscaleConverter
+namespace GreyscaleConverter
 {
 
 	class Frame : public wxFrame

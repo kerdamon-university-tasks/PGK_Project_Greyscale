@@ -5,7 +5,7 @@
 
 #include "inc/Model.h"
 
-namespace GrayscaleConverter
+namespace GreyscaleConverter
 {
 	class ImageView final : public wxPanel
 	{

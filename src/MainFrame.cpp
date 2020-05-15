@@ -9,7 +9,7 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
-namespace GrayscaleConverter
+namespace GreyscaleConverter
 {
 
 	Frame::Frame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style)

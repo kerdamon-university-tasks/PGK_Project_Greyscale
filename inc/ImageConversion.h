@@ -1,7 +1,7 @@
 #pragma once
 #include <wx/image.h>
 
-namespace GrayscaleConverter
+namespace GreyscaleConverter
 {
 
     class ImageConversion

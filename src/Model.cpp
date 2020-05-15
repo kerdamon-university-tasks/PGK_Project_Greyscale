@@ -1,64 +1,44 @@
 #include "inc/Model.h"
 
 
-namespace GrayscaleConverter
+namespace GreyscaleConverter
 {
 	Model::Model()
 	{
-		//wxImage::AddHandler(new wxPNGHandler);
-		//wxImage::AddHandler(new wxJPEGHandler);
+		wxInitAllImageHandlers();
 	}
 
 	void Model::AdjustImageThumbnail()
 	{
-		const int width = m_originalImage.GetWidth();
-		const int height = m_originalImage.GetHeight();
+		auto width = m_originalImage.GetWidth();
+		auto height = m_originalImage.GetHeight();
 
-		if (width > m_maxImageThumbnailSize)
+		const auto longerSide = width > height ? width : height;
+		if (longerSide > m_maxImageThumbnailSize)
 		{
-			const auto scaleFactor = m_maxImageThumbnailSize / static_cast<float>(width);
-			const wxSize newSize(
-				static_cast<int>(static_cast<float>(width)* scaleFactor),
-				static_cast<int>(static_cast<float>(height)* scaleFactor)
-			);
-			m_imageThumbnail.Resize(newSize, wxPoint(0, 0));
+			const auto scaleFactor = static_cast<float>(m_maxImageThumbnailSize) / static_cast<float>(longerSide);
+			
+			width = static_cast<int>(static_cast<float>(width) * scaleFactor);
+			height = static_cast<int>(static_cast<float>(height) * scaleFactor);
+			
+			m_imageThumbnail.Rescale(width, height);
 		}
 	}
 
-
-	/// Model getters
-	const wxImage& Model::GetImageThumbnail() const
-	{
-		return m_imageThumbnail;
-	}
-
-
-	bool Model::GetIsResultSaved() const
-	{
-		return m_isResultSaved;
-	}
-
-	bool Model::GetIsConfigSaved() const
-	{
-		return m_isConfigSave;
-	}
-
-	void Model::LoadImageFromFile(wxString filePath)
+	void Model::LoadImageFromFile(const wxString& filePath)
 	{
 		if (!m_originalImage.LoadFile(filePath, wxBITMAP_TYPE_JPEG))
-		{
-			wxLogError(_("Nie gasi"));
-		}
+			wxLogError(_("Couldn't load file!"));
 
-		//m_originalImageCopy = wxImage{ m_originalImage };
-		//m_imageThumbnail = wxImage{ m_originalImage };
-		//AdjustImageThumbnail();
-		//m_imageThumbnailCopy = wxImage{ m_imageThumbnail };
+		m_originalImageCopy = m_originalImage.Copy();
+		m_imageThumbnail = m_originalImage.Copy();
+		AdjustImageThumbnail();
+		m_imageThumbnailCopy = m_imageThumbnail.Copy();
 	}
 
 	void Model::LoadConfigFromFile(const wxString& filePath)
 	{
-		
+		//todo zaklepac
 	}
 
 	void Model::SaveImageToFile(const wxString& filename)
@@ -72,21 +52,22 @@ namespace GrayscaleConverter
 				ImageConversion::ConvertToGreyScale(m_originalImageCopy);
 				break;
 			case WorkMode::NONE:
+			default:
 				break;			
 		}
 
-		//if (!m_originalImageCopy->SaveFile(filename))
-		//{
-			/* rzucenie jakiegos wyjatku */
-		//};
+		if (!m_originalImageCopy.SaveFile(filename))
+			wxLogError(_("Couldn't save file!"));
+
+		//todo przetestowac
 	}
 
 	void Model::SaveConfigToFile(const wxString& filePath) const
 	{
-		
+		//todo zaklepac
 	}
 
-	void Model::ApplyParametersToImage()
+	void Model::ApplyParametersToThumbnail()
 	{
 		switch (m_mode)
 		{
@@ -101,7 +82,7 @@ namespace GrayscaleConverter
 		}
 	}
 
-	void EasterEgg()
+	void Model::EasterEgg()
 	{
 	}
 }

@@ -1,14 +1,16 @@
 ﻿#include "inc/ImageView.h"
 
-namespace GrayscaleConverter
+namespace GreyscaleConverter
 {
 
 	void ImageView::UpdateImage()
 	{
-		//auto imageThumbnail = m_model.GetImageThumbnail();
-		auto imageThumbnail = m_model.GetImage();
+		auto imageThumbnail = m_model.GetImageThumbnail();
 
-		imageThumbnail.Rescale(wxPanel::GetSize().x, wxPanel::GetSize().y);
+		const auto x = GetSize().x;
+		const auto y = GetSize().y;
+		if(x > 0 && y > 0)
+			imageThumbnail.Rescale(x, y);
 
 		wxClientDC clientDc{ this };
 		wxBufferedDC bufferedDc{ &clientDc };

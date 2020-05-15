@@ -1,6 +1,6 @@
 #include "inc/ImageConversion.h"
 
-namespace GrayscaleConverter
+namespace GreyscaleConverter
 {
 
     void ImageConversion::ConvertToBichrome(wxImage& image)
