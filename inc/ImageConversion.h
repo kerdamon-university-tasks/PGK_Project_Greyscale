@@ -8,7 +8,7 @@ namespace GreyscaleConverter
     {
     public:
         static void ConvertToBichrome(wxImage&);
-        static void ConvertToGreyScale(wxImage&, wxImage&, int, int, int);
+        static void ConvertToGreyScale(wxImage& orgImage, wxImage& copyImage, int chRed, int chGreen, int chBlue);
     };
 
 }

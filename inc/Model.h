@@ -5,8 +5,6 @@
 #include <wx/wfstream.h>
 #include <wx/log.h>
 
-#include "inc/ImageConversion.h"
-
 namespace GreyscaleConverter
 {
 	
@@ -14,7 +12,7 @@ namespace GreyscaleConverter
 	{
 	public:
 		
-		enum class WorkMode { BICHROME, GREYSCALE, NONE };
+		enum class WorkMode { BICHROME, GREYSCALE, ORIGINAL, NONE, };
 		
 		Model();
 		

@@ -1,5 +1,5 @@
 #include "inc/Model.h"
-
+#include "inc/ImageConversion.h"
 
 namespace GreyscaleConverter
 {
@@ -21,13 +21,13 @@ namespace GreyscaleConverter
 			width = static_cast<int>(static_cast<float>(width) * scaleFactor);
 			height = static_cast<int>(static_cast<float>(height) * scaleFactor);
 			
-			m_imageThumbnail.Rescale(width, height,wxIMAGE_QUALITY_HIGH);
+			m_imageThumbnail.Rescale(width, height, wxIMAGE_QUALITY_HIGH);
 		}
 	}
 
 	void Model::LoadImageFromFile(const wxString& filePath)
 	{
-		if (!m_originalImage.LoadFile(filePath, wxBITMAP_TYPE_JPEG))
+		if (!m_originalImage.LoadFile(filePath))
 			wxLogError(_("Couldn't load file!"));
 
 		m_originalImageCopy = m_originalImage.Copy();
@@ -49,8 +49,9 @@ namespace GreyscaleConverter
 				ImageConversion::ConvertToBichrome(m_originalImageCopy);
 				break;
 			case WorkMode::GREYSCALE:
-				ImageConversion::ConvertToGreyScale(m_imageThumbnail,m_imageThumbnailCopy,m_redChannel,m_greenChannel,m_blueChannel);
+				ImageConversion::ConvertToGreyScale(m_originalImage, m_originalImageCopy, m_redChannel, m_greenChannel, m_blueChannel);
 				break;
+			case WorkMode::ORIGINAL:
 			case WorkMode::NONE:
 			default:
 				break;			
@@ -77,7 +78,11 @@ namespace GreyscaleConverter
 		case WorkMode::GREYSCALE:
 			ImageConversion::ConvertToGreyScale(m_imageThumbnail,m_imageThumbnailCopy,m_redChannel,m_greenChannel,m_blueChannel);
 			break;
+		case WorkMode::ORIGINAL:
+			m_imageThumbnailCopy = m_imageThumbnail.Copy();
+			break;
 		case WorkMode::NONE:
+		default:
 			break;
 		}
 	}

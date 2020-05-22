@@ -6,7 +6,9 @@ namespace GreyscaleConverter
 	void ImageView::UpdateImage()
 	{
 		auto imageThumbnail = m_model.GetImageThumbnail();
-
+		if (!imageThumbnail.IsOk())
+			return;
+		
 		const auto x = GetSize().x;
 		const auto y = GetSize().y;
 		if(x > 0 && y > 0)

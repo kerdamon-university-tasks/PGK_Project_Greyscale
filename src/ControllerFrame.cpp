@@ -13,16 +13,18 @@ namespace GreyscaleConverter
 		Frame(parent)
 	{
 		m_raspberriesButton->Hide();
-
-		//wxImage::AddHandler(new wxJPEGHandler);
-		//wxImage::AddHandler(new wxPNGHandler);
 	}
 
 	void ControllerFrame::OnButtonClick_ConvertToGrayscale(wxCommandEvent& event)
 	{
 		if (m_bichromeButton->GetValue())
 			m_bichromeButton->SetValue(false);
-		m_model.SetWorkMode(Model::WorkMode::GREYSCALE);
+		
+		if (m_grayscaleButton->GetValue())
+			m_model.SetWorkMode(Model::WorkMode::GREYSCALE);
+		else
+			m_model.SetWorkMode(Model::WorkMode::ORIGINAL);
+		
 		m_model.ApplyParametersToThumbnail();
 		m_view->UpdateImage();
 	}
@@ -95,6 +97,7 @@ namespace GreyscaleConverter
 			return;
 
 		m_model.SetRedChannel(value);
+		m_model.ApplyParametersToThumbnail();
 		m_view->UpdateImage();
 	}
 
@@ -121,6 +124,7 @@ namespace GreyscaleConverter
 			return;
 
 		m_model.SetGreenChannel(value);
+		m_model.ApplyParametersToThumbnail();
 		m_view->UpdateImage();
 	}
 
@@ -147,6 +151,7 @@ namespace GreyscaleConverter
 			return;
 
 		m_model.SetBlueChannel(value);
+		m_model.ApplyParametersToThumbnail();
 		m_view->UpdateImage();
 	}
 
@@ -194,17 +199,16 @@ namespace GreyscaleConverter
 		///
 		std::shared_ptr<wxFileDialog> WxOpenFileDialog1(new wxFileDialog(this,
 			_("Choose a file"), _(""),
-			_(""), _("JPEG files (*.jpg)|*.jpg"),
+			_(""), _("JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png"),
 			wxFD_OPEN));
 
 		if (WxOpenFileDialog1->ShowModal() == wxID_OK)
 		{
-			//LoadImageFromFile(WxOpenFileDialog1->GetPath(), MyBitmap);
 			m_model.LoadImageFromFile(WxOpenFileDialog1->GetPath());
-			//Refresh();
 			m_isImageLoaded = true;
+			m_view->UpdateImage();
 		}
-		m_view->UpdateImage();
+
 	}
 
 	void ControllerFrame::OnMenuSelection_LoadConfig(wxCommandEvent& event)
@@ -238,9 +242,14 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnMenuSelection_SaveImage(wxCommandEvent& event)
 	{
-		wxFileDialog saveFileDialog(this, _("Save image to file"), "", "",
-				"JPG files (*.jpg)|*.jpg", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+		//wxFileDialog saveFileDialog(this, _("Save image to file"), "", "",
+		//		"JPG files (*.jpg)|*.jpg", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 
+		wxFileDialog saveFileDialog(this,
+			_("Choose a folder"), "",
+			"", "JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png",
+			wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+		
 		if (saveFileDialog.ShowModal() == wxID_CANCEL)	//nothing selected
 			return;
 
@@ -251,7 +260,7 @@ namespace GreyscaleConverter
 			return;
 		}
 
-		//m_model.SaveImageToFile(saveFileDialog.GetPath());
+		m_model.SaveImageToFile(saveFileDialog.GetPath());
 	}
 
 	void ControllerFrame::OnMenuSelection_SaveConfig(wxCommandEvent& event)
