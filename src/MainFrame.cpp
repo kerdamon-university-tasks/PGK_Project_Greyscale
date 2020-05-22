@@ -254,7 +254,7 @@ namespace GreyscaleConverter
 
 
 		this->Centre(wxBOTH);
-
+		
 		// Connect Events
 		this->Connect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(Frame::OnUpdateUI));
 		m_grayscaleButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);

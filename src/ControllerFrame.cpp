@@ -366,7 +366,17 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnMenuSelection_GoFullscreen(wxCommandEvent& event)
 	{
-		ShowFullScreen(true);
+		static auto fullscreened = false;
+		if(fullscreened)
+		{
+			ShowFullScreen(false, wxFULLSCREEN_NOBORDER);
+			fullscreened = !fullscreened;
+		}
+		else
+		{
+			ShowFullScreen(true, wxFULLSCREEN_NOBORDER);
+			fullscreened = !fullscreened;
+		}
 	}
 
 	void ControllerFrame::OnUpdateUI(wxUpdateUIEvent& event)
