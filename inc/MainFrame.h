@@ -29,6 +29,7 @@
 #include <wx/menu.h>
 #include <wx/frame.h>
 #include <wx/tglbtn.h>
+#include <wx/clrpicker.h>
 
 #include "ImageView.h"
 #include "Model.h"
@@ -52,7 +53,7 @@ namespace GreyscaleConverter
 		wxToggleButton* m_grayscaleButton;
 		wxStaticLine* m_staticline1;
 		wxToggleButton* m_bichromeButton;
-		wxButton* m_pickColourButton;
+		wxColourPickerCtrl* m_pickColourButton;
 		wxStaticLine* m_staticline2;
 		wxCheckBox* m_keepHueCheckBox;
 		wxSlider* m_hueSlider;
@@ -76,7 +77,8 @@ namespace GreyscaleConverter
 		virtual void OnUpdateUI(wxUpdateUIEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_Bichrome(wxCommandEvent& event) { event.Skip(); }
-		virtual void OnButtonClick_PickColour(wxCommandEvent& event) { event.Skip(); }
+		//virtual void OnButtonClick_PickColour(wxCommandEvent& event) { event.Skip(); }
+		virtual void OnColourChanged_PickColour(wxColourPickerEvent& event) { event.Skip(); }
 		virtual void OnCheckBox_KeepOneHue(wxCommandEvent& event) { event.Skip(); }
 		//virtual void OnScrollChanged_HueIntesivity( wxScrollEvent& event ) { event.Skip(); }
 		virtual void OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event) { event.Skip(); }

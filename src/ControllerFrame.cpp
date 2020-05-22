@@ -39,14 +39,10 @@ namespace GreyscaleConverter
 		m_view->Update();
 	}
 
-	void ControllerFrame::OnButtonClick_PickColour(wxCommandEvent& event)
+	void ControllerFrame::OnColourChanged_PickColour(wxColourPickerEvent& event)
 	{
-		wxColourDialog openColourDialog{ this };
-		if (openColourDialog.ShowModal() == wxID_OK)
-		{
-			//m_model.SetBichromeColour(openColourDialog.GetColourData().GetColour());
-			m_model.ApplyParametersToThumbnail();
-		}
+		m_model.SetBichromeColour(m_pickColourButton->GetColour());
+		m_model.ApplyParametersToThumbnail();
 	}
 
 	void ControllerFrame::OnCheckBox_KeepOneHue(wxCommandEvent& event)

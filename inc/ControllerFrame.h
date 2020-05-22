@@ -21,7 +21,7 @@ namespace GreyscaleConverter
 		// Handlers for Frame events.
 		void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event);
 		void OnButtonClick_Bichrome(wxCommandEvent& event);
-		void OnButtonClick_PickColour(wxCommandEvent& event);
+		void OnColourChanged_PickColour(wxColourPickerEvent& event);
 		void OnCheckBox_KeepOneHue(wxCommandEvent& event);
 		void OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event);
 		void OnText_ChangeHueIntensivity(wxCommandEvent& event);
