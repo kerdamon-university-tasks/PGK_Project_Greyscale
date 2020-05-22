@@ -1,14 +1,14 @@
 #pragma once
 #include <wx/image.h>
 
-namespace GrayscaleConverter
+namespace GreyscaleConverter
 {
 
     class ImageConversion
     {
     public:
         static void ConvertToBichrome(wxImage&);
-        static void ConvertToGreyScale(wxImage&);
+        static void ConvertToGreyScale(wxImage&, int, int, int);
     };
 
 }

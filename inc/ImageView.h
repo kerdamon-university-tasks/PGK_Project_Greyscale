@@ -5,7 +5,7 @@
 
 #include "inc/Model.h"
 
-namespace GrayscaleConverter
+namespace GreyscaleConverter
 {
 	class ImageView final : public wxPanel
 	{
@@ -19,7 +19,7 @@ namespace GrayscaleConverter
 		{
 		}
 
-		void UpdateImage();
+		void UpdateImage(bool highQuality);
 
 	private:
 

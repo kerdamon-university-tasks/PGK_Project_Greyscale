@@ -9,7 +9,7 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
-namespace GrayscaleConverter
+namespace GreyscaleConverter
 {
 
 	Frame::Frame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style)
@@ -33,14 +33,14 @@ namespace GrayscaleConverter
 		barSizer->Add(m_staticline1, 0, wxEXPAND | wxALL, 5);
 
 		wxBoxSizer* duotoneSizer;
-		duotoneSizer = new wxBoxSizer(wxHORIZONTAL);
+		duotoneSizer = new wxBoxSizer(wxVERTICAL);
 
 		m_bichromeButton = new wxToggleButton(this, wxID_ANY, wxT("Convert to bichrome"), wxDefaultPosition, wxDefaultSize, 0);
 		//m_bichromeButton = new wxButton(this, wxID_ANY, wxT("Convert to bichrome"), wxDefaultPosition, wxDefaultSize, 0);
 		duotoneSizer->Add(m_bichromeButton, 1, wxALL | wxEXPAND, 8);
 
-		m_pickColourButton = new wxButton(this, wxID_ANY, wxT("Colour"), wxDefaultPosition, wxDefaultSize, 0);
-		duotoneSizer->Add(m_pickColourButton, 1, wxALIGN_CENTER | wxALL, 8);
+		m_pickColourButton = new wxColourPickerCtrl(this, wxID_ANY, wxColour(243, 40, 12), wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE);
+		duotoneSizer->Add(m_pickColourButton, 1, wxALIGN_CENTER_HORIZONTAL | wxALL, 8);
 
 
 		barSizer->Add(duotoneSizer, 0, wxEXPAND, 5);
@@ -48,18 +48,20 @@ namespace GrayscaleConverter
 		m_staticline2 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
 		barSizer->Add(m_staticline2, 0, wxEXPAND | wxALL, 5);
 
-		m_keepHueCheckBox = new wxCheckBox(this, wxID_ANY, wxT("Keep one hue"), wxDefaultPosition, wxDefaultSize, 0);
-		barSizer->Add(m_keepHueCheckBox, 0, wxALIGN_CENTER | wxALL, 8);
+		m_keepHueButton = new wxToggleButton(this, wxID_ANY, wxT("Keep hue"), wxDefaultPosition, wxDefaultSize, 0);
+		barSizer->Add(m_keepHueButton, 0, wxALL | wxEXPAND, 8);
 
-		wxBoxSizer* hueSliderSizer;
-		hueSliderSizer = new wxBoxSizer(wxHORIZONTAL);
+		////////////////////////////////////////
 
-		m_hueSlider = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+		wxStaticBoxSizer* hueSliderSizer;
+		hueSliderSizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("Hue")), wxHORIZONTAL);
+
+		m_hueSlider = new wxSlider(hueSliderSizer->GetStaticBox(), wxID_ANY, 180, 0, 359, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 		m_hueSlider->SetMinSize(wxSize(200, -1));
 
-		hueSliderSizer->Add(m_hueSlider, 1, wxALIGN_CENTER_VERTICAL | wxALL, 10);
+		hueSliderSizer->Add(m_hueSlider, 1, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
-		m_hueSliderText = new wxTextCtrl(this, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(40, -1), 0);
+		m_hueSliderText = new wxTextCtrl(hueSliderSizer->GetStaticBox(), wxID_ANY, wxT("180"), wxDefaultPosition, wxSize(40, -1), 0);
 #ifdef __WXGTK__
 		if (!m_hueSliderText->HasFlag(wxTE_MULTILINE))
 		{
@@ -71,8 +73,37 @@ namespace GrayscaleConverter
 		hueSliderSizer->Add(m_hueSliderText, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
 
-		barSizer->Add(hueSliderSizer, 0, wxEXPAND, 5);
+		barSizer->Add(hueSliderSizer, 0, wxALL | wxEXPAND, 5);
 
+		///////////////////////////////////////////
+		
+		wxStaticBoxSizer* m_intensivitySizer;
+		m_intensivitySizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("Intensivity")), wxHORIZONTAL);
+
+		m_intensivitySlider = new wxSlider(m_intensivitySizer->GetStaticBox(), wxID_ANY, 80, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+		m_intensivitySlider->SetMinSize(wxSize(200, -1));
+
+		m_intensivitySizer->Add(m_intensivitySlider, 1, wxALL | wxALIGN_CENTER_VERTICAL, 5);
+
+		m_intensivityText = new wxTextCtrl(m_intensivitySizer->GetStaticBox(), wxID_ANY, wxT("80"), wxDefaultPosition, wxSize(40, -1), 0);
+#ifdef __WXGTK__
+		if (!m_intensivityText->HasFlag(wxTE_MULTILINE))
+		{
+			m_intensivityText->SetMaxLength(3);
+		}
+#else
+		m_intensivityText->SetMaxLength(3);
+#endif
+		m_intensivitySizer->Add(m_intensivityText, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
+
+
+		barSizer->Add(m_intensivitySizer, 0, wxALL | wxEXPAND, 5);
+
+		m_staticline3 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
+		barSizer->Add(m_staticline3, 0, wxEXPAND | wxALL, 5);
+		
+		//////////////////////////////////
+		
 		wxBoxSizer* raspberriesSizer;
 		raspberriesSizer = new wxBoxSizer(wxVERTICAL);
 
@@ -87,10 +118,10 @@ namespace GrayscaleConverter
 		raspberriesSizer->Add(m_raspberriesButton, 0, wxALIGN_CENTER | wxALL | wxSHAPED | wxEXPAND, 5);
 
 
-		barSizer->Add(raspberriesSizer, 1, wxEXPAND, 5);
+		barSizer->Add(raspberriesSizer, 1, wxEXPAND|wxRESERVE_SPACE_EVEN_IF_HIDDEN, 5);
 
-		wxBoxSizer* channelsSizer;
-		channelsSizer = new wxBoxSizer(wxVERTICAL);
+		//wxBoxSizer* channelsSizer;
+		//channelsSizer = new wxBoxSizer(wxVERTICAL);
 
 		wxStaticBoxSizer* redChannelSizer;
 		redChannelSizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("Red")), wxHORIZONTAL);
@@ -107,12 +138,14 @@ namespace GrayscaleConverter
 			m_redChannelText->SetMaxLength(3);
 		}
 #else
-		m_redChannelText->SetMaxLength(3);
+		m_redChannelText->SetMaxLength(4);
 #endif
 		redChannelSizer->Add(m_redChannelText, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
 
-		channelsSizer->Add(redChannelSizer, 1, wxALIGN_BOTTOM | wxALL | wxEXPAND, 5);
+		//channelsSizer->Add(redChannelSizer, 1, wxALIGN_BOTTOM | wxALL | wxEXPAND, 5);
+
+		barSizer->Add(redChannelSizer, 0, wxALIGN_BOTTOM | wxALL | wxEXPAND, 5);
 
 		wxStaticBoxSizer* greenChannelSizer;
 		greenChannelSizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("Green")), wxHORIZONTAL);
@@ -129,12 +162,13 @@ namespace GrayscaleConverter
 			m_greenChannelText->SetMaxLength(3);
 		}
 #else
-		m_greenChannelText->SetMaxLength(3);
+		m_greenChannelText->SetMaxLength(4);
 #endif
 		greenChannelSizer->Add(m_greenChannelText, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
 
 
-		channelsSizer->Add(greenChannelSizer, 1, wxALIGN_BOTTOM | wxALL | wxEXPAND, 5);
+		//channelsSizer->Add(greenChannelSizer, 1, wxALIGN_BOTTOM | wxALL | wxEXPAND, 5);
+		barSizer->Add(greenChannelSizer, 0, wxALIGN_BOTTOM | wxALL | wxEXPAND, 5);
 
 		wxStaticBoxSizer* blueChannelSizer;
 		blueChannelSizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("Blue")), wxHORIZONTAL);
@@ -151,15 +185,16 @@ namespace GrayscaleConverter
 			m_blueChannelText->SetMaxLength(3);
 		}
 #else
-		m_blueChannelText->SetMaxLength(3);
+		m_blueChannelText->SetMaxLength(4);
 #endif
 		blueChannelSizer->Add(m_blueChannelText, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
 
 
-		channelsSizer->Add(blueChannelSizer, 1, wxALL | wxEXPAND, 5);
+		//channelsSizer->Add(blueChannelSizer, 1, wxALL | wxEXPAND, 5);
+		barSizer->Add(blueChannelSizer, 0, wxALIGN_BOTTOM | wxALL | wxEXPAND, 5);
 
 
-		barSizer->Add(channelsSizer, 1, wxALIGN_BOTTOM | wxEXPAND | wxSHAPED, 5);
+		//barSizer->Add(channelsSizer, 1, wxALIGN_BOTTOM | wxEXPAND | wxSHAPED, 5);
 
 
 		mainSizer->Add(barSizer, 0, wxEXPAND, 5);
@@ -208,33 +243,43 @@ namespace GrayscaleConverter
 
 		m_menubar->Append(fileMenu, wxT("File"));
 
-		m_menu3 = new wxMenu();
+		m_viewMenu = new wxMenu();
 		wxMenuItem* m_fullscreen;
-		m_fullscreen = new wxMenuItem(m_menu3, wxID_ANY, wxString(wxT("Fullscreen")) + wxT('\t') + wxT("F12"), wxEmptyString, wxITEM_NORMAL);
-		m_menu3->Append(m_fullscreen);
+		m_fullscreen = new wxMenuItem(m_viewMenu, wxID_ANY, wxString(wxT("Fullscreen")) + wxT('\t') + wxT("F12"), wxEmptyString, wxITEM_NORMAL);
+		m_viewMenu->Append(m_fullscreen);
 
-		m_menubar->Append(m_menu3, wxT("View"));
+		//wxMenuItem* m_menuItemQualityPreview;
+		m_menuItemQualityPreview = new wxMenuItem(fileMenu, wxID_ANY, wxString(wxT("Render high quiality preview")), wxEmptyString, wxITEM_CHECK);
+		m_viewMenu->Append(m_menuItemQualityPreview);
+
+		m_menubar->Append(m_viewMenu, wxT("View"));
 
 		this->SetMenuBar(m_menubar);
 
 
 		this->Centre(wxBOTH);
-
+		
 		// Connect Events
+		this->Connect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(Frame::OnClose_Frame));
 		this->Connect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(Frame::OnUpdateUI));
 		m_grayscaleButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
-		//m_grayscaleButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
 		m_bichromeButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
-		//m_bichromeButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
-		m_pickColourButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_PickColour), NULL, this);
-		m_keepHueCheckBox->Connect(wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler(Frame::OnCheckBox_KeepOneHue), NULL, this);
-		m_hueSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
-		m_hueSliderText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeHueIntensivity), NULL, this);
+		m_pickColourButton->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickColour), NULL, this);
+		m_keepHueButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_KeepOneHue), NULL, this);
+		m_intensivitySlider->Connect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
+		m_intensivitySlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
+		m_intensivityText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeHueIntensivity), NULL, this);
+		m_hueSlider->Connect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueKept), NULL, this);
+		m_hueSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueKept), NULL, this);
+		m_hueSliderText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_HueKept), NULL, this);
 		m_raspberriesButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_RaspberriesButton), NULL, this);
+		m_redChannelSlider->Connect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeRedChannel), NULL, this);
 		m_redChannelSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeRedChannel), NULL, this);
 		m_redChannelText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeRedChannel), NULL, this);
+		m_greenChannelSlider->Connect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeGreenChannel), NULL, this);
 		m_greenChannelSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeGreenChannel), NULL, this);
 		m_greenChannelText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeGreenChannel), NULL, this);
+		m_blueChannelSlider->Connect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeBlueChannel), NULL, this);
 		m_blueChannelSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeBlueChannel), NULL, this);
 		m_blueChannelText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeBlueChannel), NULL, this);
 		fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_LoadImage), this, m_loadImage->GetId());
@@ -242,32 +287,35 @@ namespace GrayscaleConverter
 		fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_SaveImage), this, m_saveImage->GetId());
 		fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_SaveConfig), this, m_saveConfig->GetId());
 		fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_Exit), this, m_exit->GetId());
-		m_menu3->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_GoFullscreen), this, m_fullscreen->GetId());
-
+		m_viewMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_GoFullscreen), this, m_fullscreen->GetId());
+		m_viewMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_QualityPreview), this, m_menuItemQualityPreview->GetId());
+		
 		Bind(wxEVT_PAINT, wxPaintEventHandler(Frame::OnPaint_RefreshImage), this);
 	}
 
 	Frame::~Frame()
 	{
 		 //Disconnect Events
+		this->Disconnect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(Frame::OnClose_Frame));
 		this->Disconnect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(Frame::OnUpdateUI));
 		m_grayscaleButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
-		//m_grayscaleButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
 		m_bichromeButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
-		//m_bichromeButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
-		m_pickColourButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_PickColour), NULL, this);
-		m_keepHueCheckBox->Disconnect(wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler(Frame::OnCheckBox_KeepOneHue), NULL, this);
-		//m_hueSlider->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollChanged_HueIntesivity ), NULL, this );
-		m_hueSlider->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
-		m_hueSliderText->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeHueIntensivity), NULL, this);
+		m_pickColourButton->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickColour), NULL, this);
+		m_keepHueButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_KeepOneHue), NULL, this);
+		m_hueSlider->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollThumbTrack_HueIntesivity), NULL, this );
+		m_intensivitySlider->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
+		m_intensivityText->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeHueIntensivity), NULL, this);
+		m_hueSlider->Disconnect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueKept), NULL, this);
+		m_hueSlider->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueKept), NULL, this);
+		m_hueSliderText->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_HueKept), NULL, this);
 		m_raspberriesButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_RaspberriesButton), NULL, this);
-		//m_redChannelSlider->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollChanged_ChangeRedChannel ), NULL, this );
+		m_redChannelSlider->Disconnect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeRedChannel), NULL, this);
 		m_redChannelSlider->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeRedChannel), NULL, this);
 		m_redChannelText->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeRedChannel), NULL, this);
-		//m_greenChannelSlider->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollChanged_ChangeGreenChannel ), NULL, this );
+		m_greenChannelSlider->Disconnect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeGreenChannel), NULL, this);
 		m_greenChannelSlider->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeGreenChannel), NULL, this);
 		m_greenChannelText->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeGreenChannel), NULL, this);
-		//m_blueChannelSlider->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollChanged_ChangeBlueChannel ), NULL, this );
+		m_blueChannelSlider->Disconnect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeBlueChannel), NULL, this);
 		m_blueChannelSlider->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeBlueChannel), NULL, this);
 		m_blueChannelText->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeBlueChannel), NULL, this);
 

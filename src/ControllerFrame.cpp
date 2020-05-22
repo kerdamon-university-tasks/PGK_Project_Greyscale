@@ -6,72 +6,112 @@
 #include <wx/wfstream.h>
 #include <wx/colordlg.h>
 
-namespace GrayscaleConverter
+//todo dodac procenty w polach tekstowych
+
+namespace GreyscaleConverter
 {
 	ControllerFrame::ControllerFrame(wxWindow* parent)
 		:
 		Frame(parent)
 	{
 		m_raspberriesButton->Hide();
+	}
 
-		wxImage::AddHandler(new wxJPEGHandler);
-		wxImage::AddHandler(new wxPNGHandler);
+	void ControllerFrame::OnClose_Frame(wxCloseEvent& event)
+	{
+		wxLogDebug("wyjscie");
+		if (WarningIfImageNotSaved() == wxNO)
+			return;
+		Destroy();
 	}
 
 	void ControllerFrame::OnButtonClick_ConvertToGrayscale(wxCommandEvent& event)
 	{
-		if (m_bichromeButton->GetValue())
-			m_bichromeButton->SetValue(false);
-		m_model.SetWorkMode(Model::WorkMode::GREYSCALE);
-		m_model.ApplyParametersToImage();
+		if (m_grayscaleButton->GetValue())
+			AlternateConversionButtons(Model::WorkMode::GREYSCALE);
+		else
+			ClearImagePreview();
 	}
 
 	void ControllerFrame::OnButtonClick_Bichrome(wxCommandEvent& event)
 	{
-		//if (m_grayscaleButton->GetValue())
-		//	m_grayscaleButton->SetValue(false);
-		////m_model.SetWorkMode(Model::WorkMode::BICHROME);
-		//m_model.ApplyParametersToImage();
-		//
-		m_view->Update();
+		if (m_bichromeButton->GetValue())
+			AlternateConversionButtons(Model::WorkMode::BICHROME);
+		else
+			ClearImagePreview();
 	}
 
-	void ControllerFrame::OnButtonClick_PickColour(wxCommandEvent& event)
+	void ControllerFrame::OnColourChanged_PickColour(wxColourPickerEvent& event)
 	{
-		wxColourDialog openColourDialog{ this };
-		if (openColourDialog.ShowModal() == wxID_OK)
-		{
-			//m_model.SetBichromeColour(openColourDialog.GetColourData().GetColour());
-			m_model.ApplyParametersToImage();
-		}
+		m_model.SetBichromeColour(m_pickColourButton->GetColour());
+		m_model.ApplyParametersToThumbnail();
 	}
 
-	void ControllerFrame::OnCheckBox_KeepOneHue(wxCommandEvent& event)
+	void ControllerFrame::OnButtonClick_KeepOneHue(wxCommandEvent& event)
 	{
-		if (m_keepHueCheckBox->IsChecked())
+		if (m_keepHueButton->GetValue())
 			m_model.SetIsKeptHue(true);
 		else;
-			m_model.SetIsKeptHue(false);
+		m_model.SetIsKeptHue(false);
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event)
 	{
 		wxString newText;
-		newText << m_hueSlider->GetValue();
-		m_hueSliderText->SetValue(newText);
-		
+		newText << m_intensivitySlider->GetValue();
+		m_intensivityText->SetValue(newText);
+
 		double value;
-		if (!m_hueSliderText->GetValue().ToDouble(&value))
+		if (!m_intensivityText->GetValue().ToDouble(&value))
 			return;
-		
+
 		m_model.SetColorTolerance(value);
 	}
 
 	void ControllerFrame::OnText_ChangeHueIntensivity(wxCommandEvent& event)
 	{
 		long value;
+		if (!m_intensivityText->GetValue().ToLong(&value))
+			return;
+
+		m_intensivitySlider->SetValue(value);
+
+		m_model.SetColorTolerance(value);
+	}
+
+	void ControllerFrame::OnScrollThumbTrack_HueKept(wxScrollEvent& event)
+	{
+		wxString newText;
+		newText << m_hueSlider->GetValue();
+		m_hueSliderText->SetValue(newText);
+
+		double value;
+		if (!m_hueSliderText->GetValue().ToDouble(&value))
+			return;
+
+		m_model.SetColorTolerance(value);
+	}
+
+	void ControllerFrame::OnText_HueKept(wxCommandEvent& event)
+	{
+		long value;
 		if (!m_hueSliderText->GetValue().ToLong(&value))
 			return;
+
+		if (value > m_hueSlider->GetMax())
+		{
+			value = m_hueSlider->GetMax();
+			wxString newText;
+			newText << value;
+			m_hueSliderText->SetValue(newText);
+		}
+		else if (value < m_hueSlider->GetMin())
+		{
+			value = m_hueSlider->GetMin();
+			wxString newText;
+			newText << value;
+			m_hueSliderText->SetValue(newText);
+		}
 
 		m_hueSlider->SetValue(value);
 
@@ -93,7 +133,9 @@ namespace GrayscaleConverter
 		if (!m_redChannelText->GetValue().ToDouble(&value))
 			return;
 
-		//m_model.SetRedChannel(value);
+		m_model.SetRedChannel(value);
+
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnText_ChangeRedChannel(wxCommandEvent& event)
@@ -102,9 +144,26 @@ namespace GrayscaleConverter
 		if (!m_redChannelText->GetValue().ToLong(&value))
 			return;
 
+		if (value > m_redChannelSlider->GetMax())
+		{
+			value = m_redChannelSlider->GetMax();
+			wxString newText;
+			newText << value;
+			m_redChannelText->SetValue(newText);
+		}
+		else if (value < m_redChannelSlider->GetMin())
+		{
+			value = m_redChannelSlider->GetMin();
+			wxString newText;
+			newText << value;
+			m_redChannelText->SetValue(newText);
+		}
+
 		m_redChannelSlider->SetValue(value);
 
-		//m_model.SetRedChannel(value);
+		m_model.SetRedChannel(value);
+
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_ChangeGreenChannel(wxScrollEvent& event)
@@ -118,6 +177,8 @@ namespace GrayscaleConverter
 			return;
 
 		m_model.SetGreenChannel(value);
+
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnText_ChangeGreenChannel(wxCommandEvent& event)
@@ -126,9 +187,26 @@ namespace GrayscaleConverter
 		if (!m_greenChannelText->GetValue().ToLong(&value))
 			return;
 
+		if (value > m_greenChannelSlider->GetMax())
+		{
+			value = m_greenChannelSlider->GetMax();
+			wxString newText;
+			newText << value;
+			m_greenChannelText->SetValue(newText);
+		}
+		else if (value < m_greenChannelSlider->GetMin())
+		{
+			value = m_greenChannelSlider->GetMin();
+			wxString newText;
+			newText << value;
+			m_greenChannelText->SetValue(newText);
+		}
+
 		m_greenChannelSlider->SetValue(value);
 
 		m_model.SetGreenChannel(value);
+		
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_ChangeBlueChannel(wxScrollEvent& event)
@@ -141,7 +219,10 @@ namespace GrayscaleConverter
 		if (!m_blueChannelText->GetValue().ToDouble(&value))
 			return;
 
-		//m_model.SetBlueChannel(value);
+		m_model.SetBlueChannel(value);
+		m_model.ApplyParametersToThumbnail();
+
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnText_ChangeBlueChannel(wxCommandEvent& event)
@@ -150,75 +231,59 @@ namespace GrayscaleConverter
 		if (!m_blueChannelText->GetValue().ToLong(&value))
 			return;
 
+		if (value > m_blueChannelSlider->GetMax())
+		{
+			value = m_blueChannelSlider->GetMax();
+			wxString newText;
+			newText << value;
+			m_blueChannelText->SetValue(newText);
+		}
+		else if (value < m_blueChannelSlider->GetMin())
+		{
+			value = m_blueChannelSlider->GetMin();
+			wxString newText;
+			newText << value;
+			m_blueChannelText->SetValue(newText);
+		}
+
 		m_blueChannelSlider->SetValue(value);
 
-		//m_model.SetBlueChannel(value);
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnMenuSelection_LoadImage(wxCommandEvent& event)
 	{
-		//wxString warningNotSavedMessage;
-		//if (/*m_model.IsResultImageSaved()*/ true)
-		//	warningNotSavedMessage.Append("Current image has not been saved!");
-		//if (!warningNotSavedMessage.IsEmpty())
-		//{
-		//	warningNotSavedMessage.Append(" Proceed?");
-		//	if (wxMessageBox(warningNotSavedMessage, _("Please confirm"),
-		//		wxICON_QUESTION | wxYES_NO, this) == wxNO)
-		//		return;
-		//}
+		if (WarningIfImageNotSaved() == wxNO)
+			return;
 
-		////wxFileDialog openFileDialog(this, _("Choose photo"), "", "", "JPG files (*.jpg)|*.jpg", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
-		//std::shared_ptr<wxFileDialog> openFileDialog{ new wxFileDialog{this, _("Choose photo"), "", "", "JPG files (*.jpg)|*.jpg", wxFD_OPEN | wxFD_FILE_MUST_EXIST } };
+		wxFileDialog openFileDialog{
+			this, _("Choose a file"), _(""), _(""),
+			_("JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png"),
+			wxFD_OPEN | wxFD_FILE_MUST_EXIST
+		};
 
-		//if (openFileDialog->ShowModal() == wxID_CANCEL)	//nothing selected
-		//	return;
+		const auto showResult = openFileDialog.ShowModal();
 
-		//const wxFileInputStream inputStream(openFileDialog->GetPath());	//checking if ok
-		//
-		//if (!inputStream.IsOk())
-		//{
-		//	wxLogError("Cannot open file '%s'.", openFileDialog->GetPath());
-		//	return;
-		//}
+		if (showResult == wxID_CANCEL) //nothing selected
+			return;
 
-		//m_model.LoadImageFromFile(openFileDialog->GetPath());
-		////m_view->Update();
-		///
-		std::shared_ptr<wxFileDialog> WxOpenFileDialog1(new wxFileDialog(this,
-			_("Choose a file"), _(""),
-			_(""), _("JPEG files (*.jpg)|*.jpg"),
-			wxFD_OPEN));
-
-		if (WxOpenFileDialog1->ShowModal() == wxID_OK)
+		if (showResult == wxID_OK)
 		{
-			//LoadImageFromFile(WxOpenFileDialog1->GetPath(), MyBitmap);
-			m_model.LoadImageFromFile(WxOpenFileDialog1->GetPath());
-			//Refresh();
-			m_isImageLoaded = true;
+			m_model.LoadImageFromFile(openFileDialog.GetPath());
+			m_model.IsImageLoaded(true);
+			m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
 		}
-		m_view->UpdateImage();
 	}
 
 	void ControllerFrame::OnMenuSelection_LoadConfig(wxCommandEvent& event)
 	{
-		wxString warningNotSavedMessage;
-		if (/*m_model.IsConfigSaved()*/ true)
-			warningNotSavedMessage.Append("Current config has not been saved!");
-		if (!warningNotSavedMessage.IsEmpty())
-		{
-			warningNotSavedMessage.Append(" Proceed?");
-			if (wxMessageBox(warningNotSavedMessage, _("Please confirm"),
-				wxICON_QUESTION | wxYES_NO, this) == wxNO)
-				return;
-		}
-		
-		wxFileDialog openFileDialog(this, _("Choose config file"), "", "", "JPG files (*.jpg)|*.jpg", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+		wxFileDialog openFileDialog(this, _("Choose config file"), "", "", "JPG files (*.jpg)|*.jpg",
+		                            wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 
-		if (openFileDialog.ShowModal() == wxID_CANCEL)	//nothing selected
+		if (openFileDialog.ShowModal() == wxID_CANCEL) //nothing selected
 			return;
 
-		const wxFileInputStream inputStream(openFileDialog.GetPath());	//checking if ok
+		const wxFileInputStream inputStream(openFileDialog.GetPath()); //checking if ok
 		if (!inputStream.IsOk())
 		{
 			wxLogError("Cannot open file '%s'.", openFileDialog.GetPath());
@@ -231,31 +296,33 @@ namespace GrayscaleConverter
 
 	void ControllerFrame::OnMenuSelection_SaveImage(wxCommandEvent& event)
 	{
-		wxFileDialog saveFileDialog(this, _("Save image to file"), "", "",
-				"JPG files (*.jpg)|*.jpg", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+		wxFileDialog saveFileDialog(this,
+		                            _("Choose a folder"), "",
+		                            "", "JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png",
+		                            wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 
-		if (saveFileDialog.ShowModal() == wxID_CANCEL)	//nothing selected
+		if (saveFileDialog.ShowModal() == wxID_CANCEL) //nothing selected
 			return;
 
-		const wxFileOutputStream output_stream(saveFileDialog.GetPath());	//checking if ok
+		const wxFileOutputStream output_stream(saveFileDialog.GetPath()); //checking if ok
 		if (!output_stream.IsOk())
 		{
 			wxLogError("Cannot save current contents in file '%s'.", saveFileDialog.GetPath());
 			return;
 		}
 
-		//m_model.SaveImageToFile(saveFileDialog.GetPath());
+		m_model.SaveImageToFile(saveFileDialog.GetPath());
 	}
 
 	void ControllerFrame::OnMenuSelection_SaveConfig(wxCommandEvent& event)
 	{
 		wxFileDialog saveFileDialog(this, _("Save config to file"), "", "",
-			"JPG files (*.jpg)|*.jpg", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+		                            "JPG files (*.jpg)|*.jpg", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 
-		if (saveFileDialog.ShowModal() == wxID_CANCEL)	//nothing selected
+		if (saveFileDialog.ShowModal() == wxID_CANCEL) //nothing selected
 			return;
 
-		const wxFileOutputStream output_stream(saveFileDialog.GetPath());	//checking if ok
+		const wxFileOutputStream output_stream(saveFileDialog.GetPath()); //checking if ok
 		if (!output_stream.IsOk())
 		{
 			wxLogError("Cannot save current contents in file '%s'.", saveFileDialog.GetPath());
@@ -272,36 +339,78 @@ namespace GrayscaleConverter
 
 	void ControllerFrame::OnMenuSelection_GoFullscreen(wxCommandEvent& event)
 	{
-		ShowFullScreen(true);
+		static auto fullscreened = false;
+		if (fullscreened)
+		{
+			ShowFullScreen(false, wxFULLSCREEN_NOBORDER);
+			fullscreened = !fullscreened;
+		}
+		else
+		{
+			ShowFullScreen(true, wxFULLSCREEN_NOBORDER);
+			fullscreened = !fullscreened;
+		}
 	}
 
-	void ControllerFrame::OnUpdateUI(wxUpdateUIEvent& event)
+	void ControllerFrame::OnMenuSelection_QualityPreview(wxCommandEvent& event)
 	{
-		//if(m_isImageLoaded)
-		//	m_view->UpdateImage();
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnPaint_RefreshImage(wxPaintEvent& event)
 	{
-		if (m_isImageLoaded)
-			m_view->UpdateImage();
+		if (m_model.IsImageLoaded())
+			m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
 	}
 
+	int ControllerFrame::WarningIfImageNotSaved()
+	{
+		wxString warningNotSavedMessage;
+		if (!m_model.IsResultImageSaved())
+			warningNotSavedMessage.Append("Current image has not been saved! Proceed?");
+		if (!warningNotSavedMessage.IsEmpty())
+		{
+			const auto result = wxMessageBox(warningNotSavedMessage, _("Please confirm"), wxICON_QUESTION | wxYES_NO,
+			                                 this);
+			if (result == wxNO)
+				return result;
+		}
+		return -1;
+	}
 
-	//void ControllerFrame::WarningIfNotSaved(const bool isResultImageSaved, const bool isConfigSaved)
-	//{
-	//	wxString warningNotSavedMessage;
-	//	if (isResultImageSaved)
-	//		warningNotSavedMessage.Append("Current image has not been saved!\n");
-	//	if (isConfigSaved)
-	//		warningNotSavedMessage.Append("Current config has not been saved!\n");
+	void ControllerFrame::AlternateConversionButtons(Model::WorkMode pressedButton)
+	{
+		m_grayscaleButton->SetValue(false);
+		m_bichromeButton->SetValue(false);
 
-	//	if (!warningNotSavedMessage.IsEmpty())
-	//	{
-	//		warningNotSavedMessage.Append(" Proceed?");
-	//		if (wxMessageBox(warningNotSavedMessage, _("Please confirm"),
-	//			wxICON_QUESTION | wxYES_NO, this) == wxNO)
-	//			return;
-	//	}
-	//}
+		ClearImagePreview();
+
+		switch (pressedButton)
+		{
+		case Model::WorkMode::BICHROME:
+			m_bichromeButton->SetValue(true);
+			m_model.SetWorkMode(Model::WorkMode::BICHROME);
+			break;
+		case Model::WorkMode::GREYSCALE:
+			m_grayscaleButton->SetValue(true);
+			m_model.SetWorkMode(Model::WorkMode::GREYSCALE);
+			break;
+		default: ;
+		}
+
+		UpdatePreview();
+	}
+
+	void ControllerFrame::ClearImagePreview()
+	{
+		m_model.SetWorkMode(Model::WorkMode::ORIGINAL);
+		UpdatePreview();
+	}
+
+	void ControllerFrame::UpdatePreview()
+	{
+		m_model.ApplyParametersToThumbnail();
+		m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
+	}
+
 }
