@@ -51,15 +51,17 @@ namespace GreyscaleConverter
 		m_keepHueButton = new wxToggleButton(this, wxID_ANY, wxT("Keep hue"), wxDefaultPosition, wxDefaultSize, 0);
 		barSizer->Add(m_keepHueButton, 0, wxALL | wxEXPAND, 8);
 
-		wxBoxSizer* hueSliderSizer;
-		hueSliderSizer = new wxBoxSizer(wxHORIZONTAL);
+		////////////////////////////////////////
 
-		m_hueSlider = new wxSlider(this, wxID_ANY, 50, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+		wxStaticBoxSizer* hueSliderSizer;
+		hueSliderSizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("Hue")), wxHORIZONTAL);
+
+		m_hueSlider = new wxSlider(hueSliderSizer->GetStaticBox(), wxID_ANY, 180, 0, 359, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 		m_hueSlider->SetMinSize(wxSize(200, -1));
 
-		hueSliderSizer->Add(m_hueSlider, 1, wxALIGN_CENTER_VERTICAL | wxALL, 10);
+		hueSliderSizer->Add(m_hueSlider, 1, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
-		m_hueSliderText = new wxTextCtrl(this, wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(40, -1), 0);
+		m_hueSliderText = new wxTextCtrl(hueSliderSizer->GetStaticBox(), wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(40, -1), 0);
 #ifdef __WXGTK__
 		if (!m_hueSliderText->HasFlag(wxTE_MULTILINE))
 		{
@@ -71,8 +73,34 @@ namespace GreyscaleConverter
 		hueSliderSizer->Add(m_hueSliderText, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
 
-		barSizer->Add(hueSliderSizer, 0, wxEXPAND, 5);
+		barSizer->Add(hueSliderSizer, 0, wxALL | wxEXPAND, 5);
 
+		///////////////////////////////////////////
+		
+		wxStaticBoxSizer* m_intensivitySizer;
+		m_intensivitySizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("Intensivity")), wxHORIZONTAL);
+
+		m_intensivitySlider = new wxSlider(m_intensivitySizer->GetStaticBox(), wxID_ANY, 0, -200, 200, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+		m_intensivitySlider->SetMinSize(wxSize(200, -1));
+
+		m_intensivitySizer->Add(m_intensivitySlider, 1, wxALL | wxALIGN_CENTER_VERTICAL, 5);
+
+		m_intensivityText = new wxTextCtrl(m_intensivitySizer->GetStaticBox(), wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(40, -1), 0);
+#ifdef __WXGTK__
+		if (!m_intensivityText->HasFlag(wxTE_MULTILINE))
+		{
+			m_intensivityText->SetMaxLength(3);
+		}
+#else
+		m_intensivityText->SetMaxLength(3);
+#endif
+		m_intensivitySizer->Add(m_intensivityText, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
+
+
+		barSizer->Add(m_intensivitySizer, 0, wxALL | wxEXPAND, 5);
+
+		//////////////////////////////////
+		
 		wxBoxSizer* raspberriesSizer;
 		raspberriesSizer = new wxBoxSizer(wxVERTICAL);
 

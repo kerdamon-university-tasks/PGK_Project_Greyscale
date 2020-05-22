@@ -58,6 +58,8 @@ namespace GreyscaleConverter
 		wxToggleButton* m_keepHueButton;
 		wxSlider* m_hueSlider;
 		wxTextCtrl* m_hueSliderText;
+		wxSlider* m_intensivitySlider;
+		wxTextCtrl* m_intensivityText;
 		wxBitmapButton* m_raspberriesButton;
 		wxSlider* m_redChannelSlider;
 		wxTextCtrl* m_redChannelText;
