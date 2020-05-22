@@ -25,8 +25,9 @@ namespace GreyscaleConverter
 
 		//getters
 		const wxImage& GetImageThumbnail() const { return m_imageThumbnailCopy; }
-		bool GetIsResultSaved() const { return m_isResultSaved; }
-		bool GetIsConfigSaved() const { return m_isConfigSaved; }
+		bool IsResultImageSaved() const { return m_isResultSaved; }
+		bool IsConfigSaved() const { return m_isConfigSaved; }
+		bool IsImageLoaded() const { return m_isImageLoaded; }
 
 		//setters
 		void SetColorTolerance(double tolerance) { m_colorTolerance = tolerance; }
@@ -37,6 +38,7 @@ namespace GreyscaleConverter
 		void SetWorkMode(WorkMode mode) { m_mode = mode; }
 		void SetIsKeptHue(bool flag) { m_isKeptHue = flag; }
 		void SetBichromeColour(const wxColour colour) { m_bichromeColour = colour; }
+		void IsImageLoaded(bool isLoaded) { m_isImageLoaded = isLoaded; }
 
 		void EasterEgg();
 
@@ -64,5 +66,7 @@ namespace GreyscaleConverter
 		bool m_isKeptHue{ false };
 		bool m_isResultSaved{ false };
 		bool m_isConfigSaved{ false };
+		bool m_isImageLoaded{ false };
+
 	};
 }

@@ -256,6 +256,7 @@ namespace GreyscaleConverter
 		this->Centre(wxBOTH);
 		
 		// Connect Events
+		this->Connect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(Frame::OnClose_Frame));
 		this->Connect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(Frame::OnUpdateUI));
 		m_grayscaleButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
 		m_bichromeButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
@@ -290,6 +291,7 @@ namespace GreyscaleConverter
 	Frame::~Frame()
 	{
 		 //Disconnect Events
+		this->Disconnect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(Frame::OnClose_Frame));
 		this->Disconnect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(Frame::OnUpdateUI));
 		m_grayscaleButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
 		m_bichromeButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);

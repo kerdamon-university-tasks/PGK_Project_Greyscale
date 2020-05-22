@@ -77,6 +77,7 @@ namespace GreyscaleConverter
 		Model m_model;
 
 		 //Virtual event handlers, overide them in your derived class
+		virtual void OnClose_Frame(wxCloseEvent& event) { event.Skip(); }
 		virtual void OnUpdateUI(wxUpdateUIEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_Bichrome(wxCommandEvent& event) { event.Skip(); }

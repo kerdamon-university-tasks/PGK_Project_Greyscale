@@ -6,6 +6,9 @@
 #include <wx/wfstream.h>
 #include <wx/colordlg.h>
 
+//todo wpisywanie nie zmienia obrazka
+//todo dodac procenty w polach tekstowych
+
 namespace GreyscaleConverter
 {
 	ControllerFrame::ControllerFrame(wxWindow* parent)
@@ -15,6 +18,14 @@ namespace GreyscaleConverter
 		m_raspberriesButton->Hide();
 	}
 
+	void ControllerFrame::OnClose_Frame(wxCloseEvent& event)
+	{
+		wxLogDebug("wyjscie");
+		if (WarningIfNotSaved() == wxNO)
+			return;
+		Destroy();
+	}
+	
 	void ControllerFrame::OnButtonClick_ConvertToGrayscale(wxCommandEvent& event)
 	{
 		if (m_bichromeButton->GetValue())
@@ -249,43 +260,22 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnMenuSelection_LoadImage(wxCommandEvent& event)
 	{
-		//wxString warningNotSavedMessage;
-		//if (/*m_model.IsResultImageSaved()*/ true)
-		//	warningNotSavedMessage.Append("Current image has not been saved!");
-		//if (!warningNotSavedMessage.IsEmpty())
-		//{
-		//	warningNotSavedMessage.Append(" Proceed?");
-		//	if (wxMessageBox(warningNotSavedMessage, _("Please confirm"),
-		//		wxICON_QUESTION | wxYES_NO, this) == wxNO)
-		//		return;
-		//}
 
-		////wxFileDialog openFileDialog(this, _("Choose photo"), "", "", "JPG files (*.jpg)|*.jpg", wxFD_OPEN | wxFD_FILE_MUST_EXIST);
-		//std::shared_ptr<wxFileDialog> openFileDialog{ new wxFileDialog{this, _("Choose photo"), "", "", "JPG files (*.jpg)|*.jpg", wxFD_OPEN | wxFD_FILE_MUST_EXIST } };
+		if (WarningIfNotSaved() == wxNO)
+			return;
+		
+		wxFileDialog openFileDialog{
+			this, _("Choose a file"), _(""), _(""),
+			_("JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png"),
+			wxFD_OPEN | wxFD_FILE_MUST_EXIST };
 
-		//if (openFileDialog->ShowModal() == wxID_CANCEL)	//nothing selected
-		//	return;
-
-		//const wxFileInputStream inputStream(openFileDialog->GetPath());	//checking if ok
-		//
-		//if (!inputStream.IsOk())
-		//{
-		//	wxLogError("Cannot open file '%s'.", openFileDialog->GetPath());
-		//	return;
-		//}
-
-		//m_model.LoadImageFromFile(openFileDialog->GetPath());
-		////m_view->Update();
-		///
-		std::shared_ptr<wxFileDialog> WxOpenFileDialog1(new wxFileDialog(this,
-			_("Choose a file"), _(""),
-			_(""), _("JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png"),
-			wxFD_OPEN));
-
-		if (WxOpenFileDialog1->ShowModal() == wxID_OK)
+		if (openFileDialog.ShowModal() == wxID_CANCEL)	//nothing selected
+			return;
+		
+		if (openFileDialog.ShowModal() == wxID_OK)
 		{
-			m_model.LoadImageFromFile(WxOpenFileDialog1->GetPath());
-			m_isImageLoaded = true;
+			m_model.LoadImageFromFile(openFileDialog.GetPath());
+			m_model.IsImageLoaded(true);
 			m_view->UpdateImage();
 		}
 
@@ -379,33 +369,27 @@ namespace GreyscaleConverter
 		}
 	}
 
-	void ControllerFrame::OnUpdateUI(wxUpdateUIEvent& event)
-	{
-		//if(m_isImageLoaded)
-		//	m_view->UpdateImage();
-	}
-
 	void ControllerFrame::OnPaint_RefreshImage(wxPaintEvent& event)
 	{
-		if (m_isImageLoaded)
+		if (m_model.IsImageLoaded())
 			m_view->UpdateImage();
 	}
 
+	int ControllerFrame::WarningIfNotSaved()
+	{
+		wxString warningNotSavedMessage;
+		if (!m_model.IsResultImageSaved())
+			warningNotSavedMessage.Append("Current image has not been saved!\n");
+		if (!m_model.IsConfigSaved())
+			warningNotSavedMessage.Append("Current config has not been saved!\n");
 
-	//void ControllerFrame::WarningIfNotSaved(const bool isResultImageSaved, const bool isConfigSaved)
-	//{
-	//	wxString warningNotSavedMessage;
-	//	if (isResultImageSaved)
-	//		warningNotSavedMessage.Append("Current image has not been saved!\n");
-	//	if (isConfigSaved)
-	//		warningNotSavedMessage.Append("Current config has not been saved!\n");
-
-	//	if (!warningNotSavedMessage.IsEmpty())
-	//	{
-	//		warningNotSavedMessage.Append(" Proceed?");
-	//		if (wxMessageBox(warningNotSavedMessage, _("Please confirm"),
-	//			wxICON_QUESTION | wxYES_NO, this) == wxNO)
-	//			return;
-	//	}
-	//}
+		if (!warningNotSavedMessage.IsEmpty())
+		{
+			warningNotSavedMessage.Append(" Proceed?");
+			const auto result = wxMessageBox(warningNotSavedMessage, _("Please confirm"), wxICON_QUESTION | wxYES_NO, this);
+			if ( result == wxNO)
+				return result;
+		}
+		return -1;
+	}
 }
