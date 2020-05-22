@@ -115,10 +115,10 @@ namespace GreyscaleConverter
 		raspberriesSizer->Add(m_raspberriesButton, 0, wxALIGN_CENTER | wxALL | wxSHAPED | wxEXPAND, 5);
 
 
-		barSizer->Add(raspberriesSizer, 1, wxEXPAND, 5);
+		barSizer->Add(raspberriesSizer, 1, wxEXPAND|wxRESERVE_SPACE_EVEN_IF_HIDDEN, 5);
 
-		wxBoxSizer* channelsSizer;
-		channelsSizer = new wxBoxSizer(wxVERTICAL);
+		//wxBoxSizer* channelsSizer;
+		//channelsSizer = new wxBoxSizer(wxVERTICAL);
 
 		wxStaticBoxSizer* redChannelSizer;
 		redChannelSizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("Red")), wxHORIZONTAL);
@@ -140,7 +140,9 @@ namespace GreyscaleConverter
 		redChannelSizer->Add(m_redChannelText, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
 
-		channelsSizer->Add(redChannelSizer, 1, wxALIGN_BOTTOM | wxALL | wxEXPAND, 5);
+		//channelsSizer->Add(redChannelSizer, 1, wxALIGN_BOTTOM | wxALL | wxEXPAND, 5);
+
+		barSizer->Add(redChannelSizer, 0, wxALIGN_BOTTOM | wxALL | wxEXPAND, 5);
 
 		wxStaticBoxSizer* greenChannelSizer;
 		greenChannelSizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("Green")), wxHORIZONTAL);
@@ -162,7 +164,8 @@ namespace GreyscaleConverter
 		greenChannelSizer->Add(m_greenChannelText, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
 
 
-		channelsSizer->Add(greenChannelSizer, 1, wxALIGN_BOTTOM | wxALL | wxEXPAND, 5);
+		//channelsSizer->Add(greenChannelSizer, 1, wxALIGN_BOTTOM | wxALL | wxEXPAND, 5);
+		barSizer->Add(greenChannelSizer, 0, wxALIGN_BOTTOM | wxALL | wxEXPAND, 5);
 
 		wxStaticBoxSizer* blueChannelSizer;
 		blueChannelSizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("Blue")), wxHORIZONTAL);
@@ -184,10 +187,11 @@ namespace GreyscaleConverter
 		blueChannelSizer->Add(m_blueChannelText, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
 
 
-		channelsSizer->Add(blueChannelSizer, 1, wxALL | wxEXPAND, 5);
+		//channelsSizer->Add(blueChannelSizer, 1, wxALL | wxEXPAND, 5);
+		barSizer->Add(blueChannelSizer, 0, wxALIGN_BOTTOM | wxALL | wxEXPAND, 5);
 
 
-		barSizer->Add(channelsSizer, 1, wxALIGN_BOTTOM | wxEXPAND | wxSHAPED, 5);
+		//barSizer->Add(channelsSizer, 1, wxALIGN_BOTTOM | wxEXPAND | wxSHAPED, 5);
 
 
 		mainSizer->Add(barSizer, 0, wxEXPAND, 5);
