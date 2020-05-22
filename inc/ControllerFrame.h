@@ -22,7 +22,7 @@ namespace GreyscaleConverter
 		void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event);
 		void OnButtonClick_Bichrome(wxCommandEvent& event);
 		void OnColourChanged_PickColour(wxColourPickerEvent& event);
-		void OnCheckBox_KeepOneHue(wxCommandEvent& event);
+		void OnButtonClick_KeepOneHue(wxCommandEvent& event);
 		void OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event);
 		void OnText_ChangeHueIntensivity(wxCommandEvent& event);
 		void OnButtonClick_RaspberriesButton(wxCommandEvent& event);

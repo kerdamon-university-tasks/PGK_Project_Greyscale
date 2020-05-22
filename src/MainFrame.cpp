@@ -48,8 +48,8 @@ namespace GreyscaleConverter
 		m_staticline2 = new wxStaticLine(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLI_HORIZONTAL);
 		barSizer->Add(m_staticline2, 0, wxEXPAND | wxALL, 5);
 
-		m_keepHueCheckBox = new wxCheckBox(this, wxID_ANY, wxT("Keep one hue"), wxDefaultPosition, wxDefaultSize, 0);
-		barSizer->Add(m_keepHueCheckBox, 0, wxALIGN_CENTER | wxALL, 8);
+		m_keepHueButton = new wxToggleButton(this, wxID_ANY, wxT("Keep hue"), wxDefaultPosition, wxDefaultSize, 0);
+		barSizer->Add(m_keepHueButton, 0, wxALL | wxEXPAND, 8);
 
 		wxBoxSizer* hueSliderSizer;
 		hueSliderSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -228,7 +228,7 @@ namespace GreyscaleConverter
 		//m_bichromeButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
 		//m_pickColourButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_PickColour), NULL, this);
 		m_pickColourButton->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickColour), NULL, this);
-		m_keepHueCheckBox->Connect(wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler(Frame::OnCheckBox_KeepOneHue), NULL, this);
+		m_keepHueButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_KeepOneHue), NULL, this);
 		m_hueSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
 		m_hueSliderText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeHueIntensivity), NULL, this);
 		m_raspberriesButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_RaspberriesButton), NULL, this);
@@ -258,7 +258,7 @@ namespace GreyscaleConverter
 		//m_bichromeButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
 		m_pickColourButton->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickColour), NULL, this);
 		//m_pickColourButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_PickColour), NULL, this);
-		m_keepHueCheckBox->Disconnect(wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler(Frame::OnCheckBox_KeepOneHue), NULL, this);
+		m_keepHueButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_KeepOneHue), NULL, this);
 		//m_hueSlider->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollChanged_HueIntesivity ), NULL, this );
 		m_hueSlider->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
 		m_hueSliderText->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeHueIntensivity), NULL, this);

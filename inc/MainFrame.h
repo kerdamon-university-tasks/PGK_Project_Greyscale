@@ -55,7 +55,7 @@ namespace GreyscaleConverter
 		wxToggleButton* m_bichromeButton;
 		wxColourPickerCtrl* m_pickColourButton;
 		wxStaticLine* m_staticline2;
-		wxCheckBox* m_keepHueCheckBox;
+		wxToggleButton* m_keepHueButton;
 		wxSlider* m_hueSlider;
 		wxTextCtrl* m_hueSliderText;
 		wxBitmapButton* m_raspberriesButton;
@@ -79,7 +79,7 @@ namespace GreyscaleConverter
 		virtual void OnButtonClick_Bichrome(wxCommandEvent& event) { event.Skip(); }
 		//virtual void OnButtonClick_PickColour(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnColourChanged_PickColour(wxColourPickerEvent& event) { event.Skip(); }
-		virtual void OnCheckBox_KeepOneHue(wxCommandEvent& event) { event.Skip(); }
+		virtual void OnButtonClick_KeepOneHue(wxCommandEvent& event) { event.Skip(); }
 		//virtual void OnScrollChanged_HueIntesivity( wxScrollEvent& event ) { event.Skip(); }
 		virtual void OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event) { event.Skip(); }
 		virtual void OnText_ChangeHueIntensivity(wxCommandEvent& event) { event.Skip(); }

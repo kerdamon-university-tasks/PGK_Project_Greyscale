@@ -45,9 +45,9 @@ namespace GreyscaleConverter
 		m_model.ApplyParametersToThumbnail();
 	}
 
-	void ControllerFrame::OnCheckBox_KeepOneHue(wxCommandEvent& event)
+	void ControllerFrame::OnButtonClick_KeepOneHue(wxCommandEvent& event)
 	{
-		if (m_keepHueCheckBox->IsChecked())
+		if (m_keepHueButton->GetValue())
 			m_model.SetIsKeptHue(true);
 		else;
 			m_model.SetIsKeptHue(false);
@@ -238,8 +238,6 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnMenuSelection_SaveImage(wxCommandEvent& event)
 	{
-		//wxFileDialog saveFileDialog(this, _("Save image to file"), "", "",
-		//		"JPG files (*.jpg)|*.jpg", wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 
 		wxFileDialog saveFileDialog(this,
 			_("Choose a folder"), "",
