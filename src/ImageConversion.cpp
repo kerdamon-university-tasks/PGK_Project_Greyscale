@@ -1,6 +1,4 @@
 #include "inc/ImageConversion.h"
-#include <wx/log.h>
-#include <wx/translation.h>
 
 namespace GreyscaleConverter
 {
@@ -12,39 +10,28 @@ namespace GreyscaleConverter
         /// TODO bichromia
     }
 
-    void ImageConversion::ConvertToGreyScale(wxImage& imgTo, int chRed, int chGreen, int chBlue)
+    void ImageConversion::ConvertToGreyScale(wxImage& image, int chRed, int chGreen, int chBlue)
     {
-    	/*if(redChannel + greenChannel + blueChannel > 1)
-    	{
-            double adjustment{ (redChannel + greenChannel + blueChannel) };
-            redChannel /= adjustment;
-            greenChannel /= adjustment;
-            blueChannel /= adjustment;
-    	}*/
+        unsigned char* imgData{ image.GetData() };
+        const auto imgDataSize{ image.GetWidth() * image.GetHeight() * 3 };
 
-        //imgTo = imgTo.ConvertToGreyscale(redChannel, greenChannel, blueChannel);
-        
-        //int factor{ chRed + chGreen + chBlue };
-    	
-        unsigned char* imgData = imgTo.GetData();
-        const auto imgDataSize = imgTo.GetWidth() * imgTo.GetHeight() * 3;
-
-        float chRedFloat = chRed / 100.;
-        float chGreenFloat = chGreen / 100.;
-        float chBlueFloat = chBlue / 100.;
+        const float chRedFloat { static_cast<float>(chRed) / 100.f };
+        const float chGreenFloat{ static_cast<float>(chGreen) / 100.f };
+        const float chBlueFloat{ static_cast<float>(chBlue) / 100.f };
 
         for (int i = 0; i < imgDataSize; i+=3)
         {
             float y, u, v;
-            RGBtoYUV(y, u, v, imgData[i] * chRedFloat, imgData[i + 1] * chGreenFloat, imgData[i + 2] * chBlueFloat);
-            float r, g, b;
+            float r{ static_cast<float>(imgData[i]) * chRedFloat };
+            float g{ static_cast<float>(imgData[i + 1]) * chGreenFloat };
+        	float b{ static_cast<float>(imgData[i + 2]) * chBlueFloat };
+            RGBtoYUV(y, u, v, r, g, b);
             YUVtoRGB(r, g, b, y, u, v);
-            float gr = (r + g + b) / 3.;
+            float gr{ (r + g + b) / 3.f };
             gr = gr > 255 ? 255 : gr;
             gr = gr < 0 ? 0 :gr;
             imgData[i] = imgData[i+1] = imgData[i+2] =static_cast<unsigned char>(gr);
         }
-        
     }
 
     void RGBtoYUV(float& Y, float& U, float& V, const float R, const float G, const float B)

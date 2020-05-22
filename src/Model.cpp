@@ -46,9 +46,11 @@ namespace GreyscaleConverter
 		switch (m_mode)
 		{
 			case WorkMode::BICHROME:
+				m_originalImageCopy = m_originalImage.Copy();
 				ImageConversion::ConvertToBichrome(m_originalImageCopy);
 				break;
 			case WorkMode::GREYSCALE:
+				m_originalImageCopy = m_originalImage.Copy();
 				ImageConversion::ConvertToGreyScale(m_originalImageCopy, m_redChannel, m_greenChannel, m_blueChannel);
 				break;
 			case WorkMode::ORIGINAL:
@@ -75,6 +77,7 @@ namespace GreyscaleConverter
 		switch (m_mode)
 		{
 		case WorkMode::BICHROME:
+			m_imageThumbnailCopy = m_imageThumbnail.Copy();
 			ImageConversion::ConvertToBichrome(m_imageThumbnailCopy);
 			break;
 		case WorkMode::GREYSCALE:
