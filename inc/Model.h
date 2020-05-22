@@ -64,8 +64,8 @@ namespace GreyscaleConverter
 		int m_greenChannel{ 0 };
 		
 		bool m_isKeptHue{ false };
-		bool m_isResultSaved{ false };
-		bool m_isConfigSaved{ false };
+		bool m_isResultSaved{ true };
+		bool m_isConfigSaved{ true };
 		bool m_isImageLoaded{ false };
 
 	};

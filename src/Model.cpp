@@ -70,6 +70,8 @@ namespace GreyscaleConverter
 
 	void Model::ApplyParametersToThumbnail()
 	{
+		m_isResultSaved = false;
+		
 		switch (m_mode)
 		{
 		case WorkMode::BICHROME:

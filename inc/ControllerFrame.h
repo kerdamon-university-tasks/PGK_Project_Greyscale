@@ -39,8 +39,10 @@ namespace GreyscaleConverter
 		
 	private:
 
-		int WarningIfNotSaved();
-
+		int WarningIfImageNotSaved();
 		
+		void AlternateConversionButtons(Model::WorkMode pressedButton);
+		void ClearImagePreview();
+		void UpdatePreview();
 	};
 }
