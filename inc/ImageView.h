@@ -19,7 +19,7 @@ namespace GreyscaleConverter
 		{
 		}
 
-		void UpdateImage();
+		void UpdateImage(bool highQuality);
 
 	private:
 

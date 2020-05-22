@@ -70,13 +70,15 @@ namespace GreyscaleConverter
 		wxTextCtrl* m_blueChannelText;
 		wxMenuBar* m_menubar;
 		wxMenu* fileMenu;
-		wxMenu* m_menu3;
+		wxMenu* m_viewMenu;
+		wxMenuItem* m_menuItemQualityPreview;
 
 		ImageView* m_view;
 		//wxPanel* m_view;
 		Model m_model;
 
 		 //Virtual event handlers, overide them in your derived class
+		virtual void OnClose_Frame(wxCloseEvent& event) { event.Skip(); }
 		virtual void OnUpdateUI(wxUpdateUIEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_Bichrome(wxCommandEvent& event) { event.Skip(); }
@@ -99,7 +101,8 @@ namespace GreyscaleConverter
 		virtual void OnMenuSelection_SaveConfig(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnMenuSelection_Exit(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnMenuSelection_GoFullscreen(wxCommandEvent& event) { event.Skip(); }
-
+		virtual void OnMenuSelection_QualityPreview(wxCommandEvent& event) { event.Skip(); }
+		
 		virtual void OnPaint_RefreshImage(wxPaintEvent& event) { event.Skip(); }
 
 	public:
