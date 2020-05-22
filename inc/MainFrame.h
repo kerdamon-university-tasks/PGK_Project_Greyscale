@@ -60,6 +60,7 @@ namespace GreyscaleConverter
 		wxTextCtrl* m_hueSliderText;
 		wxSlider* m_intensivitySlider;
 		wxTextCtrl* m_intensivityText;
+		wxStaticLine* m_staticline3;
 		wxBitmapButton* m_raspberriesButton;
 		wxSlider* m_redChannelSlider;
 		wxTextCtrl* m_redChannelText;
@@ -79,20 +80,17 @@ namespace GreyscaleConverter
 		virtual void OnUpdateUI(wxUpdateUIEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_Bichrome(wxCommandEvent& event) { event.Skip(); }
-		//virtual void OnButtonClick_PickColour(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnColourChanged_PickColour(wxColourPickerEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_KeepOneHue(wxCommandEvent& event) { event.Skip(); }
-		//virtual void OnScrollChanged_HueIntesivity( wxScrollEvent& event ) { event.Skip(); }
+		virtual void OnScrollThumbTrack_HueKept(wxScrollEvent& event) { event.Skip(); }
+		virtual void OnText_HueKept(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event) { event.Skip(); }
 		virtual void OnText_ChangeHueIntensivity(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_RaspberriesButton(wxCommandEvent& event) { event.Skip(); }
-		//virtual void OnScrollChanged_ChangeRedChannel( wxScrollEvent& event ) { event.Skip(); }
 		virtual void OnScrollThumbTrack_ChangeRedChannel(wxScrollEvent& event) { event.Skip(); }
 		virtual void OnText_ChangeRedChannel(wxCommandEvent& event) { event.Skip(); }
-		//virtual void OnScrollChanged_ChangeGreenChannel( wxScrollEvent& event ) { event.Skip(); }
 		virtual void OnScrollThumbTrack_ChangeGreenChannel(wxScrollEvent& event) { event.Skip(); }
 		virtual void OnText_ChangeGreenChannel(wxCommandEvent& event) { event.Skip(); }
-		//virtual void OnScrollChanged_ChangeBlueChannel( wxScrollEvent& event ) { event.Skip(); }
 		virtual void OnScrollThumbTrack_ChangeBlueChannel(wxScrollEvent& event) { event.Skip(); }
 		virtual void OnText_ChangeBlueChannel(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnMenuSelection_LoadImage(wxCommandEvent& event) { event.Skip(); }
@@ -106,7 +104,7 @@ namespace GreyscaleConverter
 
 	public:
 
-		Frame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Conversion to grayscale - project"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1002, 692), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
+		Frame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Conversion to grayscale - project"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1002, 710), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
 
 		~Frame();
 

@@ -25,6 +25,8 @@ namespace GreyscaleConverter
 		void OnButtonClick_KeepOneHue(wxCommandEvent& event);
 		void OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event);
 		void OnText_ChangeHueIntensivity(wxCommandEvent& event);
+		void OnScrollThumbTrack_HueKept(wxScrollEvent& event);
+		void OnText_HueKept(wxCommandEvent& event);
 		void OnButtonClick_RaspberriesButton(wxCommandEvent& event);
 		void OnScrollThumbTrack_ChangeRedChannel(wxScrollEvent& event);
 		void OnText_ChangeRedChannel(wxCommandEvent& event);

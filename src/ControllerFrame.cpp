@@ -56,11 +56,11 @@ namespace GreyscaleConverter
 	void ControllerFrame::OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event)
 	{
 		wxString newText;
-		newText << m_hueSlider->GetValue();
-		m_hueSliderText->SetValue(newText);
+		newText << m_intensivitySlider->GetValue();
+		m_intensivityText->SetValue(newText);
 		
 		double value;
-		if (!m_hueSliderText->GetValue().ToDouble(&value))
+		if (!m_intensivityText->GetValue().ToDouble(&value))
 			return;
 		
 		m_model.SetColorTolerance(value);
@@ -69,9 +69,48 @@ namespace GreyscaleConverter
 	void ControllerFrame::OnText_ChangeHueIntensivity(wxCommandEvent& event)
 	{
 		long value;
+		if (!m_intensivityText->GetValue().ToLong(&value))
+			return;
+
+		m_intensivitySlider->SetValue(value);
+
+		m_model.SetColorTolerance(value);
+	}
+
+	void ControllerFrame::OnScrollThumbTrack_HueKept(wxScrollEvent& event)
+	{
+		wxString newText;
+		newText << m_hueSlider->GetValue();
+		m_hueSliderText->SetValue(newText);
+
+		double value;
+		if (!m_hueSliderText->GetValue().ToDouble(&value))
+			return;
+
+		m_model.SetColorTolerance(value);
+	}
+
+	void ControllerFrame::OnText_HueKept(wxCommandEvent& event)
+	{
+		long value;
 		if (!m_hueSliderText->GetValue().ToLong(&value))
 			return;
 
+		if(value > m_hueSlider->GetMax())
+		{
+			value = m_hueSlider->GetMax();
+			wxString newText;
+			newText << value;
+			m_hueSliderText->SetValue(newText);
+		}
+		else if(value < m_hueSlider->GetMin())
+		{
+			value = m_hueSlider->GetMin();
+			wxString newText;
+			newText << value;
+			m_hueSliderText->SetValue(newText);
+		}
+		
 		m_hueSlider->SetValue(value);
 
 		m_model.SetColorTolerance(value);
@@ -103,6 +142,21 @@ namespace GreyscaleConverter
 		if (!m_redChannelText->GetValue().ToLong(&value))
 			return;
 
+		if (value > m_redChannelSlider->GetMax())
+		{
+			value = m_redChannelSlider->GetMax();
+			wxString newText;
+			newText << value;
+			m_redChannelText->SetValue(newText);
+		}
+		else if (value < m_redChannelSlider->GetMin())
+		{
+			value = m_redChannelSlider->GetMin();
+			wxString newText;
+			newText << value;
+			m_redChannelText->SetValue(newText);
+		}
+		
 		m_redChannelSlider->SetValue(value);
 
 		m_model.SetRedChannel(value);
@@ -130,6 +184,21 @@ namespace GreyscaleConverter
 		if (!m_greenChannelText->GetValue().ToLong(&value))
 			return;
 
+		if (value > m_greenChannelSlider->GetMax())
+		{
+			value = m_greenChannelSlider->GetMax();
+			wxString newText;
+			newText << value;
+			m_greenChannelText->SetValue(newText);
+		}
+		else if (value < m_greenChannelSlider->GetMin())
+		{
+			value = m_greenChannelSlider->GetMin();
+			wxString newText;
+			newText << value;
+			m_greenChannelText->SetValue(newText);
+		}
+		
 		m_greenChannelSlider->SetValue(value);
 
 		m_model.SetGreenChannel(value);
@@ -157,6 +226,21 @@ namespace GreyscaleConverter
 		if (!m_blueChannelText->GetValue().ToLong(&value))
 			return;
 
+		if (value > m_blueChannelSlider->GetMax())
+		{
+			value = m_blueChannelSlider->GetMax();
+			wxString newText;
+			newText << value;
+			m_blueChannelText->SetValue(newText);
+		}
+		else if (value < m_blueChannelSlider->GetMin())
+		{
+			value = m_blueChannelSlider->GetMin();
+			wxString newText;
+			newText << value;
+			m_blueChannelText->SetValue(newText);
+		}
+		
 		m_blueChannelSlider->SetValue(value);
 
 		m_model.SetBlueChannel(value);
