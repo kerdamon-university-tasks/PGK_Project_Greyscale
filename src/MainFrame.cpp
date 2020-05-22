@@ -243,12 +243,16 @@ namespace GreyscaleConverter
 
 		m_menubar->Append(fileMenu, wxT("File"));
 
-		m_menu3 = new wxMenu();
+		m_viewMenu = new wxMenu();
 		wxMenuItem* m_fullscreen;
-		m_fullscreen = new wxMenuItem(m_menu3, wxID_ANY, wxString(wxT("Fullscreen")) + wxT('\t') + wxT("F12"), wxEmptyString, wxITEM_NORMAL);
-		m_menu3->Append(m_fullscreen);
+		m_fullscreen = new wxMenuItem(m_viewMenu, wxID_ANY, wxString(wxT("Fullscreen")) + wxT('\t') + wxT("F12"), wxEmptyString, wxITEM_NORMAL);
+		m_viewMenu->Append(m_fullscreen);
 
-		m_menubar->Append(m_menu3, wxT("View"));
+		//wxMenuItem* m_menuItemQualityPreview;
+		m_menuItemQualityPreview = new wxMenuItem(fileMenu, wxID_ANY, wxString(wxT("Render high quiality preview")), wxEmptyString, wxITEM_CHECK);
+		m_viewMenu->Append(m_menuItemQualityPreview);
+
+		m_menubar->Append(m_viewMenu, wxT("View"));
 
 		this->SetMenuBar(m_menubar);
 
@@ -283,8 +287,9 @@ namespace GreyscaleConverter
 		fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_SaveImage), this, m_saveImage->GetId());
 		fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_SaveConfig), this, m_saveConfig->GetId());
 		fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_Exit), this, m_exit->GetId());
-		m_menu3->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_GoFullscreen), this, m_fullscreen->GetId());
-
+		m_viewMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_GoFullscreen), this, m_fullscreen->GetId());
+		m_viewMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_QualityPreview), this, m_menuItemQualityPreview->GetId());
+		
 		Bind(wxEVT_PAINT, wxPaintEventHandler(Frame::OnPaint_RefreshImage), this);
 	}
 

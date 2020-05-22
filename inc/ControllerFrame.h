@@ -34,6 +34,7 @@ namespace GreyscaleConverter
 		void OnMenuSelection_SaveConfig(wxCommandEvent& event);
 		void OnMenuSelection_Exit(wxCommandEvent& event);
 		void OnMenuSelection_GoFullscreen(wxCommandEvent& event);
+		void OnMenuSelection_QualityPreview(wxCommandEvent& event);
 
 		void OnPaint_RefreshImage(wxPaintEvent& event) override;
 		

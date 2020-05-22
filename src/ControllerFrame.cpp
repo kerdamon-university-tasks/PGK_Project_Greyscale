@@ -6,7 +6,6 @@
 #include <wx/wfstream.h>
 #include <wx/colordlg.h>
 
-//todo wpisywanie nie zmienia obrazka
 //todo dodac procenty w polach tekstowych
 
 namespace GreyscaleConverter
@@ -135,8 +134,8 @@ namespace GreyscaleConverter
 			return;
 
 		m_model.SetRedChannel(value);
-		m_model.ApplyParametersToThumbnail();
-		m_view->UpdateImage();
+
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnText_ChangeRedChannel(wxCommandEvent& event)
@@ -163,7 +162,8 @@ namespace GreyscaleConverter
 		m_redChannelSlider->SetValue(value);
 
 		m_model.SetRedChannel(value);
-		m_view->UpdateImage();
+
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_ChangeGreenChannel(wxScrollEvent& event)
@@ -177,8 +177,8 @@ namespace GreyscaleConverter
 			return;
 
 		m_model.SetGreenChannel(value);
-		m_model.ApplyParametersToThumbnail();
-		m_view->UpdateImage();
+
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnText_ChangeGreenChannel(wxCommandEvent& event)
@@ -205,7 +205,8 @@ namespace GreyscaleConverter
 		m_greenChannelSlider->SetValue(value);
 
 		m_model.SetGreenChannel(value);
-		m_view->UpdateImage();
+		
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_ChangeBlueChannel(wxScrollEvent& event)
@@ -220,7 +221,8 @@ namespace GreyscaleConverter
 
 		m_model.SetBlueChannel(value);
 		m_model.ApplyParametersToThumbnail();
-		m_view->UpdateImage();
+
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnText_ChangeBlueChannel(wxCommandEvent& event)
@@ -246,8 +248,7 @@ namespace GreyscaleConverter
 
 		m_blueChannelSlider->SetValue(value);
 
-		m_model.SetBlueChannel(value);
-		m_view->UpdateImage();
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnMenuSelection_LoadImage(wxCommandEvent& event)
@@ -270,7 +271,7 @@ namespace GreyscaleConverter
 		{
 			m_model.LoadImageFromFile(openFileDialog.GetPath());
 			m_model.IsImageLoaded(true);
-			m_view->UpdateImage();
+			m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
 		}
 	}
 
@@ -351,10 +352,15 @@ namespace GreyscaleConverter
 		}
 	}
 
+	void ControllerFrame::OnMenuSelection_QualityPreview(wxCommandEvent& event)
+	{
+		UpdatePreview();
+	}
+
 	void ControllerFrame::OnPaint_RefreshImage(wxPaintEvent& event)
 	{
 		if (m_model.IsImageLoaded())
-			m_view->UpdateImage();
+			m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
 	}
 
 	int ControllerFrame::WarningIfImageNotSaved()
@@ -404,7 +410,7 @@ namespace GreyscaleConverter
 	void ControllerFrame::UpdatePreview()
 	{
 		m_model.ApplyParametersToThumbnail();
-		m_view->UpdateImage();
+		m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
 	}
 
 }

@@ -3,7 +3,7 @@
 namespace GreyscaleConverter
 {
 
-	void ImageView::UpdateImage()
+	void ImageView::UpdateImage(const bool highQuality)
 	{
 		auto imageThumbnail = m_model.GetImageThumbnail();
 		if (!imageThumbnail.IsOk())
@@ -12,7 +12,14 @@ namespace GreyscaleConverter
 		const auto x = GetSize().x;
 		const auto y = GetSize().y;
 		if(x > 0 && y > 0)
-			imageThumbnail.Rescale(x, y);
+		{
+			if (highQuality)
+				imageThumbnail.Rescale(x, y, wxIMAGE_QUALITY_HIGH);
+			else
+				imageThumbnail.Rescale(x, y);
+		}
+			
+
 
 		wxClientDC clientDc{ this };
 		wxBufferedDC bufferedDc{ &clientDc };
