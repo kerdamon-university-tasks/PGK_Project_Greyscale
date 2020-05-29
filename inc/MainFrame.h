@@ -82,7 +82,7 @@ namespace GreyscaleConverter
 		virtual void OnUpdateUI(wxUpdateUIEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_Bichrome(wxCommandEvent& event) { event.Skip(); }
-		virtual void OnColourChanged_PickColour(wxColourPickerEvent& event) { event.Skip(); }
+		virtual void OnColourChanged_PickBichromeColour(wxColourPickerEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_KeepOneHue(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnScrollThumbTrack_HueKept(wxScrollEvent& event) { event.Skip(); }
 		virtual void OnText_HueKept(wxCommandEvent& event) { event.Skip(); }

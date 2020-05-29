@@ -264,7 +264,7 @@ namespace GreyscaleConverter
 		this->Connect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(Frame::OnUpdateUI));
 		m_grayscaleButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
 		m_bichromeButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
-		m_pickColourButton->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickColour), NULL, this);
+		m_pickColourButton->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickBichromeColour), NULL, this);
 		m_keepHueButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_KeepOneHue), NULL, this);
 		m_intensivitySlider->Connect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
 		m_intensivitySlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
@@ -300,7 +300,7 @@ namespace GreyscaleConverter
 		this->Disconnect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(Frame::OnUpdateUI));
 		m_grayscaleButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
 		m_bichromeButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
-		m_pickColourButton->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickColour), NULL, this);
+		m_pickColourButton->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickBichromeColour), NULL, this);
 		m_keepHueButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_KeepOneHue), NULL, this);
 		m_hueSlider->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollThumbTrack_HueIntesivity), NULL, this );
 		m_intensivitySlider->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
