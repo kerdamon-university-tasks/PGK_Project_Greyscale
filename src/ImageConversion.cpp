@@ -1,8 +1,6 @@
 #include "../inc/ImageConversion.h"
 #include "inc/ImageConversion.h"
 
-#include <wx/log.h>
-
 namespace GreyscaleConverter
 {
     void ImageConversion::ConvertToBichrome(wxImage& image, wxColour& colour, bool keepHue, int hueToKeep, int tolerance)
@@ -18,8 +16,6 @@ namespace GreyscaleConverter
         const auto imgDataSize{ image.GetWidth() * image.GetHeight() * 3 };
 
         lightness = lightness * 2.f - 1.f;
-        //wxLogError("H = %f\nS = %f\nL = %f",hue,saturation,lightness);
-        //wxLogError("R = %f\nG = %f\nB = %f", red, green, blue);
     	
         for (int i = 0; i < imgDataSize; i += 3)
         {
@@ -31,22 +27,24 @@ namespace GreyscaleConverter
             RGBtoHSL(pixelHue, pixelSaturation, pixelLightness, pixelRed, pixelGreen, pixelBlue);
 
             bool shouldKeep{ false };
-            if (keepHue)
+            if (keepHue && tolerance > 0)
             {
-	            const float hueTolerance = 3.6f * tolerance;
+	            const float hueTolerance = 1.8f * tolerance;
 
-                if (pixelHue >= hueToKeep - hueTolerance && pixelHue <= hueToKeep + hueTolerance)
+                if (pixelHue >= 360.f - hueTolerance + hueToKeep || pixelHue <= hueToKeep + hueTolerance - 360.f)
+                    shouldKeep = true;
+                else if (pixelHue >= static_cast<float>(hueToKeep) - hueTolerance && pixelHue <= static_cast<float>(hueToKeep) + hueTolerance)
                     shouldKeep = true;
             }
             if (!shouldKeep)
             {
                 pixelHue = hue;
-                pixelSaturation = saturation + 1.1 * pixelLightness;
+                pixelSaturation = saturation + 1.1f * pixelLightness;
                 if (pixelSaturation > 1)
                     pixelSaturation = 1;
                 if (pixelSaturation < 0)
                     pixelSaturation = 0;
-                pixelLightness = lightness + 1.1 * pixelLightness;
+                pixelLightness = lightness + 1.1f * pixelLightness;
                 if (pixelLightness > 1)
                     pixelLightness = 1;
                 if (pixelLightness < 0)
@@ -77,14 +75,16 @@ namespace GreyscaleConverter
         	float b{ static_cast<float>(imgData[i + 2]) };
 
             bool shouldKeep{ false };
-            if (keepHue)
+            if (keepHue && tolerance > 0)
             {
-	            const float hueTolerance = 3.6f * tolerance;
+	            const float hueTolerance = tolerance * 1.8f;
             	
                 float pixelHue, pixelSaturation, pixelLightness;
                 RGBtoHSL(pixelHue, pixelSaturation, pixelLightness, r, g, b);
-
-                if (pixelHue >= hueToKeep - hueTolerance && pixelHue <= hueToKeep + hueTolerance)
+            	
+                if (pixelHue >= 360.f - hueTolerance + hueToKeep || pixelHue <= hueToKeep + hueTolerance - 360.f)
+                    shouldKeep = true;
+                else if(pixelHue >= static_cast<float>(hueToKeep) - hueTolerance && pixelHue <= static_cast<float>(hueToKeep) + hueTolerance)
                     shouldKeep = true;
             }
             if(!shouldKeep)
