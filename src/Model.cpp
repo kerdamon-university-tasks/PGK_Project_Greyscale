@@ -51,7 +51,7 @@ namespace GreyscaleConverter
 				break;
 			case WorkMode::GREYSCALE:
 				m_originalImageCopy = m_originalImage.Copy();
-				ImageConversion::ConvertToGreyScale(m_originalImageCopy, m_redChannel, m_greenChannel, m_blueChannel);
+				ImageConversion::ConvertToGreyScale(m_originalImageCopy, m_redChannel, m_greenChannel, m_blueChannel, m_isKeptHue, m_keptHue, m_keptHueIntensivity);
 				break;
 			case WorkMode::ORIGINAL:
 			case WorkMode::NONE:
@@ -80,7 +80,7 @@ namespace GreyscaleConverter
 			break;
 		case WorkMode::GREYSCALE:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
-			ImageConversion::ConvertToGreyScale(m_imageThumbnailCopy,m_redChannel,m_greenChannel,m_blueChannel);
+			ImageConversion::ConvertToGreyScale(m_imageThumbnailCopy, m_redChannel, m_greenChannel, m_blueChannel, m_isKeptHue, m_keptHue, m_keptHueIntensivity);
 			break;
 		case WorkMode::ORIGINAL:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();

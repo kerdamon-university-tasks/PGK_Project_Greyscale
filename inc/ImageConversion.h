@@ -9,7 +9,7 @@ namespace GreyscaleConverter
     {
     public:
         static void ConvertToBichrome(wxImage&, wxColour&);
-        static void ConvertToGreyScale(wxImage&, int, int, int, bool keephue = false);
+        static void ConvertToGreyScale(wxImage&, int, int, int, bool, int, int);
     	
     };
     void RGBtoYUV(float& Y, float& U, float& V, const float R, const float G, const float B);

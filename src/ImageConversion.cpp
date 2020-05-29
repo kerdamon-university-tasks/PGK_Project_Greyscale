@@ -50,28 +50,45 @@ namespace GreyscaleConverter
         }
     }
 
-    void ImageConversion::ConvertToGreyScale(wxImage& image, int chRed, int chGreen, int chBlue, bool keepHue = false)
+    void ImageConversion::ConvertToGreyScale(wxImage& image, int chRed, int chGreen, int chBlue, bool keepHue, int hueToKeep, int tolerance)
     {
         unsigned char* imgData{ image.GetData() };
         const auto imgDataSize{ image.GetWidth() * image.GetHeight() * 3 };
-
         const float chRedFloat { static_cast<float>(chRed) / 100.f };
         const float chGreenFloat{ static_cast<float>(chGreen) / 100.f };
         const float chBlueFloat{ static_cast<float>(chBlue) / 100.f };
 
         for (int i = 0; i < imgDataSize; i+=3)
         {
-        	
             float y, u, v;
-            float r{ static_cast<float>(imgData[i]) * chRedFloat };
-            float g{ static_cast<float>(imgData[i + 1]) * chGreenFloat };
-        	float b{ static_cast<float>(imgData[i + 2]) * chBlueFloat };
-            RGBtoYUV(y, u, v, r, g, b);
-            YUVtoRGB(r, g, b, y, u, v);
-            float gr{ (r + g + b) / 3.f };
-            gr = gr > 255 ? 255 : gr;
-            gr = gr < 0 ? 0 :gr;
-            imgData[i] = imgData[i+1] = imgData[i+2] = static_cast<unsigned char>(gr);
+            float r{ static_cast<float>(imgData[i]) };
+            float g{ static_cast<float>(imgData[i + 1]) };
+        	float b{ static_cast<float>(imgData[i + 2]) };
+
+            bool shouldKeep{ false };
+            if (keepHue)
+            {
+                float hueTolerance = 3.6f * tolerance;
+            	
+                float pixelHue, pixelSaturation, pixelLightness;
+                RGBtoHSL(pixelHue, pixelSaturation, pixelLightness, r, g, b);
+
+                if (static_cast<int>(pixelHue) >= hueToKeep-tolerance && static_cast<int>(pixelHue) <= hueToKeep+tolerance)
+                    shouldKeep = true;
+            }
+            if(shouldKeep == false)
+            {
+                r *= chRedFloat;
+                g *= chGreenFloat;
+                b *= chBlueFloat;
+
+                RGBtoYUV(y, u, v, r, g, b);
+                YUVtoRGB(r, g, b, y, u, v);
+                float gr{ (r + g + b) / 3.f };
+                gr = gr > 255 ? 255 : gr;
+                gr = gr < 0 ? 0 : gr;
+                imgData[i] = imgData[i + 1] = imgData[i + 2] = static_cast<unsigned char>(gr);
+            }
         }
     }
 
