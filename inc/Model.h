@@ -12,7 +12,7 @@ namespace GreyscaleConverter
 	{
 	public:
 		
-		enum class WorkMode { BICHROME, GREYSCALE, ORIGINAL, NONE, };
+		enum class WorkMode { BICHROME, GREYSCALE, ORIGINAL, NOT_LOADED, };
 		
 		Model();
 		
@@ -27,7 +27,8 @@ namespace GreyscaleConverter
 		const wxImage& GetImageThumbnail() const { return m_imageThumbnailCopy; }
 		bool IsResultImageSaved() const { return m_isResultSaved; }
 		bool IsConfigSaved() const { return m_isConfigSaved; }
-		bool IsImageLoaded() const { return m_isImageLoaded; }
+		//bool IsImageLoaded() const { return m_isImageLoaded; }
+		WorkMode GetWorkMode() const { return m_mode; }
 
 		//setters
 		void SetKeptHueIntensivity(int intensivity) { m_keptHueIntensivity = intensivity; }
@@ -38,7 +39,7 @@ namespace GreyscaleConverter
 		void SetWorkMode(WorkMode mode) { m_mode = mode; }
 		void SetIsKeptHue(bool flag) { m_isKeptHue = flag; }
 		void SetBichromeColour(const wxColour colour) { m_bichromeColour = colour; }
-		void IsImageLoaded(bool isLoaded) { m_isImageLoaded = isLoaded; }
+		//void IsImageLoaded(bool isLoaded) { m_isImageLoaded = isLoaded; }
 
 		void EasterEgg();
 
@@ -53,7 +54,7 @@ namespace GreyscaleConverter
 
 		int m_keptHue;
 		wxColour m_bichromeColour;
-		WorkMode m_mode{ WorkMode::NONE };
+		WorkMode m_mode{ WorkMode::NOT_LOADED };
 
 		int m_keptHueIntensivity{ 0 };
 		
@@ -66,7 +67,7 @@ namespace GreyscaleConverter
 		bool m_isKeptHue{ false };
 		bool m_isResultSaved{ true };
 		bool m_isConfigSaved{ true };
-		bool m_isImageLoaded{ false };
+		//bool m_isImageLoaded{ false };
 
 	};
 }

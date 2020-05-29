@@ -45,6 +45,7 @@ namespace GreyscaleConverter
 	{
 		m_model.SetBichromeColour(m_pickColourButton->GetColour());
 		m_model.ApplyParametersToThumbnail();
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnButtonClick_KeepOneHue(wxCommandEvent& event)
@@ -53,6 +54,8 @@ namespace GreyscaleConverter
 			m_model.SetIsKeptHue(true);
 		else
 			m_model.SetIsKeptHue(false);
+
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event)
@@ -66,6 +69,8 @@ namespace GreyscaleConverter
 			return;
 
 		m_model.SetKeptHueIntensivity(value);
+
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnText_ChangeHueIntensivity(wxCommandEvent& event)
@@ -92,6 +97,8 @@ namespace GreyscaleConverter
 		m_intensivitySlider->SetValue(value);
 
 		m_model.SetKeptHueIntensivity(value);
+
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_HueKept(wxScrollEvent& event)
@@ -105,6 +112,8 @@ namespace GreyscaleConverter
 			return;
 
 		m_model.SetKeptHue(value);
+
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnText_HueKept(wxCommandEvent& event)
@@ -131,6 +140,8 @@ namespace GreyscaleConverter
 		m_hueSlider->SetValue(value);
 
 		m_model.SetKeptHue(value);
+
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnButtonClick_RaspberriesButton(wxCommandEvent& event)
@@ -285,7 +296,8 @@ namespace GreyscaleConverter
 		if (showResult == wxID_OK)
 		{
 			m_model.LoadImageFromFile(openFileDialog.GetPath());
-			m_model.IsImageLoaded(true);
+			//m_model.IsImageLoaded(true);
+			m_model.SetWorkMode(Model::WorkMode::ORIGINAL);
 			m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
 		}
 	}
@@ -347,7 +359,7 @@ namespace GreyscaleConverter
 
 		if (showResult == wxID_OK)
 		{
-			//m_model.SaveConfigToFile(saveFileDialog.GetPath());
+			m_model.SaveConfigToFile(saveFileDialog.GetPath());
 		}
 		else
 			wxLogError("Cannot save current contents in file '%s'.", saveFileDialog.GetPath());
@@ -380,7 +392,8 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnPaint_RefreshImage(wxPaintEvent& event)
 	{
-		if (m_model.IsImageLoaded())
+		//if (m_model.IsImageLoaded())
+		if (m_model.GetWorkMode() != Model::WorkMode::NOT_LOADED)
 			m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
 	}
 
@@ -404,6 +417,9 @@ namespace GreyscaleConverter
 		m_grayscaleButton->SetValue(false);
 		m_bichromeButton->SetValue(false);
 
+		if (m_model.GetWorkMode() == Model::WorkMode::NOT_LOADED)
+			return;
+
 		ClearImagePreview();
 
 		switch (pressedButton)
@@ -424,6 +440,9 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::ClearImagePreview()
 	{
+		if (m_model.GetWorkMode() == Model::WorkMode::NOT_LOADED)
+			return;
+		
 		m_model.SetWorkMode(Model::WorkMode::ORIGINAL);
 		UpdatePreview();
 	}

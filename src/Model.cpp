@@ -1,6 +1,8 @@
 #include "inc/Model.h"
 #include "inc/ImageConversion.h"
 
+#include <fstream>
+
 namespace GreyscaleConverter
 {
 	Model::Model()
@@ -54,7 +56,7 @@ namespace GreyscaleConverter
 				ImageConversion::ConvertToGreyScale(m_originalImageCopy, m_redChannel, m_greenChannel, m_blueChannel);
 				break;
 			case WorkMode::ORIGINAL:
-			case WorkMode::NONE:
+			case WorkMode::NOT_LOADED:
 			default:
 				break;			
 		}
@@ -65,7 +67,16 @@ namespace GreyscaleConverter
 
 	void Model::SaveConfigToFile(const wxString& filePath) const
 	{
-		//todo zaklepac
+		std::fstream f;
+
+		f.open(filePath.ToStdString(), std::ios::out);
+		f << static_cast<int>(m_mode) << std::endl;
+		//f << alpha << std::endl;
+		//f << ScreenRotate << std::endl;
+		//f << dX << " " << dY << std::endl;
+		//f << x_start << " " << x_stop << std::endl;
+		//f << F_type << std::endl;
+		f.close();
 	}
 
 	void Model::ApplyParametersToThumbnail()
@@ -85,7 +96,8 @@ namespace GreyscaleConverter
 		case WorkMode::ORIGINAL:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
 			break;
-		case WorkMode::NONE:
+		case WorkMode::NOT_LOADED:
+			m_isResultSaved = true;
 		default:
 			break;
 		}
