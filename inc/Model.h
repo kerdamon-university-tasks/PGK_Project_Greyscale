@@ -12,7 +12,7 @@ namespace GreyscaleConverter
 	{
 	public:
 		
-		enum class WorkMode { BICHROME, GREYSCALE, ORIGINAL, NONE, };
+		enum class WorkMode { BICHROME, GREYSCALE, ORIGINAL, NOT_LOADED, };
 		
 		Model();
 		
@@ -27,7 +27,8 @@ namespace GreyscaleConverter
 		const wxImage& GetImageThumbnail() const { return m_imageThumbnailCopy; }
 		bool IsResultImageSaved() const { return m_isResultSaved; }
 		bool IsConfigSaved() const { return m_isConfigSaved; }
-		bool IsImageLoaded() const { return m_isImageLoaded; }
+		//bool IsImageLoaded() const { return m_isImageLoaded; }
+		WorkMode GetWorkMode() const { return m_mode; }
 
 		//setters
 		void SetKeptHueIntensivity(int intensivity) { m_keptHueIntensivity = intensivity; }
@@ -36,9 +37,9 @@ namespace GreyscaleConverter
 		void SetGreenChannel(int value) { m_greenChannel = value; }
 		void SetKeptHue(int value) { m_keptHue = value; }
 		void SetWorkMode(WorkMode mode) { m_mode = mode; }
-		void SetIsKeptHue(bool flag) { m_isKeptHue = flag; }
+		void SetIsKeptHue(bool flag) { m_isHueKept = flag; }
 		void SetBichromeColour(const wxColour colour) { m_bichromeColour = colour; }
-		void IsImageLoaded(bool isLoaded) { m_isImageLoaded = isLoaded; }
+		//void IsImageLoaded(bool isLoaded) { m_isImageLoaded = isLoaded; }
 
 		void EasterEgg();
 
@@ -51,12 +52,13 @@ namespace GreyscaleConverter
 		wxImage m_imageThumbnail;
 		wxImage m_imageThumbnailCopy;
 
-		int m_keptHue;
 
-		wxColour m_bichromeColour;
-		WorkMode m_mode{ WorkMode::NONE };
+		int m_keptHue{ 180 };
 
-		int m_keptHueIntensivity{ 0 };
+		wxColour m_bichromeColour{ wxColour{"Red"} };
+		WorkMode m_mode{ WorkMode::NOT_LOADED };
+
+		int m_keptHueIntensivity{ 80 };
 		
 		const int m_maxImageThumbnailSize{ 500 };
 		
@@ -64,10 +66,10 @@ namespace GreyscaleConverter
 		int m_blueChannel{ 0 };
 		int m_greenChannel{ 0 };
 		
-		bool m_isKeptHue{ false };
+		bool m_isHueKept{ false };
 		bool m_isResultSaved{ true };
 		bool m_isConfigSaved{ true };
-		bool m_isImageLoaded{ false };
+		//bool m_isImageLoaded{ false };
 
 	};
 }

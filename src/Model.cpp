@@ -1,6 +1,8 @@
 #include "inc/Model.h"
 #include "inc/ImageConversion.h"
 
+#include <fstream>
+
 namespace GreyscaleConverter
 {
 	Model::Model()
@@ -36,9 +38,28 @@ namespace GreyscaleConverter
 		m_imageThumbnailCopy = m_imageThumbnail.Copy();
 	}
 
+	std::istream& rd2EOL(std::istream& str)
+	{
+		int ch;
+
+		while ((ch = str.get()) != EOF && ch != '\n');
+		return str;
+	}
+	
 	void Model::LoadConfigFromFile(const wxString& filePath)
 	{
-		//todo zaklepac
+		//std::fstream f;
+
+		//f.open(filePath.ToStdString(), std::ios::in);
+		//f >> m_mode >> rd2EOL;
+		//f >> alpha >> rd2EOL;
+		//f >> ScreenRotate >> rd2EOL;
+		//f >> dX >> dY >> rd2EOL;
+		//f >> x_start >> x_stop >> rd2EOL;
+		//f >> F_type >> rd2EOL;
+		//f.close();
+
+		//MainWindow->UpdateControls();
 	}
 
 	void Model::SaveImageToFile(const wxString& filename)
@@ -47,14 +68,14 @@ namespace GreyscaleConverter
 		{
 			case WorkMode::BICHROME:
 				m_originalImageCopy = m_originalImage.Copy();
-				ImageConversion::ConvertToBichrome(m_originalImageCopy,m_bichromeColour);
+				ImageConversion::ConvertToBichrome(m_originalImageCopy,m_bichromeColour, m_isHueKept, m_keptHue, m_keptHueIntensivity);
 				break;
 			case WorkMode::GREYSCALE:
 				m_originalImageCopy = m_originalImage.Copy();
-				ImageConversion::ConvertToGreyScale(m_originalImageCopy, m_redChannel, m_greenChannel, m_blueChannel, m_isKeptHue, m_keptHue, m_keptHueIntensivity);
+				ImageConversion::ConvertToGreyScale(m_originalImageCopy, m_redChannel, m_greenChannel, m_blueChannel, m_isHueKept, m_keptHue, m_keptHueIntensivity);
 				break;
 			case WorkMode::ORIGINAL:
-			case WorkMode::NONE:
+			case WorkMode::NOT_LOADED:
 			default:
 				break;			
 		}
@@ -65,7 +86,14 @@ namespace GreyscaleConverter
 
 	void Model::SaveConfigToFile(const wxString& filePath) const
 	{
-		//todo zaklepac
+		std::fstream f;
+
+		f.open(filePath.ToStdString(), std::ios::out);
+		f << static_cast<int>(m_mode) << std::endl;
+		f << m_bichromeColour.Red() << " " << m_bichromeColour.Green() << " " << m_bichromeColour.Blue() << " " << std::endl;
+		f << m_isHueKept << " " << m_keptHue << " " << m_keptHueIntensivity << " " << std::endl;
+		f << m_redChannel << " " << m_greenChannel << " " << m_blueChannel << " " << std::endl;
+		f.close();
 	}
 
 	void Model::ApplyParametersToThumbnail()
@@ -76,16 +104,17 @@ namespace GreyscaleConverter
 		{
 		case WorkMode::BICHROME:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
-			ImageConversion::ConvertToBichrome(m_imageThumbnailCopy, m_bichromeColour);
+			ImageConversion::ConvertToBichrome(m_imageThumbnailCopy, m_bichromeColour, m_isHueKept, m_keptHue, m_keptHueIntensivity);
 			break;
 		case WorkMode::GREYSCALE:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
-			ImageConversion::ConvertToGreyScale(m_imageThumbnailCopy, m_redChannel, m_greenChannel, m_blueChannel, m_isKeptHue, m_keptHue, m_keptHueIntensivity);
+			ImageConversion::ConvertToGreyScale(m_imageThumbnailCopy, m_redChannel, m_greenChannel, m_blueChannel, m_isHueKept, m_keptHue, m_keptHueIntensivity);
 			break;
 		case WorkMode::ORIGINAL:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
 			break;
-		case WorkMode::NONE:
+		case WorkMode::NOT_LOADED:
+			m_isResultSaved = true;
 		default:
 			break;
 		}

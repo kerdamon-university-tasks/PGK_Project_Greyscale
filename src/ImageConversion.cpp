@@ -5,7 +5,7 @@
 
 namespace GreyscaleConverter
 {
-    void ImageConversion::ConvertToBichrome(wxImage& image, wxColour& colour)
+    void ImageConversion::ConvertToBichrome(wxImage& image, wxColour& colour, bool keepHue, int hueToKeep, int tolerance)
     {
         float red{ static_cast<float>(colour.Red()) };
         float green{ static_cast<float>(colour.Green()) };
@@ -30,23 +30,34 @@ namespace GreyscaleConverter
 
             RGBtoHSL(pixelHue, pixelSaturation, pixelLightness, pixelRed, pixelGreen, pixelBlue);
 
-            pixelHue = hue;
-            pixelSaturation = saturation + 1.1 * pixelLightness;
-            if (pixelSaturation > 1)
-                pixelSaturation = 1;
-            if (pixelSaturation < 0)
-                pixelSaturation = 0;
-            pixelLightness = lightness + 1.1 * pixelLightness;
-            if (pixelLightness > 1)
-                pixelLightness = 1;
-            if (pixelLightness < 0)
-                pixelLightness = 0;
-        	
-            HSLtoRGB(pixelRed, pixelGreen, pixelBlue, pixelHue, pixelSaturation, pixelLightness);
+            bool shouldKeep{ false };
+            if (keepHue)
+            {
+	            const float hueTolerance = 3.6f * tolerance;
 
-            imgData[i] = static_cast<char>(pixelRed);
-            imgData[i + 1] = static_cast<char>(pixelGreen);
-            imgData[i + 2] = static_cast<char>(pixelBlue);
+                if (pixelHue >= hueToKeep - hueTolerance && pixelHue <= hueToKeep + hueTolerance)
+                    shouldKeep = true;
+            }
+            if (!shouldKeep)
+            {
+                pixelHue = hue;
+                pixelSaturation = saturation + 1.1 * pixelLightness;
+                if (pixelSaturation > 1)
+                    pixelSaturation = 1;
+                if (pixelSaturation < 0)
+                    pixelSaturation = 0;
+                pixelLightness = lightness + 1.1 * pixelLightness;
+                if (pixelLightness > 1)
+                    pixelLightness = 1;
+                if (pixelLightness < 0)
+                    pixelLightness = 0;
+
+                HSLtoRGB(pixelRed, pixelGreen, pixelBlue, pixelHue, pixelSaturation, pixelLightness);
+
+                imgData[i] = static_cast<char>(pixelRed);
+                imgData[i + 1] = static_cast<char>(pixelGreen);
+                imgData[i + 2] = static_cast<char>(pixelBlue);
+            }
         }
     }
 
@@ -68,15 +79,15 @@ namespace GreyscaleConverter
             bool shouldKeep{ false };
             if (keepHue)
             {
-                float hueTolerance = 3.6f * tolerance;
+	            const float hueTolerance = 3.6f * tolerance;
             	
                 float pixelHue, pixelSaturation, pixelLightness;
                 RGBtoHSL(pixelHue, pixelSaturation, pixelLightness, r, g, b);
 
-                if (static_cast<int>(pixelHue) >= hueToKeep-tolerance && static_cast<int>(pixelHue) <= hueToKeep+tolerance)
+                if (pixelHue >= hueToKeep - hueTolerance && pixelHue <= hueToKeep + hueTolerance)
                     shouldKeep = true;
             }
-            if(shouldKeep == false)
+            if(!shouldKeep)
             {
                 r *= chRedFloat;
                 g *= chGreenFloat;
