@@ -50,6 +50,12 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnButtonClick_KeepOneHue(wxCommandEvent& event)
 	{
+		if(m_model.GetWorkMode() == Model::WorkMode::NOT_LOADED)
+		{
+			m_keepHueButton->SetValue(false);
+			return;
+		}
+		
 		if (m_keepHueButton->GetValue())
 			m_model.SetIsKeptHue(true);
 		else
