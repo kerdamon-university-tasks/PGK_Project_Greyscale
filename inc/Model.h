@@ -27,8 +27,14 @@ namespace GreyscaleConverter
 		const wxImage& GetImageThumbnail() const { return m_imageThumbnailCopy; }
 		bool IsResultImageSaved() const { return m_isResultSaved; }
 		bool IsConfigSaved() const { return m_isConfigSaved; }
-		//bool IsImageLoaded() const { return m_isImageLoaded; }
 		WorkMode GetWorkMode() const { return m_mode; }
+		wxColour GetBichromeColour() const { return m_bichromeColour; }
+		int GetKeptHue() const { return m_keptHue; }
+		int GetKeptHueIntensivity() const { return m_keptHueIntensivity; }
+		int GetRedChannel() const { return m_redChannel; }
+		int GetGreenChannel() const { return m_greenChannel; }
+		int GetBlueChannel() const { return m_blueChannel; }
+		bool IsHueKept() const { return m_isHueKept; }
 
 		//setters
 		void SetKeptHueIntensivity(int intensivity) { m_keptHueIntensivity = intensivity; }
@@ -39,7 +45,6 @@ namespace GreyscaleConverter
 		void SetWorkMode(WorkMode mode) { m_mode = mode; }
 		void SetIsKeptHue(bool flag) { m_isHueKept = flag; }
 		void SetBichromeColour(const wxColour colour) { m_bichromeColour = colour; }
-		//void IsImageLoaded(bool isLoaded) { m_isImageLoaded = isLoaded; }
 
 		void EasterEgg();
 

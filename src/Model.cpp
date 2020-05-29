@@ -48,18 +48,22 @@ namespace GreyscaleConverter
 	
 	void Model::LoadConfigFromFile(const wxString& filePath)
 	{
-		//std::fstream f;
+		std::fstream f;
 
-		//f.open(filePath.ToStdString(), std::ios::in);
-		//f >> m_mode >> rd2EOL;
-		//f >> alpha >> rd2EOL;
-		//f >> ScreenRotate >> rd2EOL;
-		//f >> dX >> dY >> rd2EOL;
-		//f >> x_start >> x_stop >> rd2EOL;
-		//f >> F_type >> rd2EOL;
-		//f.close();
+		int tempMode;
+		unsigned char bichromeRed;
+		unsigned char bichromeGreen;
+		unsigned char bichromeBlue;
+		
+		f.open(filePath.ToStdString(), std::ios::in);
+		f >> tempMode >> rd2EOL;
+		f >> bichromeRed >> bichromeGreen >> bichromeBlue >> rd2EOL;
+		f >> m_isHueKept >> m_keptHue >> m_keptHueIntensivity >> rd2EOL;
+		f >> m_redChannel >> m_greenChannel >> m_blueChannel >> rd2EOL;
+		f.close();
 
-		//MainWindow->UpdateControls();
+		m_mode = static_cast<WorkMode>(tempMode);
+		m_bichromeColour = wxColour{ bichromeRed, bichromeGreen, bichromeBlue };
 	}
 
 	void Model::SaveImageToFile(const wxString& filename)

@@ -39,8 +39,8 @@ namespace GreyscaleConverter
 		//m_bichromeButton = new wxButton(this, wxID_ANY, wxT("Convert to bichrome"), wxDefaultPosition, wxDefaultSize, 0);
 		duotoneSizer->Add(m_bichromeButton, 1, wxALL | wxEXPAND, 8);
 
-		m_pickColourButton = new wxColourPickerCtrl(this, wxID_ANY, wxColour(243, 40, 12), wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE);
-		duotoneSizer->Add(m_pickColourButton, 1, wxALIGN_CENTER_HORIZONTAL | wxALL, 8);
+		m_pickBichromeColourButton = new wxColourPickerCtrl(this, wxID_ANY, wxColour(243, 40, 12), wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE);
+		duotoneSizer->Add(m_pickBichromeColourButton, 1, wxALIGN_CENTER_HORIZONTAL | wxALL, 8);
 
 
 		barSizer->Add(duotoneSizer, 0, wxEXPAND, 5);
@@ -264,7 +264,7 @@ namespace GreyscaleConverter
 		this->Connect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(Frame::OnUpdateUI));
 		m_grayscaleButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
 		m_bichromeButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
-		m_pickColourButton->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickBichromeColour), NULL, this);
+		m_pickBichromeColourButton->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickBichromeColour), NULL, this);
 		m_keepHueButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_KeepOneHue), NULL, this);
 		m_intensivitySlider->Connect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
 		m_intensivitySlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
@@ -300,7 +300,7 @@ namespace GreyscaleConverter
 		this->Disconnect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(Frame::OnUpdateUI));
 		m_grayscaleButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
 		m_bichromeButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
-		m_pickColourButton->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickBichromeColour), NULL, this);
+		m_pickBichromeColourButton->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickBichromeColour), NULL, this);
 		m_keepHueButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_KeepOneHue), NULL, this);
 		m_hueSlider->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollThumbTrack_HueIntesivity), NULL, this );
 		m_intensivitySlider->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);

@@ -53,7 +53,7 @@ namespace GreyscaleConverter
 		wxToggleButton* m_grayscaleButton;
 		wxStaticLine* m_staticline1;
 		wxToggleButton* m_bichromeButton;
-		wxColourPickerCtrl* m_pickColourButton;
+		wxColourPickerCtrl* m_pickBichromeColourButton;
 		wxStaticLine* m_staticline2;
 		wxToggleButton* m_keepHueButton;
 		wxSlider* m_hueSlider;

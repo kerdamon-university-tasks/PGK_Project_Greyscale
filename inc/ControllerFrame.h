@@ -45,5 +45,7 @@ namespace GreyscaleConverter
 		void AlternateConversionButtons(Model::WorkMode pressedButton);
 		void ClearImagePreview();
 		void UpdatePreview();
+		void UpdateControls();
+
 	};
 }
