@@ -72,11 +72,11 @@ namespace GreyscaleConverter
 		{
 			case WorkMode::BICHROME:
 				m_originalImageCopy = m_originalImage.Copy();
-				ImageConversion::ConvertToBichrome(m_originalImageCopy);
+				ImageConversion::ConvertToBichrome(m_originalImageCopy,m_bichromeColour, m_isHueKept, m_keptHue, m_keptHueIntensivity);
 				break;
 			case WorkMode::GREYSCALE:
 				m_originalImageCopy = m_originalImage.Copy();
-				ImageConversion::ConvertToGreyScale(m_originalImageCopy, m_redChannel, m_greenChannel, m_blueChannel);
+				ImageConversion::ConvertToGreyScale(m_originalImageCopy, m_redChannel, m_greenChannel, m_blueChannel, m_isHueKept, m_keptHue, m_keptHueIntensivity);
 				break;
 			case WorkMode::ORIGINAL:
 			case WorkMode::NOT_LOADED:
@@ -108,11 +108,11 @@ namespace GreyscaleConverter
 		{
 		case WorkMode::BICHROME:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
-			ImageConversion::ConvertToBichrome(m_imageThumbnailCopy);
+			ImageConversion::ConvertToBichrome(m_imageThumbnailCopy, m_bichromeColour, m_isHueKept, m_keptHue, m_keptHueIntensivity);
 			break;
 		case WorkMode::GREYSCALE:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
-			ImageConversion::ConvertToGreyScale(m_imageThumbnailCopy,m_redChannel,m_greenChannel,m_blueChannel);
+			ImageConversion::ConvertToGreyScale(m_imageThumbnailCopy, m_redChannel, m_greenChannel, m_blueChannel, m_isHueKept, m_keptHue, m_keptHueIntensivity);
 			break;
 		case WorkMode::ORIGINAL:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();

@@ -57,8 +57,10 @@ namespace GreyscaleConverter
 		wxImage m_imageThumbnail;
 		wxImage m_imageThumbnailCopy;
 
+
 		int m_keptHue{ 180 };
-		wxColour m_bichromeColour;
+
+		wxColour m_bichromeColour{ wxColour{"Red"} };
 		WorkMode m_mode{ WorkMode::NOT_LOADED };
 
 		int m_keptHueIntensivity{ 80 };
