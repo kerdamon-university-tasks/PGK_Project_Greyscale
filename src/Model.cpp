@@ -61,8 +61,6 @@ namespace GreyscaleConverter
 
 		if (!m_originalImageCopy.SaveFile(filename))
 			wxLogError(_("Couldn't save file!"));
-
-		//todo przetestowac
 	}
 
 	void Model::SaveConfigToFile(const wxString& filePath) const

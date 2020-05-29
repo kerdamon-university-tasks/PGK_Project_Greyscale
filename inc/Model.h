@@ -30,11 +30,11 @@ namespace GreyscaleConverter
 		bool IsImageLoaded() const { return m_isImageLoaded; }
 
 		//setters
-		void SetColorTolerance(double tolerance) { m_colorTolerance = tolerance; }
+		void SetKeptHueIntensivity(int intensivity) { m_keptHueIntensivity = intensivity; }
 		void SetRedChannel(int value) { m_redChannel = value; }
 		void SetBlueChannel(int value) { m_blueChannel = value; }
 		void SetGreenChannel(int value) { m_greenChannel = value; }
-		void SetKeptHue(float value) { m_keptHue = wxColor{ 128, 128, 128 }; }
+		void SetKeptHue(int value) { m_keptHue = value; }
 		void SetWorkMode(WorkMode mode) { m_mode = mode; }
 		void SetIsKeptHue(bool flag) { m_isKeptHue = flag; }
 		void SetBichromeColour(const wxColour colour) { m_bichromeColour = colour; }
@@ -51,11 +51,11 @@ namespace GreyscaleConverter
 		wxImage m_imageThumbnail;
 		wxImage m_imageThumbnailCopy;
 
-		wxColour m_keptHue;
+		int m_keptHue;
 		wxColour m_bichromeColour;
 		WorkMode m_mode{ WorkMode::NONE };
 
-		double m_colorTolerance{ 0 };
+		int m_keptHueIntensivity{ 0 };
 		
 		const int m_maxImageThumbnailSize{ 500 };
 		
