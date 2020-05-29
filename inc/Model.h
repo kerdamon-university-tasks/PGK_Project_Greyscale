@@ -12,7 +12,7 @@ namespace GreyscaleConverter
 	{
 	public:
 		
-		enum class WorkMode { BICHROME, GREYSCALE, ORIGINAL, NONE, };
+		enum class WorkMode { BICHROME, GREYSCALE, ORIGINAL, NOT_LOADED, };
 		
 		Model();
 		
@@ -27,18 +27,24 @@ namespace GreyscaleConverter
 		const wxImage& GetImageThumbnail() const { return m_imageThumbnailCopy; }
 		bool IsResultImageSaved() const { return m_isResultSaved; }
 		bool IsConfigSaved() const { return m_isConfigSaved; }
-		bool IsImageLoaded() const { return m_isImageLoaded; }
+		WorkMode GetWorkMode() const { return m_mode; }
+		wxColour GetBichromeColour() const { return m_bichromeColour; }
+		int GetKeptHue() const { return m_keptHue; }
+		int GetKeptHueIntensivity() const { return m_keptHueIntensivity; }
+		int GetRedChannel() const { return m_redChannel; }
+		int GetGreenChannel() const { return m_greenChannel; }
+		int GetBlueChannel() const { return m_blueChannel; }
+		bool IsHueKept() const { return m_isHueKept; }
 
 		//setters
-		void SetColorTolerance(double tolerance) { m_colorTolerance = tolerance; }
+		void SetKeptHueIntensivity(int intensivity) { m_keptHueIntensivity = intensivity; }
 		void SetRedChannel(int value) { m_redChannel = value; }
 		void SetBlueChannel(int value) { m_blueChannel = value; }
 		void SetGreenChannel(int value) { m_greenChannel = value; }
-		void SetKeptHue(float value) { m_keptHue = wxColor{ 128, 128, 128 }; }
+		void SetKeptHue(int value) { m_keptHue = value; }
 		void SetWorkMode(WorkMode mode) { m_mode = mode; }
-		void SetIsKeptHue(bool flag) { m_isKeptHue = flag; }
+		void SetIsKeptHue(bool flag) { m_isHueKept = flag; }
 		void SetBichromeColour(const wxColour colour) { m_bichromeColour = colour; }
-		void IsImageLoaded(bool isLoaded) { m_isImageLoaded = isLoaded; }
 
 		void EasterEgg();
 
@@ -51,11 +57,13 @@ namespace GreyscaleConverter
 		wxImage m_imageThumbnail;
 		wxImage m_imageThumbnailCopy;
 
-		wxColour m_keptHue;
-		wxColour m_bichromeColour;
-		WorkMode m_mode{ WorkMode::NONE };
 
-		double m_colorTolerance{ 0 };
+		int m_keptHue{ 180 };
+
+		wxColour m_bichromeColour{ wxColour{"Red"} };
+		WorkMode m_mode{ WorkMode::NOT_LOADED };
+
+		int m_keptHueIntensivity{ 80 };
 		
 		const int m_maxImageThumbnailSize{ 500 };
 		
@@ -63,10 +71,10 @@ namespace GreyscaleConverter
 		int m_blueChannel{ 0 };
 		int m_greenChannel{ 0 };
 		
-		bool m_isKeptHue{ false };
+		bool m_isHueKept{ false };
 		bool m_isResultSaved{ true };
 		bool m_isConfigSaved{ true };
-		bool m_isImageLoaded{ false };
+		//bool m_isImageLoaded{ false };
 
 	};
 }

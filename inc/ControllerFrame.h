@@ -15,7 +15,7 @@ namespace GreyscaleConverter
 		void OnClose_Frame(wxCloseEvent& event);
 		void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event);
 		void OnButtonClick_Bichrome(wxCommandEvent& event);
-		void OnColourChanged_PickColour(wxColourPickerEvent& event);
+		void OnColourChanged_PickBichromeColour(wxColourPickerEvent& event);
 		void OnButtonClick_KeepOneHue(wxCommandEvent& event);
 		void OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event);
 		void OnText_ChangeHueIntensivity(wxCommandEvent& event);
@@ -45,5 +45,7 @@ namespace GreyscaleConverter
 		void AlternateConversionButtons(Model::WorkMode pressedButton);
 		void ClearImagePreview();
 		void UpdatePreview();
+		void UpdateControls();
+
 	};
 }
