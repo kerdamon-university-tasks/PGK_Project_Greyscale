@@ -298,7 +298,7 @@ namespace GreyscaleConverter
 		if (!m_mixedFactorText->GetValue().ToDouble(&factor))
 			return;
 
-		m_model.SetMixingFactor(factor / 100.0);
+		m_model.SetMixingFactor(factor);
 		m_model.MixConvertedWithOriginal();
 		
 		UpdatePreview();
@@ -327,7 +327,7 @@ namespace GreyscaleConverter
 
 		m_mixedFactorSlider->SetValue(factor);
 
-		m_model.SetMixingFactor(factor / 100.0);
+		m_model.SetMixingFactor(factor);
 		m_model.MixConvertedWithOriginal();
 
 		UpdatePreview();
@@ -352,7 +352,6 @@ namespace GreyscaleConverter
 		if (showResult == wxID_OK)
 		{
 			m_model.LoadImageFromFile(openFileDialog.GetPath());
-			//m_model.IsImageLoaded(true);
 			m_model.SetWorkMode(Model::WorkMode::ORIGINAL);
 			m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
 		}
@@ -391,6 +390,9 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnMenuSelection_SaveImage(wxCommandEvent& event)
 	{
+		if (m_model.GetWorkMode() == Model::WorkMode::NOT_LOADED)
+			return;
+		
 		wxFileDialog saveFileDialog{
 			this,
 			_("Choose a folder"), "", "",
@@ -406,6 +408,7 @@ namespace GreyscaleConverter
 		if (showResult == wxID_OK)
 		{
 			m_model.SaveImageToFile(saveFileDialog.GetPath());
+			m_model.IsResultImageSaved(true);
 		}
 		else
 			wxLogError("Cannot save current contents in file '%s'.", saveFileDialog.GetPath());
@@ -460,7 +463,6 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnPaint_RefreshImage(wxPaintEvent& event)
 	{
-		//if (m_model.IsImageLoaded())
 		if (m_model.GetWorkMode() != Model::WorkMode::NOT_LOADED)
 			m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
 	}
@@ -548,6 +550,7 @@ namespace GreyscaleConverter
 	{
 		m_bichromeButton->SetValue(false);
 		m_grayscaleButton->SetValue(false);
+		DisableChannelControls();
 		
 		switch (m_model.GetWorkMode())
 		{
@@ -556,6 +559,7 @@ namespace GreyscaleConverter
 			break;
 		case Model::WorkMode::GREYSCALE:
 			m_grayscaleButton->SetValue(true);
+			EnableChannelControls();
 			break;
 		default:
 			break;
@@ -592,5 +596,9 @@ namespace GreyscaleConverter
 		tempTextB << m_model.GetBlueChannel();
 		m_blueChannelText->SetValue(tempTextB);
 		
+		m_mixedFactorSlider->SetValue(m_model.GetMixingFactor());
+		wxString tempTextMix;
+		tempTextMix << m_model.GetMixingFactor();
+		m_mixedFactorText->SetValue(tempTextMix);
 	}
 }

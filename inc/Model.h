@@ -35,6 +35,7 @@ namespace GreyscaleConverter
 		int GetGreenChannel() const { return m_greenChannel; }
 		int GetBlueChannel() const { return m_blueChannel; }
 		bool IsHueKept() const { return m_isHueKept; }
+		int GetMixingFactor() const { return m_mixingFactor; }
 
 		//setters
 		void SetKeptHueIntensivity(int intensivity) { m_keptHueIntensivity = intensivity; }
@@ -45,7 +46,8 @@ namespace GreyscaleConverter
 		void SetWorkMode(WorkMode mode) { m_mode = mode; }
 		void SetIsKeptHue(bool flag) { m_isHueKept = flag; }
 		void SetBichromeColour(const wxColour colour) { m_bichromeColour = colour; }
-		void SetMixingFactor(const float mixingFactor) { m_mixingFactor = mixingFactor; }
+		void SetMixingFactor(const int mixingFactor) { m_mixingFactor = mixingFactor; }
+		void IsResultImageSaved(const bool isSaved) { m_isResultSaved = isSaved; }
 
 		void EasterEgg();
 		void MixConvertedWithOriginal();
@@ -77,7 +79,7 @@ namespace GreyscaleConverter
 		bool m_isResultSaved{ true };
 		bool m_isConfigSaved{ true };
 
-		float m_mixingFactor{ 0 };
+		int m_mixingFactor{ 0 };
 
 	};
 }
