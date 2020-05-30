@@ -36,6 +36,7 @@ namespace GreyscaleConverter
 		m_imageThumbnail = m_originalImage.Copy();
 		AdjustImageThumbnail();
 		m_imageThumbnailCopy = m_imageThumbnail.Copy();
+		m_imageThumbnailMixed = m_imageThumbnail.Copy();
 	}
 
 	std::istream& rd2EOL(std::istream& str)
@@ -60,6 +61,7 @@ namespace GreyscaleConverter
 		f >> bichromeRed >> bichromeGreen >> bichromeBlue >> rd2EOL;
 		f >> m_isHueKept >> m_keptHue >> m_keptHueIntensivity >> rd2EOL;
 		f >> m_redChannel >> m_greenChannel >> m_blueChannel >> rd2EOL;
+		f >> m_mixingFactor >> rd2EOL;
 		f.close();
 
 		m_mode = static_cast<WorkMode>(tempMode);
@@ -97,6 +99,7 @@ namespace GreyscaleConverter
 		f << m_bichromeColour.Red() << " " << m_bichromeColour.Green() << " " << m_bichromeColour.Blue() << " " << std::endl;
 		f << m_isHueKept << " " << m_keptHue << " " << m_keptHueIntensivity << " " << std::endl;
 		f << m_redChannel << " " << m_greenChannel << " " << m_blueChannel << " " << std::endl;
+		f << m_mixingFactor << std::endl;
 		f.close();
 	}
 
@@ -109,13 +112,16 @@ namespace GreyscaleConverter
 		case WorkMode::BICHROME:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
 			ImageConversion::ConvertToBichrome(m_imageThumbnailCopy, m_bichromeColour, m_isHueKept, m_keptHue, m_keptHueIntensivity);
+			MixConvertedWithOriginal();
 			break;
 		case WorkMode::GREYSCALE:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
 			ImageConversion::ConvertToGreyScale(m_imageThumbnailCopy, m_redChannel, m_greenChannel, m_blueChannel, m_isHueKept, m_keptHue, m_keptHueIntensivity);
+			MixConvertedWithOriginal();
 			break;
 		case WorkMode::ORIGINAL:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
+			MixConvertedWithOriginal();
 			break;
 		case WorkMode::NOT_LOADED:
 			m_isResultSaved = true;
@@ -126,5 +132,26 @@ namespace GreyscaleConverter
 
 	void Model::EasterEgg()
 	{
+	}
+
+	void Model::MixConvertedWithOriginal()
+	{
+		if (m_mode == WorkMode::NOT_LOADED)
+			return;
+		
+		auto originalData{ m_imageThumbnail.GetData() };
+		auto convertedData{ m_imageThumbnailCopy.GetData() };
+		auto mixedData{ m_imageThumbnailMixed.GetData() };
+
+		const int dataSize{ m_imageThumbnail.GetWidth() * m_imageThumbnail.GetHeight() * 3 };
+
+		const float factor = m_mixingFactor / 100.0;
+		
+		for(int i = 0; i < dataSize; i += 3)
+		{
+			mixedData[i] = (1.0 - factor) * convertedData[i] + factor * originalData[i];
+			mixedData[i + 1] = (1.0 - factor) * convertedData[i + 1] + factor * originalData[i + 1];
+			mixedData[i + 2] = (1.0 - factor) * convertedData[i + 2] + factor * originalData[i + 2];
+		}
 	}
 }

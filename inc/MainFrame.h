@@ -68,6 +68,8 @@ namespace GreyscaleConverter
 		wxTextCtrl* m_greenChannelText;
 		wxSlider* m_blueChannelSlider;
 		wxTextCtrl* m_blueChannelText;
+		wxSlider* m_mixedFactorSlider;
+		wxTextCtrl* m_mixedFactorText;
 		wxMenuBar* m_menubar;
 		wxMenu* fileMenu;
 		wxMenu* m_viewMenu;
@@ -95,6 +97,8 @@ namespace GreyscaleConverter
 		virtual void OnText_ChangeGreenChannel(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnScrollThumbTrack_ChangeBlueChannel(wxScrollEvent& event) { event.Skip(); }
 		virtual void OnText_ChangeBlueChannel(wxCommandEvent& event) { event.Skip(); }
+		virtual void OnScrollThumbTrack_MixOriginalWithConverted(wxScrollEvent& event) { event.Skip(); }
+		virtual void OnText_MixOriginalWithConverted(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnMenuSelection_LoadImage(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnMenuSelection_LoadConfig(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnMenuSelection_SaveImage(wxCommandEvent& event) { event.Skip(); }
@@ -107,7 +111,7 @@ namespace GreyscaleConverter
 
 	public:
 
-		Frame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Conversion to grayscale - project"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1002, 710), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
+		Frame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Conversion to grayscale - project"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1100, 810), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
 
 		~Frame();
 

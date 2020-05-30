@@ -1,0 +1,100 @@
+\hypertarget{class_greyscale_converter_1_1_image_conversion}{}\doxysection{Greyscale\+Converter\+::Image\+Conversion Class Reference}
+\label{class_greyscale_converter_1_1_image_conversion}\index{GreyscaleConverter::ImageConversion@{GreyscaleConverter::ImageConversion}}
+
+
+Class handles two image convertions\+:  
+
+
+
+
+{\ttfamily \#include $<$Image\+Conversion.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_greyscale_converter_1_1_image_conversion_ab9ac7cc3fa5fd85f4db8ae70978cb339}{Convert\+To\+Bichrome}} (wx\+Image \&image, wx\+Colour \&color, bool, int, int)
+\begin{DoxyCompactList}\small\item\em Converts image to bichrome. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_greyscale_converter_1_1_image_conversion_a7934aeeb3e92594903af147ca6d0ec28}{Convert\+To\+Grey\+Scale}} (wx\+Image \&, int, int, int, bool, int, int)
+\begin{DoxyCompactList}\small\item\em Converts image to greyscale. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class handles two image convertions\+: 
+
+
+\begin{DoxyItemize}
+\item bichrome
+\item greyscale
+\end{DoxyItemize}
+
+Other functions converts one color system to another\+:
+\begin{DoxyItemize}
+\item R\+GB =$>$ Y\+UV
+\item Y\+UV =$>$ R\+GB
+\item R\+GB =$>$ H\+SL
+\item H\+SL =$>$ R\+GB 
+\end{DoxyItemize}
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_image_conversion_ab9ac7cc3fa5fd85f4db8ae70978cb339}\label{class_greyscale_converter_1_1_image_conversion_ab9ac7cc3fa5fd85f4db8ae70978cb339}} 
+\index{GreyscaleConverter::ImageConversion@{GreyscaleConverter::ImageConversion}!ConvertToBichrome@{ConvertToBichrome}}
+\index{ConvertToBichrome@{ConvertToBichrome}!GreyscaleConverter::ImageConversion@{GreyscaleConverter::ImageConversion}}
+\doxysubsubsection{\texorpdfstring{ConvertToBichrome()}{ConvertToBichrome()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Image\+Conversion\+::\+Convert\+To\+Bichrome (\begin{DoxyParamCaption}\item[{wx\+Image \&}]{image,  }\item[{wx\+Colour \&}]{color,  }\item[{bool}]{keep\+Hue,  }\item[{int}]{hue\+To\+Keep,  }\item[{int}]{tolerance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Converts image to bichrome. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em image} & iamge that will be converted \\
+\hline
+{\em color} & color which will be kept \\
+\hline
+{\em keep\+Hue} & flag determining if hue should be kept \\
+\hline
+{\em hue\+To\+Keep} & value of the hue to keep \\
+\hline
+{\em tolerance} & tolerance of kept hue \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_image_conversion_a7934aeeb3e92594903af147ca6d0ec28}{Convert\+To\+Grey\+Scale()}} 
+\end{DoxySeeAlso}
+\begin{DoxyNote}{Note}
+Function proceed convrtion in place! (on image passed by reference) 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_image_conversion_a7934aeeb3e92594903af147ca6d0ec28}\label{class_greyscale_converter_1_1_image_conversion_a7934aeeb3e92594903af147ca6d0ec28}} 
+\index{GreyscaleConverter::ImageConversion@{GreyscaleConverter::ImageConversion}!ConvertToGreyScale@{ConvertToGreyScale}}
+\index{ConvertToGreyScale@{ConvertToGreyScale}!GreyscaleConverter::ImageConversion@{GreyscaleConverter::ImageConversion}}
+\doxysubsubsection{\texorpdfstring{ConvertToGreyScale()}{ConvertToGreyScale()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Image\+Conversion\+::\+Convert\+To\+Grey\+Scale (\begin{DoxyParamCaption}\item[{wx\+Image \&}]{image,  }\item[{int}]{ch\+Red,  }\item[{int}]{ch\+Green,  }\item[{int}]{ch\+Blue,  }\item[{bool}]{keep\+Hue,  }\item[{int}]{hue\+To\+Keep,  }\item[{int}]{tolerance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Converts image to greyscale. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em image} & iamge that will be converted \\
+\hline
+{\em ch\+Red} & red channel value \\
+\hline
+{\em ch\+Green} & green channel value \\
+\hline
+{\em ch\+Blue} & blue channel value \\
+\hline
+{\em keep\+Hue} & flag determining if hue should be kept \\
+\hline
+{\em hue\+To\+Keep} & value of the hue to keep \\
+\hline
+{\em tolerance} & tolerance of kept hue \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_image_conversion_ab9ac7cc3fa5fd85f4db8ae70978cb339}{Convert\+To\+Bichrome()}} 
+\end{DoxySeeAlso}
+\begin{DoxyNote}{Note}
+Function proceed convrtion in place! (on image passed by reference) 
+\end{DoxyNote}

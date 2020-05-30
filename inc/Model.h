@@ -60,8 +60,9 @@ namespace GreyscaleConverter
 		/// @{ 
 		/// @name Getters
 
+
 		/// Returns image thumbnail
-		const wxImage& GetImageThumbnail() const { return m_imageThumbnailCopy; }
+	const wxImage & GetImageThumbnail() const { return m_imageThumbnailMixed; }
 
 		/// Returns current work mode
 		///
@@ -72,6 +73,8 @@ namespace GreyscaleConverter
 		///
 		/// @see SetBichromeColour()
 		wxColour GetBichromeColour() const { return m_bichromeColour; }
+
+		int GetMixingFactor() const { return m_mixingFactor; }
 
 		/// Returns value of kept hue
 		///
@@ -112,7 +115,11 @@ namespace GreyscaleConverter
 		/// 
 		/// @see GetKeptHue() SetKeptHue()
 		bool IsHueKept() const { return m_isHueKept; }
+
 		///@}
+
+
+
 
 		
 		/// @{
@@ -181,6 +188,13 @@ namespace GreyscaleConverter
 		void TotallyNotSuspiciousLookingFunction();
 		///@}
 
+		void SetMixingFactor(const int mixingFactor) { m_mixingFactor = mixingFactor; }
+		void IsResultImageSaved(const bool isSaved) { m_isResultSaved = isSaved; }
+
+		void EasterEgg();
+		void MixConvertedWithOriginal();
+
+
 	private:
 
 		void AdjustImageThumbnail();
@@ -189,6 +203,7 @@ namespace GreyscaleConverter
 		wxImage m_originalImageCopy;
 		wxImage m_imageThumbnail;
 		wxImage m_imageThumbnailCopy;
+		wxImage m_imageThumbnailMixed;
 
 		wxColour m_bichromeColour{ wxColour{"Red"} };
 		WorkMode m_mode{ WorkMode::NOT_LOADED };
@@ -205,6 +220,11 @@ namespace GreyscaleConverter
 		bool m_isHueKept{ false };
 		bool m_isResultSaved{ true };
 		bool m_isConfigSaved{ true };
+
 		//bool m_isImageLoaded{ false };
+
+
+		int m_mixingFactor{ 0 };
+
 	};
 }

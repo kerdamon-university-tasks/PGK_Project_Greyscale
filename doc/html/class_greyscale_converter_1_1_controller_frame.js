@@ -1,0 +1,28 @@
+var class_greyscale_converter_1_1_controller_frame =
+[
+    [ "ControllerFrame", "class_greyscale_converter_1_1_controller_frame.html#a9b2bb6f60c6fb5fcf1304fe27cfb1084", null ],
+    [ "OnButtonClick_Bichrome", "class_greyscale_converter_1_1_controller_frame.html#ae6c9f79b53bf421b800cfd21a044e6ee", null ],
+    [ "OnButtonClick_ConvertToGrayscale", "class_greyscale_converter_1_1_controller_frame.html#a8202856a7e3f408f17e0e761c6401ea6", null ],
+    [ "OnButtonClick_KeepOneHue", "class_greyscale_converter_1_1_controller_frame.html#a28834e78c1722731489bd59b3bfb22b4", null ],
+    [ "OnButtonClick_RaspberriesButton", "class_greyscale_converter_1_1_controller_frame.html#ab835a2f27b820f1ecc8ff354c7a9220e", null ],
+    [ "OnClose_Frame", "class_greyscale_converter_1_1_controller_frame.html#a30a06ccff2290a4c8238ef54aaa5c1c9", null ],
+    [ "OnColourChanged_PickBichromeColour", "class_greyscale_converter_1_1_controller_frame.html#a1175e397d6ea4f768f5de8287f974bae", null ],
+    [ "OnMenuSelection_Exit", "class_greyscale_converter_1_1_controller_frame.html#af3e931fb539887f4cbd11f0e3eb1dbf8", null ],
+    [ "OnMenuSelection_GoFullscreen", "class_greyscale_converter_1_1_controller_frame.html#a8aac1ec571dc4416cee0aa45d06bef47", null ],
+    [ "OnMenuSelection_LoadConfig", "class_greyscale_converter_1_1_controller_frame.html#a7390e58d32958feb5d2b76aa07049ef7", null ],
+    [ "OnMenuSelection_LoadImage", "class_greyscale_converter_1_1_controller_frame.html#a50b0ec80420c7aee6fbc7017471ca3b4", null ],
+    [ "OnMenuSelection_QualityPreview", "class_greyscale_converter_1_1_controller_frame.html#a306e1325081eab73970d7edaf8c03f7a", null ],
+    [ "OnMenuSelection_SaveConfig", "class_greyscale_converter_1_1_controller_frame.html#a9798011dd5cf13a4e5c148ef34e436fe", null ],
+    [ "OnMenuSelection_SaveImage", "class_greyscale_converter_1_1_controller_frame.html#a0db1c95226e496d8502557048174655a", null ],
+    [ "OnPaint_RefreshImage", "class_greyscale_converter_1_1_controller_frame.html#a99a226055cea7dabf114f081cd259652", null ],
+    [ "OnScrollThumbTrack_ChangeBlueChannel", "class_greyscale_converter_1_1_controller_frame.html#a8c47622ac85f9751f16ecd9fa8167a56", null ],
+    [ "OnScrollThumbTrack_ChangeGreenChannel", "class_greyscale_converter_1_1_controller_frame.html#a07ee6a6e7c5c6eed5f16fbb01acf8b1f", null ],
+    [ "OnScrollThumbTrack_ChangeRedChannel", "class_greyscale_converter_1_1_controller_frame.html#a04a595ab350d842ccb0d88cf83a980d4", null ],
+    [ "OnScrollThumbTrack_HueIntesivity", "class_greyscale_converter_1_1_controller_frame.html#a2c94814eb52f7588ee826e80ab548c7c", null ],
+    [ "OnScrollThumbTrack_HueKept", "class_greyscale_converter_1_1_controller_frame.html#a98e4befc4e9ef4ac9d5c49962bc07497", null ],
+    [ "OnText_ChangeBlueChannel", "class_greyscale_converter_1_1_controller_frame.html#a065829a04cca0420ca3e662ac9076a19", null ],
+    [ "OnText_ChangeGreenChannel", "class_greyscale_converter_1_1_controller_frame.html#aeb7da7525e2feed0b599d03a530f4a7f", null ],
+    [ "OnText_ChangeHueIntensivity", "class_greyscale_converter_1_1_controller_frame.html#a16e1f1e3ac5596a8f95e6c3b16ae3df3", null ],
+    [ "OnText_ChangeRedChannel", "class_greyscale_converter_1_1_controller_frame.html#ae0e9a20d59fc4121064ef4a69c077170", null ],
+    [ "OnText_HueKept", "class_greyscale_converter_1_1_controller_frame.html#a16f8c48107d2faab0eb313f55940c022", null ]
+];

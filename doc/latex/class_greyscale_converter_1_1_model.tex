@@ -1,0 +1,531 @@
+\hypertarget{class_greyscale_converter_1_1_model}{}\doxysection{Greyscale\+Converter\+::Model Class Reference}
+\label{class_greyscale_converter_1_1_model}\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+
+
+Class representing \mbox{\hyperlink{class_greyscale_converter_1_1_model}{Model}} in M\+VC pattern.  
+
+
+
+
+{\ttfamily \#include $<$Model.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954b}{Work\+Mode}} \{ \mbox{\hyperlink{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954badb1010b88271b379fb8a5beeb81d2ea5}{Work\+Mode\+::\+B\+I\+C\+H\+R\+O\+ME}}, 
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954ba68577b71e3dd6736f90f7726368600a0}{Work\+Mode\+::\+G\+R\+E\+Y\+S\+C\+A\+LE}}, 
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954baa87d5006e1de1bfc07d5c56086ad20f1}{Work\+Mode\+::\+O\+R\+I\+G\+I\+N\+AL}}, 
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954ba64d839b006f22e6c066be3e30d3a6d49}{Work\+Mode\+::\+N\+O\+T\+\_\+\+L\+O\+A\+D\+ED}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum class containing available work modes\+: \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a718fba641733b24da79db5967c0a9656}{Model}} ()
+\item 
+void \mbox{\hyperlink{class_greyscale_converter_1_1_model_a8a75f8f61b3a6c1c5ba173e92d8dbffb}{Apply\+Parameters\+To\+Thumbnail}} ()
+\begin{DoxyCompactList}\small\item\em Applies user\textquotesingle{}s parameters to image thumbnail that is displayed in a live preview ~\newline
+ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ Save \& Load methods}\par
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_greyscale_converter_1_1_model_a1ba7203437baad721b737135897d1973}{Load\+Image\+From\+File}} (const wx\+String \&file\+Path)
+\begin{DoxyCompactList}\small\item\em Loads image from a file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greyscale_converter_1_1_model_a7ac786ed74058cae259387859d870b77}{Load\+Config\+From\+File}} (const wx\+String \&file\+Path)
+\begin{DoxyCompactList}\small\item\em Loads parameters configuration from a file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greyscale_converter_1_1_model_a5c03789dbd0963906f71732773d1ea14}{Save\+Image\+To\+File}} (const wx\+String \&filename)
+\begin{DoxyCompactList}\small\item\em Saves image to a file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greyscale_converter_1_1_model_a5cd437d005c11f6fbf044b0e3a3f28c4}{Save\+Config\+To\+File}} (const wx\+String \&file\+Path) const
+\begin{DoxyCompactList}\small\item\em Saves user\textquotesingle{}s configuration to a file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Getters}\par
+\begin{DoxyCompactItemize}
+\item 
+const wx\+Image \& \mbox{\hyperlink{class_greyscale_converter_1_1_model_aa99b23076378950193567e3dfa94018e}{Get\+Image\+Thumbnail}} () const
+\begin{DoxyCompactList}\small\item\em Returns image thumbnail. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954b}{Work\+Mode}} \mbox{\hyperlink{class_greyscale_converter_1_1_model_a1153a86e2f70a441c21da2029b5f1f3d}{Get\+Work\+Mode}} () const
+\begin{DoxyCompactList}\small\item\em Returns current work mode. \end{DoxyCompactList}\item 
+wx\+Colour \mbox{\hyperlink{class_greyscale_converter_1_1_model_ab49be44aa087bbf72eb2a79c1dc08c2e}{Get\+Bichrome\+Colour}} () const
+\begin{DoxyCompactList}\small\item\em Returns Color which will be kept in bichrome. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_greyscale_converter_1_1_model_a7ec4b30d501d0661821b855619ac9263}{Get\+Kept\+Hue}} () const
+\begin{DoxyCompactList}\small\item\em Returns value of kept hue. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_greyscale_converter_1_1_model_abe9e647684fdaa9d80fdf57e52803a10}{Get\+Kept\+Hue\+Intensivity}} () const
+\begin{DoxyCompactList}\small\item\em Returns intensivity value of kept hue. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_greyscale_converter_1_1_model_aa202f2411745d375e7047a8a9f98876d}{Get\+Red\+Channel}} () const
+\begin{DoxyCompactList}\small\item\em Returns value of red color channel. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_greyscale_converter_1_1_model_aada4db73451b2adcccd4deaae6ed58a7}{Get\+Green\+Channel}} () const
+\begin{DoxyCompactList}\small\item\em Returns value of green color channel. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_greyscale_converter_1_1_model_aecf44410fb01d3690b60b835e79d6a97}{Get\+Blue\+Channel}} () const
+\begin{DoxyCompactList}\small\item\em Returns value of blue color channel. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_greyscale_converter_1_1_model_a1da03ae31e82094ffb05d5e52fa4a406}{Is\+Result\+Image\+Saved}} () const
+\begin{DoxyCompactList}\small\item\em Returns true if result image has already been saved, false otherwise. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_greyscale_converter_1_1_model_ae9405bbbf0910a45de5c43d05f164585}{Is\+Config\+Saved}} () const
+\begin{DoxyCompactList}\small\item\em Returns true if config is saved, false otherwise. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_greyscale_converter_1_1_model_a0f70cbf8fc4ed4a852091e382d281c2a}{Is\+Hue\+Kept}} () const
+\begin{DoxyCompactList}\small\item\em Returns true if specific hue have to be kept, false otherwise. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Setters}\par
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_greyscale_converter_1_1_model_acd4c82afcfb8bce4958fb899a8110f8b}{Set\+Kept\+Hue\+Intensivity}} (int intensivity)
+\begin{DoxyCompactList}\small\item\em Sets intensivity value of kept hue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greyscale_converter_1_1_model_af3d9231a179fdd67032be9c06096a365}{Set\+Red\+Channel}} (int value)
+\begin{DoxyCompactList}\small\item\em Sets red channel value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greyscale_converter_1_1_model_add49153c11ab26d22bf0788a99a6e0f8}{Set\+Blue\+Channel}} (int value)
+\begin{DoxyCompactList}\small\item\em Sets blue channel value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greyscale_converter_1_1_model_ae126ef281d0aa0eea71e0189c8d0732d}{Set\+Green\+Channel}} (int value)
+\begin{DoxyCompactList}\small\item\em Sets green channel value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greyscale_converter_1_1_model_a3d810c749de4503e5c3921ce0cb1d003}{Set\+Kept\+Hue}} (int value)
+\begin{DoxyCompactList}\small\item\em Sets kept hue value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greyscale_converter_1_1_model_a81a44b0f6ae2f6050fdbed316f06ac7b}{Set\+Work\+Mode}} (\mbox{\hyperlink{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954b}{Work\+Mode}} mode)
+\begin{DoxyCompactList}\small\item\em Sets work mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greyscale_converter_1_1_model_a09ec5518279ea03c23cd88b1e2ae08ae}{Set\+Is\+Kept\+Hue}} (bool flag)
+\begin{DoxyCompactList}\small\item\em Sets boolean flag of kept hue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_greyscale_converter_1_1_model_a8c093319cb9a9a9647cbb0f76a172ef6}{Set\+Bichrome\+Colour}} (const wx\+Colour colour)
+\begin{DoxyCompactList}\small\item\em Sets color for bichrome. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Some not suspicious functions...}\par
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_greyscale_converter_1_1_model_a6a88572de8e76d37493f5d34c2a4afcf}{Totally\+Not\+Suspicious\+Looking\+Function}} ()
+\begin{DoxyCompactList}\small\item\em Wait, what is this? \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{Detailed Description}
+Class representing \mbox{\hyperlink{class_greyscale_converter_1_1_model}{Model}} in M\+VC pattern. 
+
+\mbox{\hyperlink{class_greyscale_converter_1_1_model}{Model}} holds all user input parameters and image with it\textquotesingle{}s copies and thumbnails.\hypertarget{class_greyscale_converter_1_1_model_autotoc_md0}{}\doxyparagraph{Model is used by Controller @see Controller}\label{class_greyscale_converter_1_1_model_autotoc_md0}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954b}\label{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954b}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!WorkMode@{WorkMode}}
+\index{WorkMode@{WorkMode}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{WorkMode}{WorkMode}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954b}{Greyscale\+Converter\+::\+Model\+::\+Work\+Mode}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Enum class containing available work modes\+: 
+
+
+\begin{DoxyItemize}
+\item B\+I\+C\+H\+R\+O\+ME
+\item G\+R\+E\+Y\+S\+C\+A\+LE
+\item O\+R\+I\+G\+I\+N\+AL =$>$ original image is shown
+\item N\+O\+T\+\_\+\+L\+O\+A\+D\+ED =$>$ no image has been loaded to a program 
+\end{DoxyItemize}\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BICHROME@{BICHROME}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!BICHROME@{BICHROME}}}\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954badb1010b88271b379fb8a5beeb81d2ea5}\label{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954badb1010b88271b379fb8a5beeb81d2ea5}} 
+B\+I\+C\+H\+R\+O\+ME&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GREYSCALE@{GREYSCALE}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!GREYSCALE@{GREYSCALE}}}\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954ba68577b71e3dd6736f90f7726368600a0}\label{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954ba68577b71e3dd6736f90f7726368600a0}} 
+G\+R\+E\+Y\+S\+C\+A\+LE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ORIGINAL@{ORIGINAL}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!ORIGINAL@{ORIGINAL}}}\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954baa87d5006e1de1bfc07d5c56086ad20f1}\label{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954baa87d5006e1de1bfc07d5c56086ad20f1}} 
+O\+R\+I\+G\+I\+N\+AL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NOT\_LOADED@{NOT\_LOADED}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!NOT\_LOADED@{NOT\_LOADED}}}\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954ba64d839b006f22e6c066be3e30d3a6d49}\label{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954ba64d839b006f22e6c066be3e30d3a6d49}} 
+N\+O\+T\+\_\+\+L\+O\+A\+D\+ED&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a718fba641733b24da79db5967c0a9656}\label{class_greyscale_converter_1_1_model_a718fba641733b24da79db5967c0a9656}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!Model@{Model}}
+\index{Model@{Model}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{Model()}{Model()}}
+{\footnotesize\ttfamily Greyscale\+Converter\+::\+Model\+::\+Model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a8a75f8f61b3a6c1c5ba173e92d8dbffb}\label{class_greyscale_converter_1_1_model_a8a75f8f61b3a6c1c5ba173e92d8dbffb}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!ApplyParametersToThumbnail@{ApplyParametersToThumbnail}}
+\index{ApplyParametersToThumbnail@{ApplyParametersToThumbnail}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{ApplyParametersToThumbnail()}{ApplyParametersToThumbnail()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Model\+::\+Apply\+Parameters\+To\+Thumbnail (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Applies user\textquotesingle{}s parameters to image thumbnail that is displayed in a live preview ~\newline
+ 
+
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_ab49be44aa087bbf72eb2a79c1dc08c2e}\label{class_greyscale_converter_1_1_model_ab49be44aa087bbf72eb2a79c1dc08c2e}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!GetBichromeColour@{GetBichromeColour}}
+\index{GetBichromeColour@{GetBichromeColour}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{GetBichromeColour()}{GetBichromeColour()}}
+{\footnotesize\ttfamily wx\+Colour Greyscale\+Converter\+::\+Model\+::\+Get\+Bichrome\+Colour (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns Color which will be kept in bichrome. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a8c093319cb9a9a9647cbb0f76a172ef6}{Set\+Bichrome\+Colour()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_aecf44410fb01d3690b60b835e79d6a97}\label{class_greyscale_converter_1_1_model_aecf44410fb01d3690b60b835e79d6a97}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!GetBlueChannel@{GetBlueChannel}}
+\index{GetBlueChannel@{GetBlueChannel}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{GetBlueChannel()}{GetBlueChannel()}}
+{\footnotesize\ttfamily int Greyscale\+Converter\+::\+Model\+::\+Get\+Blue\+Channel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns value of blue color channel. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_add49153c11ab26d22bf0788a99a6e0f8}{Set\+Blue\+Channel()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_aada4db73451b2adcccd4deaae6ed58a7}\label{class_greyscale_converter_1_1_model_aada4db73451b2adcccd4deaae6ed58a7}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!GetGreenChannel@{GetGreenChannel}}
+\index{GetGreenChannel@{GetGreenChannel}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{GetGreenChannel()}{GetGreenChannel()}}
+{\footnotesize\ttfamily int Greyscale\+Converter\+::\+Model\+::\+Get\+Green\+Channel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns value of green color channel. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_ae126ef281d0aa0eea71e0189c8d0732d}{Set\+Green\+Channel()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_aa99b23076378950193567e3dfa94018e}\label{class_greyscale_converter_1_1_model_aa99b23076378950193567e3dfa94018e}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!GetImageThumbnail@{GetImageThumbnail}}
+\index{GetImageThumbnail@{GetImageThumbnail}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{GetImageThumbnail()}{GetImageThumbnail()}}
+{\footnotesize\ttfamily const wx\+Image\& Greyscale\+Converter\+::\+Model\+::\+Get\+Image\+Thumbnail (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns image thumbnail. 
+
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a7ec4b30d501d0661821b855619ac9263}\label{class_greyscale_converter_1_1_model_a7ec4b30d501d0661821b855619ac9263}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!GetKeptHue@{GetKeptHue}}
+\index{GetKeptHue@{GetKeptHue}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{GetKeptHue()}{GetKeptHue()}}
+{\footnotesize\ttfamily int Greyscale\+Converter\+::\+Model\+::\+Get\+Kept\+Hue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns value of kept hue. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a3d810c749de4503e5c3921ce0cb1d003}{Set\+Kept\+Hue()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_abe9e647684fdaa9d80fdf57e52803a10}\label{class_greyscale_converter_1_1_model_abe9e647684fdaa9d80fdf57e52803a10}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!GetKeptHueIntensivity@{GetKeptHueIntensivity}}
+\index{GetKeptHueIntensivity@{GetKeptHueIntensivity}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{GetKeptHueIntensivity()}{GetKeptHueIntensivity()}}
+{\footnotesize\ttfamily int Greyscale\+Converter\+::\+Model\+::\+Get\+Kept\+Hue\+Intensivity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns intensivity value of kept hue. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_acd4c82afcfb8bce4958fb899a8110f8b}{Set\+Kept\+Hue\+Intensivity()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_aa202f2411745d375e7047a8a9f98876d}\label{class_greyscale_converter_1_1_model_aa202f2411745d375e7047a8a9f98876d}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!GetRedChannel@{GetRedChannel}}
+\index{GetRedChannel@{GetRedChannel}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{GetRedChannel()}{GetRedChannel()}}
+{\footnotesize\ttfamily int Greyscale\+Converter\+::\+Model\+::\+Get\+Red\+Channel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns value of red color channel. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_af3d9231a179fdd67032be9c06096a365}{Set\+Red\+Channel()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a1153a86e2f70a441c21da2029b5f1f3d}\label{class_greyscale_converter_1_1_model_a1153a86e2f70a441c21da2029b5f1f3d}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!GetWorkMode@{GetWorkMode}}
+\index{GetWorkMode@{GetWorkMode}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{GetWorkMode()}{GetWorkMode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954b}{Work\+Mode}} Greyscale\+Converter\+::\+Model\+::\+Get\+Work\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns current work mode. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954b}{Work\+Mode}} \mbox{\hyperlink{class_greyscale_converter_1_1_model_a81a44b0f6ae2f6050fdbed316f06ac7b}{Set\+Work\+Mode()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_ae9405bbbf0910a45de5c43d05f164585}\label{class_greyscale_converter_1_1_model_ae9405bbbf0910a45de5c43d05f164585}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!IsConfigSaved@{IsConfigSaved}}
+\index{IsConfigSaved@{IsConfigSaved}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{IsConfigSaved()}{IsConfigSaved()}}
+{\footnotesize\ttfamily bool Greyscale\+Converter\+::\+Model\+::\+Is\+Config\+Saved (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns true if config is saved, false otherwise. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a5cd437d005c11f6fbf044b0e3a3f28c4}{Save\+Config\+To\+File()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a0f70cbf8fc4ed4a852091e382d281c2a}\label{class_greyscale_converter_1_1_model_a0f70cbf8fc4ed4a852091e382d281c2a}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!IsHueKept@{IsHueKept}}
+\index{IsHueKept@{IsHueKept}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{IsHueKept()}{IsHueKept()}}
+{\footnotesize\ttfamily bool Greyscale\+Converter\+::\+Model\+::\+Is\+Hue\+Kept (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns true if specific hue have to be kept, false otherwise. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a7ec4b30d501d0661821b855619ac9263}{Get\+Kept\+Hue()}} \mbox{\hyperlink{class_greyscale_converter_1_1_model_a3d810c749de4503e5c3921ce0cb1d003}{Set\+Kept\+Hue()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a1da03ae31e82094ffb05d5e52fa4a406}\label{class_greyscale_converter_1_1_model_a1da03ae31e82094ffb05d5e52fa4a406}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!IsResultImageSaved@{IsResultImageSaved}}
+\index{IsResultImageSaved@{IsResultImageSaved}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{IsResultImageSaved()}{IsResultImageSaved()}}
+{\footnotesize\ttfamily bool Greyscale\+Converter\+::\+Model\+::\+Is\+Result\+Image\+Saved (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns true if result image has already been saved, false otherwise. 
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a5c03789dbd0963906f71732773d1ea14}{Save\+Image\+To\+File()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a7ac786ed74058cae259387859d870b77}\label{class_greyscale_converter_1_1_model_a7ac786ed74058cae259387859d870b77}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!LoadConfigFromFile@{LoadConfigFromFile}}
+\index{LoadConfigFromFile@{LoadConfigFromFile}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{LoadConfigFromFile()}{LoadConfigFromFile()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Model\+::\+Load\+Config\+From\+File (\begin{DoxyParamCaption}\item[{const wx\+String \&}]{file\+Path }\end{DoxyParamCaption})}
+
+
+
+Loads parameters configuration from a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & path to file which we want to load config from \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a5cd437d005c11f6fbf044b0e3a3f28c4}{Save\+Config\+To\+File()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a1ba7203437baad721b737135897d1973}\label{class_greyscale_converter_1_1_model_a1ba7203437baad721b737135897d1973}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!LoadImageFromFile@{LoadImageFromFile}}
+\index{LoadImageFromFile@{LoadImageFromFile}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{LoadImageFromFile()}{LoadImageFromFile()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Model\+::\+Load\+Image\+From\+File (\begin{DoxyParamCaption}\item[{const wx\+String \&}]{file\+Path }\end{DoxyParamCaption})}
+
+
+
+Loads image from a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & path to file which we want to load image from \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a5c03789dbd0963906f71732773d1ea14}{Save\+Image\+To\+File()}} 
+\end{DoxySeeAlso}
+\begin{DoxyNote}{Note}
+Handles all popular image formats 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a5cd437d005c11f6fbf044b0e3a3f28c4}\label{class_greyscale_converter_1_1_model_a5cd437d005c11f6fbf044b0e3a3f28c4}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!SaveConfigToFile@{SaveConfigToFile}}
+\index{SaveConfigToFile@{SaveConfigToFile}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{SaveConfigToFile()}{SaveConfigToFile()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Model\+::\+Save\+Config\+To\+File (\begin{DoxyParamCaption}\item[{const wx\+String \&}]{file\+Path }\end{DoxyParamCaption}) const}
+
+
+
+Saves user\textquotesingle{}s configuration to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & Name under which configuration will be saved \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a7ac786ed74058cae259387859d870b77}{Load\+Config\+From\+File()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a5c03789dbd0963906f71732773d1ea14}\label{class_greyscale_converter_1_1_model_a5c03789dbd0963906f71732773d1ea14}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!SaveImageToFile@{SaveImageToFile}}
+\index{SaveImageToFile@{SaveImageToFile}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{SaveImageToFile()}{SaveImageToFile()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Model\+::\+Save\+Image\+To\+File (\begin{DoxyParamCaption}\item[{const wx\+String \&}]{filename }\end{DoxyParamCaption})}
+
+
+
+Saves image to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Name under which converted image will be saved \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a1ba7203437baad721b737135897d1973}{Load\+Image\+From\+File()}} 
+\end{DoxySeeAlso}
+\begin{DoxyNote}{Note}
+Handles all popular image formats 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a8c093319cb9a9a9647cbb0f76a172ef6}\label{class_greyscale_converter_1_1_model_a8c093319cb9a9a9647cbb0f76a172ef6}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!SetBichromeColour@{SetBichromeColour}}
+\index{SetBichromeColour@{SetBichromeColour}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{SetBichromeColour()}{SetBichromeColour()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Model\+::\+Set\+Bichrome\+Colour (\begin{DoxyParamCaption}\item[{const wx\+Colour}]{colour }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets color for bichrome. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em colour} & bichrome colour \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_ab49be44aa087bbf72eb2a79c1dc08c2e}{Get\+Bichrome\+Colour()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_add49153c11ab26d22bf0788a99a6e0f8}\label{class_greyscale_converter_1_1_model_add49153c11ab26d22bf0788a99a6e0f8}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!SetBlueChannel@{SetBlueChannel}}
+\index{SetBlueChannel@{SetBlueChannel}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{SetBlueChannel()}{SetBlueChannel()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Model\+::\+Set\+Blue\+Channel (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets blue channel value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & blue channel \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_aecf44410fb01d3690b60b835e79d6a97}{Get\+Blue\+Channel()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_ae126ef281d0aa0eea71e0189c8d0732d}\label{class_greyscale_converter_1_1_model_ae126ef281d0aa0eea71e0189c8d0732d}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!SetGreenChannel@{SetGreenChannel}}
+\index{SetGreenChannel@{SetGreenChannel}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{SetGreenChannel()}{SetGreenChannel()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Model\+::\+Set\+Green\+Channel (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets green channel value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & green channel \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_aada4db73451b2adcccd4deaae6ed58a7}{Get\+Green\+Channel()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a09ec5518279ea03c23cd88b1e2ae08ae}\label{class_greyscale_converter_1_1_model_a09ec5518279ea03c23cd88b1e2ae08ae}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!SetIsKeptHue@{SetIsKeptHue}}
+\index{SetIsKeptHue@{SetIsKeptHue}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{SetIsKeptHue()}{SetIsKeptHue()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Model\+::\+Set\+Is\+Kept\+Hue (\begin{DoxyParamCaption}\item[{bool}]{flag }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets boolean flag of kept hue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em flag} & flag \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a0f70cbf8fc4ed4a852091e382d281c2a}{Is\+Hue\+Kept()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a3d810c749de4503e5c3921ce0cb1d003}\label{class_greyscale_converter_1_1_model_a3d810c749de4503e5c3921ce0cb1d003}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!SetKeptHue@{SetKeptHue}}
+\index{SetKeptHue@{SetKeptHue}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{SetKeptHue()}{SetKeptHue()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Model\+::\+Set\+Kept\+Hue (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets kept hue value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & kept hue \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_aa202f2411745d375e7047a8a9f98876d}{Get\+Red\+Channel()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_acd4c82afcfb8bce4958fb899a8110f8b}\label{class_greyscale_converter_1_1_model_acd4c82afcfb8bce4958fb899a8110f8b}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!SetKeptHueIntensivity@{SetKeptHueIntensivity}}
+\index{SetKeptHueIntensivity@{SetKeptHueIntensivity}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{SetKeptHueIntensivity()}{SetKeptHueIntensivity()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Model\+::\+Set\+Kept\+Hue\+Intensivity (\begin{DoxyParamCaption}\item[{int}]{intensivity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets intensivity value of kept hue. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em intensivity} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_abe9e647684fdaa9d80fdf57e52803a10}{Get\+Kept\+Hue\+Intensivity()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_af3d9231a179fdd67032be9c06096a365}\label{class_greyscale_converter_1_1_model_af3d9231a179fdd67032be9c06096a365}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!SetRedChannel@{SetRedChannel}}
+\index{SetRedChannel@{SetRedChannel}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{SetRedChannel()}{SetRedChannel()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Model\+::\+Set\+Red\+Channel (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets red channel value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & red channel \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_aa202f2411745d375e7047a8a9f98876d}{Get\+Red\+Channel()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a81a44b0f6ae2f6050fdbed316f06ac7b}\label{class_greyscale_converter_1_1_model_a81a44b0f6ae2f6050fdbed316f06ac7b}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!SetWorkMode@{SetWorkMode}}
+\index{SetWorkMode@{SetWorkMode}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{SetWorkMode()}{SetWorkMode()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Model\+::\+Set\+Work\+Mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954b}{Work\+Mode}}}]{mode }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Sets work mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & work mode \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{class_greyscale_converter_1_1_model_a0ed3644f313bf1ce43f950226548954b}{Work\+Mode}} \mbox{\hyperlink{class_greyscale_converter_1_1_model_a1153a86e2f70a441c21da2029b5f1f3d}{Get\+Work\+Mode()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_greyscale_converter_1_1_model_a6a88572de8e76d37493f5d34c2a4afcf}\label{class_greyscale_converter_1_1_model_a6a88572de8e76d37493f5d34c2a4afcf}} 
+\index{GreyscaleConverter::Model@{GreyscaleConverter::Model}!TotallyNotSuspiciousLookingFunction@{TotallyNotSuspiciousLookingFunction}}
+\index{TotallyNotSuspiciousLookingFunction@{TotallyNotSuspiciousLookingFunction}!GreyscaleConverter::Model@{GreyscaleConverter::Model}}
+\doxysubsubsection{\texorpdfstring{TotallyNotSuspiciousLookingFunction()}{TotallyNotSuspiciousLookingFunction()}}
+{\footnotesize\ttfamily void Greyscale\+Converter\+::\+Model\+::\+Totally\+Not\+Suspicious\+Looking\+Function (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Wait, what is this? 
+
+Dunno, ignore this. It\textquotesingle{}s definately something extreamly not important... 
