@@ -36,6 +36,7 @@ namespace GreyscaleConverter
 		m_imageThumbnail = m_originalImage.Copy();
 		AdjustImageThumbnail();
 		m_imageThumbnailCopy = m_imageThumbnail.Copy();
+		m_imageThumbnailMixed = m_imageThumbnail.Copy();
 	}
 
 	std::istream& rd2EOL(std::istream& str)
@@ -109,13 +110,16 @@ namespace GreyscaleConverter
 		case WorkMode::BICHROME:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
 			ImageConversion::ConvertToBichrome(m_imageThumbnailCopy, m_bichromeColour, m_isHueKept, m_keptHue, m_keptHueIntensivity);
+			MixConvertedWithOriginal();
 			break;
 		case WorkMode::GREYSCALE:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
 			ImageConversion::ConvertToGreyScale(m_imageThumbnailCopy, m_redChannel, m_greenChannel, m_blueChannel, m_isHueKept, m_keptHue, m_keptHueIntensivity);
+			MixConvertedWithOriginal();
 			break;
 		case WorkMode::ORIGINAL:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
+			MixConvertedWithOriginal();
 			break;
 		case WorkMode::NOT_LOADED:
 			m_isResultSaved = true;
@@ -126,5 +130,24 @@ namespace GreyscaleConverter
 
 	void Model::EasterEgg()
 	{
+	}
+
+	void Model::MixConvertedWithOriginal()
+	{
+		if (m_mode == WorkMode::NOT_LOADED)
+			return;
+		
+		auto originalData{ m_imageThumbnail.GetData() };
+		auto convertedData{ m_imageThumbnailCopy.GetData() };
+		auto mixedData{ m_imageThumbnailMixed.GetData() };
+
+		const int dataSize{ m_imageThumbnail.GetWidth() * m_imageThumbnail.GetHeight() * 3 };
+
+		for(int i = 0; i < dataSize; i += 3)
+		{
+			mixedData[i] = (1.0 - m_mixingFactor) * convertedData[i] + m_mixingFactor * originalData[i];
+			mixedData[i + 1] = (1.0 - m_mixingFactor) * convertedData[i + 1] + m_mixingFactor * originalData[i + 1];
+			mixedData[i + 2] = (1.0 - m_mixingFactor) * convertedData[i + 2] + m_mixingFactor * originalData[i + 2];
+		}
 	}
 }

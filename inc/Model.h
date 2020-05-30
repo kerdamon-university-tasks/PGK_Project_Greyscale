@@ -24,7 +24,7 @@ namespace GreyscaleConverter
 		void ApplyParametersToThumbnail();
 
 		//getters
-		const wxImage& GetImageThumbnail() const { return m_imageThumbnailCopy; }
+		const wxImage& GetImageThumbnail() const { return m_imageThumbnailMixed; }
 		bool IsResultImageSaved() const { return m_isResultSaved; }
 		bool IsConfigSaved() const { return m_isConfigSaved; }
 		WorkMode GetWorkMode() const { return m_mode; }
@@ -45,8 +45,10 @@ namespace GreyscaleConverter
 		void SetWorkMode(WorkMode mode) { m_mode = mode; }
 		void SetIsKeptHue(bool flag) { m_isHueKept = flag; }
 		void SetBichromeColour(const wxColour colour) { m_bichromeColour = colour; }
+		void SetMixingFactor(const float mixingFactor) { m_mixingFactor = mixingFactor; }
 
 		void EasterEgg();
+		void MixConvertedWithOriginal();
 
 	private:
 
@@ -56,7 +58,7 @@ namespace GreyscaleConverter
 		wxImage m_originalImageCopy;
 		wxImage m_imageThumbnail;
 		wxImage m_imageThumbnailCopy;
-
+		wxImage m_imageThumbnailMixed;
 
 		int m_keptHue{ 180 };
 
@@ -74,7 +76,8 @@ namespace GreyscaleConverter
 		bool m_isHueKept{ false };
 		bool m_isResultSaved{ true };
 		bool m_isConfigSaved{ true };
-		//bool m_isImageLoaded{ false };
+
+		float m_mixingFactor{ 0 };
 
 	};
 }
