@@ -24,11 +24,18 @@ namespace GreyscaleConverter
 		void ApplyParametersToThumbnail();
 
 		//getters
-		const wxImage& GetImageThumbnail() const { return m_imageThumbnailCopy; }
+		const wxImage& GetImageThumbnail() const { return m_imageThumbnailMixed; }
 		bool IsResultImageSaved() const { return m_isResultSaved; }
 		bool IsConfigSaved() const { return m_isConfigSaved; }
-		//bool IsImageLoaded() const { return m_isImageLoaded; }
 		WorkMode GetWorkMode() const { return m_mode; }
+		wxColour GetBichromeColour() const { return m_bichromeColour; }
+		int GetKeptHue() const { return m_keptHue; }
+		int GetKeptHueIntensivity() const { return m_keptHueIntensivity; }
+		int GetRedChannel() const { return m_redChannel; }
+		int GetGreenChannel() const { return m_greenChannel; }
+		int GetBlueChannel() const { return m_blueChannel; }
+		bool IsHueKept() const { return m_isHueKept; }
+		int GetMixingFactor() const { return m_mixingFactor; }
 
 		//setters
 		void SetKeptHueIntensivity(int intensivity) { m_keptHueIntensivity = intensivity; }
@@ -39,9 +46,11 @@ namespace GreyscaleConverter
 		void SetWorkMode(WorkMode mode) { m_mode = mode; }
 		void SetIsKeptHue(bool flag) { m_isHueKept = flag; }
 		void SetBichromeColour(const wxColour colour) { m_bichromeColour = colour; }
-		//void IsImageLoaded(bool isLoaded) { m_isImageLoaded = isLoaded; }
+		void SetMixingFactor(const int mixingFactor) { m_mixingFactor = mixingFactor; }
+		void IsResultImageSaved(const bool isSaved) { m_isResultSaved = isSaved; }
 
 		void EasterEgg();
+		void MixConvertedWithOriginal();
 
 	private:
 
@@ -51,7 +60,7 @@ namespace GreyscaleConverter
 		wxImage m_originalImageCopy;
 		wxImage m_imageThumbnail;
 		wxImage m_imageThumbnailCopy;
-
+		wxImage m_imageThumbnailMixed;
 
 		int m_keptHue{ 180 };
 
@@ -69,7 +78,8 @@ namespace GreyscaleConverter
 		bool m_isHueKept{ false };
 		bool m_isResultSaved{ true };
 		bool m_isConfigSaved{ true };
-		//bool m_isImageLoaded{ false };
+
+		int m_mixingFactor{ 0 };
 
 	};
 }

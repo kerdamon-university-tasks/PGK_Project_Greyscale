@@ -28,6 +28,8 @@ namespace GreyscaleConverter
 		void OnText_ChangeGreenChannel(wxCommandEvent& event);
 		void OnScrollThumbTrack_ChangeBlueChannel(wxScrollEvent& event);
 		void OnText_ChangeBlueChannel(wxCommandEvent& event);
+		void OnScrollThumbTrack_MixOriginalWithConverted(wxScrollEvent& event);
+		void OnText_MixOriginalWithConverted(wxCommandEvent& event);
 		void OnMenuSelection_LoadImage(wxCommandEvent& event);
 		void OnMenuSelection_LoadConfig(wxCommandEvent& event);
 		void OnMenuSelection_SaveImage(wxCommandEvent& event);
@@ -45,5 +47,9 @@ namespace GreyscaleConverter
 		void AlternateConversionButtons(Model::WorkMode pressedButton);
 		void ClearImagePreview();
 		void UpdatePreview();
+		void UpdateControls();
+		void DisableChannelControls();
+		void EnableChannelControls();
+
 	};
 }

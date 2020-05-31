@@ -15,6 +15,7 @@ namespace GreyscaleConverter
 		Frame(parent)
 	{
 		m_raspberriesButton->Hide();
+		DisableChannelControls();
 	}
 
 	void ControllerFrame::OnClose_Frame(wxCloseEvent& event)
@@ -30,7 +31,10 @@ namespace GreyscaleConverter
 		if (m_grayscaleButton->GetValue())
 			AlternateConversionButtons(Model::WorkMode::GREYSCALE);
 		else
+		{
+			DisableChannelControls();
 			ClearImagePreview();
+		}
 	}
 
 	void ControllerFrame::OnButtonClick_Bichrome(wxCommandEvent& event)
@@ -43,7 +47,7 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnColourChanged_PickBichromeColour(wxColourPickerEvent& event)
 	{
-		m_model.SetBichromeColour(m_pickColourButton->GetColour());
+		m_model.SetBichromeColour(m_pickBichromeColourButton->GetColour());
 		m_model.ApplyParametersToThumbnail();
 		UpdatePreview();
 	}
@@ -278,7 +282,53 @@ namespace GreyscaleConverter
 			m_blueChannelText->SetValue(newText);
 		}
 
+		m_model.SetBlueChannel(value);
 		m_blueChannelSlider->SetValue(value);
+
+		UpdatePreview();
+	}
+
+	void ControllerFrame::OnScrollThumbTrack_MixOriginalWithConverted(wxScrollEvent& event)
+	{
+		wxString newText;
+		newText << m_mixedFactorSlider->GetValue();
+		m_mixedFactorText->SetValue(newText);
+
+		double factor;
+		if (!m_mixedFactorText->GetValue().ToDouble(&factor))
+			return;
+
+		m_model.SetMixingFactor(factor);
+		m_model.MixConvertedWithOriginal();
+		
+		UpdatePreview();
+	}
+
+	void ControllerFrame::OnText_MixOriginalWithConverted(wxCommandEvent& event)
+	{
+		long factor;
+		if (!m_mixedFactorText->GetValue().ToLong(&factor))
+			return;
+
+		if (factor > m_mixedFactorSlider->GetMax())
+		{
+			factor = m_mixedFactorSlider->GetMax();
+			wxString newText;
+			newText << factor;
+			m_mixedFactorText->SetValue(newText);
+		}
+		else if (factor < m_mixedFactorSlider->GetMin())
+		{
+			factor = m_mixedFactorSlider->GetMin();
+			wxString newText;
+			newText << factor;
+			m_mixedFactorText->SetValue(newText);
+		}
+
+		m_mixedFactorSlider->SetValue(factor);
+
+		m_model.SetMixingFactor(factor);
+		m_model.MixConvertedWithOriginal();
 
 		UpdatePreview();
 	}
@@ -302,7 +352,6 @@ namespace GreyscaleConverter
 		if (showResult == wxID_OK)
 		{
 			m_model.LoadImageFromFile(openFileDialog.GetPath());
-			//m_model.IsImageLoaded(true);
 			m_model.SetWorkMode(Model::WorkMode::ORIGINAL);
 			m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
 		}
@@ -310,25 +359,40 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnMenuSelection_LoadConfig(wxCommandEvent& event)
 	{
-		wxFileDialog openFileDialog(this, _("Choose config file"), "", "", "JPG files (*.jpg)|*.jpg",
-		                            wxFD_OPEN | wxFD_FILE_MUST_EXIST);
-
-		if (openFileDialog.ShowModal() == wxID_CANCEL) //nothing selected
-			return;
-
-		const wxFileInputStream inputStream(openFileDialog.GetPath()); //checking if ok
-		if (!inputStream.IsOk())
+		if(m_model.GetWorkMode() == Model::WorkMode::NOT_LOADED)
 		{
-			wxLogError("Cannot open file '%s'.", openFileDialog.GetPath());
+			wxMessageBox(_("Load image first"), _(""), wxICON_QUESTION, this);
 			return;
 		}
 
-		//m_model.LoadConfigFromFile(openFileDialog.GetPath());
-		m_view->Update();
+		if (WarningIfImageNotSaved() == wxNO)
+			return;
+		
+		wxFileDialog openFileDialog{
+			this, _("Choose a file"), _(""), _(""),
+			_("Config files (*.cfg)|*.cfg"),
+			wxFD_OPEN | wxFD_FILE_MUST_EXIST
+		};
+
+		const auto showResult = openFileDialog.ShowModal();
+
+		if (showResult == wxID_CANCEL) //nothing selected
+			return;
+
+		if (showResult == wxID_OK)
+		{
+			m_model.LoadConfigFromFile(openFileDialog.GetPath());
+			UpdateControls();
+		}
+
+		UpdatePreview();
 	}
 
 	void ControllerFrame::OnMenuSelection_SaveImage(wxCommandEvent& event)
 	{
+		if (m_model.GetWorkMode() == Model::WorkMode::NOT_LOADED)
+			return;
+		
 		wxFileDialog saveFileDialog{
 			this,
 			_("Choose a folder"), "", "",
@@ -344,6 +408,7 @@ namespace GreyscaleConverter
 		if (showResult == wxID_OK)
 		{
 			m_model.SaveImageToFile(saveFileDialog.GetPath());
+			m_model.IsResultImageSaved(true);
 		}
 		else
 			wxLogError("Cannot save current contents in file '%s'.", saveFileDialog.GetPath());
@@ -398,7 +463,6 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnPaint_RefreshImage(wxPaintEvent& event)
 	{
-		//if (m_model.IsImageLoaded())
 		if (m_model.GetWorkMode() != Model::WorkMode::NOT_LOADED)
 			m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
 	}
@@ -423,6 +487,8 @@ namespace GreyscaleConverter
 		m_grayscaleButton->SetValue(false);
 		m_bichromeButton->SetValue(false);
 
+		DisableChannelControls();
+
 		if (m_model.GetWorkMode() == Model::WorkMode::NOT_LOADED)
 			return;
 
@@ -437,11 +503,32 @@ namespace GreyscaleConverter
 		case Model::WorkMode::GREYSCALE:
 			m_grayscaleButton->SetValue(true);
 			m_model.SetWorkMode(Model::WorkMode::GREYSCALE);
+			EnableChannelControls();
 			break;
 		default: ;
 		}
 
 		UpdatePreview();
+	}
+
+	void ControllerFrame::DisableChannelControls()
+	{
+		m_redChannelSlider->Disable();
+		m_redChannelText->Disable();
+		m_greenChannelSlider->Disable();
+		m_greenChannelText->Disable();
+		m_blueChannelSlider->Disable();
+		m_blueChannelText->Disable();
+	}
+
+	void ControllerFrame::EnableChannelControls()
+	{
+		m_redChannelSlider->Enable();
+		m_redChannelText->Enable();
+		m_greenChannelSlider->Enable();
+		m_greenChannelText->Enable();
+		m_blueChannelSlider->Enable();
+		m_blueChannelText->Enable();
 	}
 
 	void ControllerFrame::ClearImagePreview()
@@ -459,4 +546,59 @@ namespace GreyscaleConverter
 		m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
 	}
 
+	void ControllerFrame::UpdateControls()
+	{
+		m_bichromeButton->SetValue(false);
+		m_grayscaleButton->SetValue(false);
+		DisableChannelControls();
+		
+		switch (m_model.GetWorkMode())
+		{
+		case Model::WorkMode::BICHROME:
+			m_bichromeButton->SetValue(true);
+			break;
+		case Model::WorkMode::GREYSCALE:
+			m_grayscaleButton->SetValue(true);
+			EnableChannelControls();
+			break;
+		default:
+			break;
+		}
+
+		m_keepHueButton->SetValue(false);
+		if (m_model.IsHueKept())
+			m_keepHueButton->SetValue(true);
+		
+		m_pickBichromeColourButton->SetColour(m_model.GetBichromeColour());
+		
+		m_hueSlider->SetValue(m_model.GetKeptHue());
+		wxString tempText;
+		tempText << m_model.GetKeptHue();
+		m_hueSliderText->SetValue(tempText);
+		
+		m_intensivitySlider->SetValue(m_model.GetKeptHueIntensivity());
+		wxString tempText2;
+		tempText2 << m_model.GetKeptHueIntensivity();
+		m_intensivityText->SetValue(tempText2);
+
+		m_redChannelSlider->SetValue(m_model.GetRedChannel());
+		wxString tempTextR;
+		tempTextR << m_model.GetRedChannel();
+		m_redChannelText->SetValue(tempTextR);
+
+		m_greenChannelSlider->SetValue(m_model.GetGreenChannel());
+		wxString tempTextG;
+		tempTextG << m_model.GetGreenChannel();
+		m_greenChannelText->SetValue(tempTextG);
+
+		m_blueChannelSlider->SetValue(m_model.GetBlueChannel());
+		wxString tempTextB;
+		tempTextB << m_model.GetBlueChannel();
+		m_blueChannelText->SetValue(tempTextB);
+		
+		m_mixedFactorSlider->SetValue(m_model.GetMixingFactor());
+		wxString tempTextMix;
+		tempTextMix << m_model.GetMixingFactor();
+		m_mixedFactorText->SetValue(tempTextMix);
+	}
 }
