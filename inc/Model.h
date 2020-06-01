@@ -84,7 +84,7 @@ namespace GreyscaleConverter
 		/// Returns intensivity value of kept hue
 		///
 		/// @see SetKeptHueIntensivity()
-		int GetKeptHueIntensivity() const { return m_keptHueIntensivity; }
+		int GetKeptHueIntensivity() const { return m_keptHueTolerance; }
 
 		/// Returns value of red color channel
 		///
@@ -129,7 +129,7 @@ namespace GreyscaleConverter
 		///	
 		/// @param intensivity
 		/// @see GetKeptHueIntensivity()
-		void SetKeptHueIntensivity(int intensivity) { m_keptHueIntensivity = intensivity; }
+		void SetKeptHueIntensivity(int intensivity) { m_keptHueTolerance = intensivity; }
 
 		/// Sets red channel value
 		///	
@@ -172,12 +172,24 @@ namespace GreyscaleConverter
 		/// @param colour bichrome colour
 		/// @see GetBichromeColour()
 		void SetBichromeColour(const wxColour colour) { m_bichromeColour = colour; }
+
+		/// Sets factor representing proportion between original and converted images
+		///
+		/// @param mixingFactor factor value
+		/// @see GetMixingFactor() MixConvertedWithOriginal()
+		void SetMixingFactor(const int mixingFactor) { m_mixingFactor = mixingFactor; }
 		///@}
 
 
 		/// Applies user's parameters to image thumbnail that is displayed in a live preview	
 		void ApplyParametersToThumbnail();
 
+		/// Combines original image with its converted version
+		///
+		/// Proportion between original image and converted one is kept as a parameter m_mixingFactor
+		/// It is accesible with:
+		/// @see GetMixingFactor() SetMixingFactor()
+		void MixConvertedWithOriginal();
 
 		///@{
 		/// @name Some not suspicious functions...
@@ -188,11 +200,14 @@ namespace GreyscaleConverter
 		void TotallyNotSuspiciousLookingFunction();
 		///@}
 
-		void SetMixingFactor(const int mixingFactor) { m_mixingFactor = mixingFactor; }
+		/// Sets state of ResultImage (saved / not saved) as boolean flag
+		///
+		/// @param isSaved flag value
+		/// @see IsResultImageSaved()
 		void IsResultImageSaved(const bool isSaved) { m_isResultSaved = isSaved; }
 
 		void EasterEgg();
-		void MixConvertedWithOriginal();
+
 
 
 	private:
@@ -211,7 +226,7 @@ namespace GreyscaleConverter
 		const int m_maxImageThumbnailSize{ 500 };
 		
 		int m_keptHue{ 180 };
-		int m_keptHueIntensivity{ 80 };
+		int m_keptHueTolerance{ 80 };
 		
 		int m_redChannel{ 0 };
 		int m_blueChannel{ 0 };

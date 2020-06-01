@@ -59,7 +59,7 @@ namespace GreyscaleConverter
 		f.open(filePath.ToStdString(), std::ios::in);
 		f >> tempMode >> rd2EOL;
 		f >> bichromeRed >> bichromeGreen >> bichromeBlue >> rd2EOL;
-		f >> m_isHueKept >> m_keptHue >> m_keptHueIntensivity >> rd2EOL;
+		f >> m_isHueKept >> m_keptHue >> m_keptHueTolerance >> rd2EOL;
 		f >> m_redChannel >> m_greenChannel >> m_blueChannel >> rd2EOL;
 		f >> m_mixingFactor >> rd2EOL;
 		f.close();
@@ -74,11 +74,11 @@ namespace GreyscaleConverter
 		{
 			case WorkMode::BICHROME:
 				m_originalImageCopy = m_originalImage.Copy();
-				ImageConversion::ConvertToBichrome(m_originalImageCopy,m_bichromeColour, m_isHueKept, m_keptHue, m_keptHueIntensivity);
+				ImageConversion::ConvertToBichrome(m_originalImageCopy,m_bichromeColour, m_isHueKept, m_keptHue, m_keptHueTolerance);
 				break;
 			case WorkMode::GREYSCALE:
 				m_originalImageCopy = m_originalImage.Copy();
-				ImageConversion::ConvertToGreyScale(m_originalImageCopy, m_redChannel, m_greenChannel, m_blueChannel, m_isHueKept, m_keptHue, m_keptHueIntensivity);
+				ImageConversion::ConvertToGreyScale(m_originalImageCopy, m_redChannel, m_greenChannel, m_blueChannel, m_isHueKept, m_keptHue, m_keptHueTolerance);
 				break;
 			case WorkMode::ORIGINAL:
 			case WorkMode::NOT_LOADED:
@@ -97,7 +97,7 @@ namespace GreyscaleConverter
 		f.open(filePath.ToStdString(), std::ios::out);
 		f << static_cast<int>(m_mode) << std::endl;
 		f << m_bichromeColour.Red() << " " << m_bichromeColour.Green() << " " << m_bichromeColour.Blue() << " " << std::endl;
-		f << m_isHueKept << " " << m_keptHue << " " << m_keptHueIntensivity << " " << std::endl;
+		f << m_isHueKept << " " << m_keptHue << " " << m_keptHueTolerance << " " << std::endl;
 		f << m_redChannel << " " << m_greenChannel << " " << m_blueChannel << " " << std::endl;
 		f << m_mixingFactor << std::endl;
 		f.close();
@@ -111,12 +111,12 @@ namespace GreyscaleConverter
 		{
 		case WorkMode::BICHROME:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
-			ImageConversion::ConvertToBichrome(m_imageThumbnailCopy, m_bichromeColour, m_isHueKept, m_keptHue, m_keptHueIntensivity);
+			ImageConversion::ConvertToBichrome(m_imageThumbnailCopy, m_bichromeColour, m_isHueKept, m_keptHue, m_keptHueTolerance);
 			MixConvertedWithOriginal();
 			break;
 		case WorkMode::GREYSCALE:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
-			ImageConversion::ConvertToGreyScale(m_imageThumbnailCopy, m_redChannel, m_greenChannel, m_blueChannel, m_isHueKept, m_keptHue, m_keptHueIntensivity);
+			ImageConversion::ConvertToGreyScale(m_imageThumbnailCopy, m_redChannel, m_greenChannel, m_blueChannel, m_isHueKept, m_keptHue, m_keptHueTolerance);
 			MixConvertedWithOriginal();
 			break;
 		case WorkMode::ORIGINAL:
@@ -139,9 +139,9 @@ namespace GreyscaleConverter
 		if (m_mode == WorkMode::NOT_LOADED)
 			return;
 		
-		auto originalData{ m_imageThumbnail.GetData() };
-		auto convertedData{ m_imageThumbnailCopy.GetData() };
-		auto mixedData{ m_imageThumbnailMixed.GetData() };
+		auto* const originalData{ m_imageThumbnail.GetData() };
+		auto* const convertedData{ m_imageThumbnailCopy.GetData() };
+		auto* const mixedData{ m_imageThumbnailMixed.GetData() };
 
 		const int dataSize{ m_imageThumbnail.GetWidth() * m_imageThumbnail.GetHeight() * 3 };
 

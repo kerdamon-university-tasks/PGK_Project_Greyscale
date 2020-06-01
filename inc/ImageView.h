@@ -34,7 +34,7 @@ namespace GreyscaleConverter
 
 		/// Updates image displayed on View
 		///
-		/// @param highQuality flag determining of image should be displayed in high quality
+		/// @param highQuality flag determining if image should be displayed in high quality
 		void UpdateImage(bool highQuality);
 
 	private:
