@@ -1,7 +1,5 @@
 #include "inc/Model.h"
-#include "inc/ImageConversion.h"
 
-#include <fstream>
 
 namespace GreyscaleConverter
 {
@@ -65,16 +63,16 @@ namespace GreyscaleConverter
 		f.close();
 
 		m_mode = static_cast<WorkMode>(tempMode);
-		m_bichromeColour = wxColour{ bichromeRed, bichromeGreen, bichromeBlue };
+		m_duotoneColour = wxColour{ bichromeRed, bichromeGreen, bichromeBlue };
 	}
 
 	void Model::SaveImageToFile(const wxString& filename)
 	{
 		switch (m_mode)
 		{
-			case WorkMode::BICHROME:
+			case WorkMode::DUOTONE:
 				m_originalImageCopy = m_originalImage.Copy();
-				ImageConversion::ConvertToBichrome(m_originalImageCopy,m_bichromeColour, m_isHueKept, m_keptHue, m_keptHueTolerance);
+				ImageConversion::ConvertToDuotone(m_originalImageCopy,m_duotoneColour, m_isHueKept, m_keptHue, m_keptHueTolerance);
 				break;
 			case WorkMode::GREYSCALE:
 				m_originalImageCopy = m_originalImage.Copy();
@@ -96,7 +94,7 @@ namespace GreyscaleConverter
 
 		f.open(filePath.ToStdString(), std::ios::out);
 		f << static_cast<int>(m_mode) << std::endl;
-		f << m_bichromeColour.Red() << " " << m_bichromeColour.Green() << " " << m_bichromeColour.Blue() << " " << std::endl;
+		f << m_duotoneColour.Red() << " " << m_duotoneColour.Green() << " " << m_duotoneColour.Blue() << " " << std::endl;
 		f << m_isHueKept << " " << m_keptHue << " " << m_keptHueTolerance << " " << std::endl;
 		f << m_redChannel << " " << m_greenChannel << " " << m_blueChannel << " " << std::endl;
 		f << m_mixingFactor << std::endl;
@@ -109,9 +107,9 @@ namespace GreyscaleConverter
 		
 		switch (m_mode)
 		{
-		case WorkMode::BICHROME:
+		case WorkMode::DUOTONE:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
-			ImageConversion::ConvertToBichrome(m_imageThumbnailCopy, m_bichromeColour, m_isHueKept, m_keptHue, m_keptHueTolerance);
+			ImageConversion::ConvertToDuotone(m_imageThumbnailCopy, m_duotoneColour, m_isHueKept, m_keptHue, m_keptHueTolerance);
 			MixConvertedWithOriginal();
 			break;
 		case WorkMode::GREYSCALE:

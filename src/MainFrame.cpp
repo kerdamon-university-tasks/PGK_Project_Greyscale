@@ -76,11 +76,11 @@ namespace GreyscaleConverter
 
 		auto* duotoneSizer = new wxBoxSizer(wxVERTICAL);
 
-		m_bichromeButton = new wxToggleButton(this, wxID_ANY, wxT("Convert to bichrome"), wxDefaultPosition, wxDefaultSize, 0);
-		duotoneSizer->Add(m_bichromeButton, 1, wxALL | wxEXPAND, 8);
+		m_duotoneButton = new wxToggleButton(this, wxID_ANY, wxT("Convert to bichrome"), wxDefaultPosition, wxDefaultSize, 0);
+		duotoneSizer->Add(m_duotoneButton, 1, wxALL | wxEXPAND, 8);
 
-		m_pickBichromeColourButton = new wxColourPickerCtrl(this, wxID_ANY, wxColour(243, 40, 12), wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE);
-		duotoneSizer->Add(m_pickBichromeColourButton, 1, wxALIGN_CENTER_HORIZONTAL | wxALL, 8);
+		m_pickDuotoneColourButton = new wxColourPickerCtrl(this, wxID_ANY, wxColour(243, 40, 12), wxDefaultPosition, wxDefaultSize, wxCLRP_DEFAULT_STYLE);
+		duotoneSizer->Add(m_pickDuotoneColourButton, 1, wxALIGN_CENTER_HORIZONTAL | wxALL, 8);
 
 		barSizer->Add(duotoneSizer, 0, wxEXPAND, 5);
 
@@ -112,15 +112,15 @@ namespace GreyscaleConverter
 
 		auto* m_intensivitySizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("Intensivity")), wxHORIZONTAL);
 
-		m_intensivitySlider = new wxSlider(m_intensivitySizer->GetStaticBox(), wxID_ANY, 80, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
-		m_intensivitySlider->SetMinSize(wxSize(200, -1));
+		m_toleranceSlider = new wxSlider(m_intensivitySizer->GetStaticBox(), wxID_ANY, 80, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+		m_toleranceSlider->SetMinSize(wxSize(200, -1));
 
-		m_intensivitySizer->Add(m_intensivitySlider, 1, wxALL | wxALIGN_CENTER_VERTICAL, 5);
+		m_intensivitySizer->Add(m_toleranceSlider, 1, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
-		m_intensivityText = new wxTextCtrl(m_intensivitySizer->GetStaticBox(), wxID_ANY, wxT("80"), wxDefaultPosition, wxSize(40, -1), 0);
-		m_intensivityText->SetMaxLength(3);
+		m_toleranceText = new wxTextCtrl(m_intensivitySizer->GetStaticBox(), wxID_ANY, wxT("80"), wxDefaultPosition, wxSize(40, -1), 0);
+		m_toleranceText->SetMaxLength(3);
 
-		m_intensivitySizer->Add(m_intensivityText, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
+		m_intensivitySizer->Add(m_toleranceText, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
 		barSizer->Add(m_intensivitySizer, 0, wxALL | wxEXPAND, 5);
 
@@ -221,12 +221,12 @@ namespace GreyscaleConverter
 		this->Connect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(Frame::OnClose_Frame));
 		this->Connect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(Frame::OnUpdateUI));
 		m_grayscaleButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
-		m_bichromeButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
-		m_pickBichromeColourButton->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickBichromeColour), NULL, this);
+		m_duotoneButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Duotone), NULL, this);
+		m_pickDuotoneColourButton->Connect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickDuotoneColour), NULL, this);
 		m_keepHueButton->Connect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_KeepOneHue), NULL, this);
-		m_intensivitySlider->Connect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
-		m_intensivitySlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
-		m_intensivityText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeHueIntensivity), NULL, this);
+		m_toleranceSlider->Connect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueTolerance), NULL, this);
+		m_toleranceSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueTolerance), NULL, this);
+		m_toleranceText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeHueTolerance), NULL, this);
 		m_hueSlider->Connect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueKept), NULL, this);
 		m_hueSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueKept), NULL, this);
 		m_hueSliderText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_HueKept), NULL, this);
@@ -260,12 +260,12 @@ namespace GreyscaleConverter
 		this->Disconnect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(Frame::OnClose_Frame));
 		this->Disconnect(wxEVT_UPDATE_UI, wxUpdateUIEventHandler(Frame::OnUpdateUI));
 		m_grayscaleButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_ConvertToGrayscale), NULL, this);
-		m_bichromeButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Bichrome), NULL, this);
-		m_pickBichromeColourButton->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickBichromeColour), NULL, this);
+		m_duotoneButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_Duotone), NULL, this);
+		m_pickDuotoneColourButton->Disconnect(wxEVT_COMMAND_COLOURPICKER_CHANGED, wxColourPickerEventHandler(Frame::OnColourChanged_PickDuotoneColour), NULL, this);
 		m_keepHueButton->Disconnect(wxEVT_COMMAND_TOGGLEBUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_KeepOneHue), NULL, this);
-		m_hueSlider->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollThumbTrack_HueIntesivity), NULL, this );
-		m_intensivitySlider->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueIntesivity), NULL, this);
-		m_intensivityText->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeHueIntensivity), NULL, this);
+		m_hueSlider->Disconnect( wxEVT_SCROLL_CHANGED, wxScrollEventHandler( Frame::OnScrollThumbTrack_HueTolerance), NULL, this );
+		m_toleranceSlider->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueTolerance), NULL, this);
+		m_toleranceText->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeHueTolerance), NULL, this);
 		m_hueSlider->Disconnect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueKept), NULL, this);
 		m_hueSlider->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueKept), NULL, this);
 		m_hueSliderText->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_HueKept), NULL, this);

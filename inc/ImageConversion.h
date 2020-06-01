@@ -1,24 +1,19 @@
 #pragma once
 #include <wx/image.h>
 #include <wx/colour.h>
-#include <cmath>
 
 namespace GreyscaleConverter
 {
-		///  Class handles two image convertions:
-		///  - bichrome
+		///  Class performs two crucial for the program image conversions:
+		///  - duotone
 		///  - greyscale
 		///
-		///  Other functions converts one color system to another:
-		///  - RGB => YUV
-    ///  - YUV => RGB
-    ///  - RGB => HSL
-		///  - HSL => RGB
+		///  Rest of the methods converts one color system to another forward/backward - RGB -> YUV, RGB -> HSL
     class ImageConversion
     {
     public:
     	
-    		/// Converts image to bichrome
+    		/// Converts image to doutone
     		///
     		/// @param image iamge that will be converted
     		/// @param color color which will be kept
@@ -26,35 +21,54 @@ namespace GreyscaleConverter
     		/// @param hueToKeep value of the hue to keep
     		/// @param tolerance tolerance of kept hue
     		/// @see ConvertToGreyScale()
-    		/// @note Function proceed convrtion in place! (on image passed by reference)
-        static void ConvertToBichrome(wxImage& image, wxColour& color, bool, int, int);
+    		/// @note Function proceeds conversion in place! (on image passed by reference)
+        static void ConvertToDuotone(wxImage& image, wxColour& color, bool keepHue, int hueToKeep, int tolerance);
 
         /// Converts image to greyscale
         ///
-        /// @param image iamge that will be converted
+        /// @param image image that will be converted
         /// @param chRed red channel value
         /// @param chGreen green channel value
         /// @param chBlue blue channel value
         /// @param keepHue flag determining if hue should be kept
         /// @param hueToKeep value of the hue to keep
         /// @param tolerance tolerance of kept hue
-        /// @see ConvertToBichrome()
-        /// @note Function proceed convrtion in place! (on image passed by reference)
-        static void ConvertToGreyScale(wxImage&, int, int, int, bool, int, int);
+        /// @see ConvertToDuotone()
+        /// @note Function proceeds conversion in place! (on image passed by reference)
+        static void ConvertToGreyScale(wxImage& image, int chRed, int chGreen, int chBlue, bool keepHue, int hueToKeep, int tolerance);
 
     private:
 				///@{
-				/// @name Color convertions
+				/// @name Color conversions
+				
+				/// Converts RGB color system to YUV
+				/// @see YUVtoRGB()
         static void RGBtoYUV(double& Y, double& U, double& V, const double R, const double G, const double B);
+
+        /// Converts YUV color system to RGB
+        /// @see RGBtoYUV()
         static void YUVtoRGB(double& R, double& G, double& B, double Y, double U, double V);
 
+    		/// Converts RGB color system to HSL
+    		/// @see HSLtoRGB()
         static void RGBtoHSL(double& H, double& S, double& L, const double R, const double G, const double B);
+
+        /// Converts HSL color system to RGB
+				/// @see RGBtoHSL()
         static void HSLtoRGB(double& R, double& G, double& B, const double  H, const double S, const double L);
 
         static double HueToRGB(double, double, double);
-        static double MinColour(double, double, double);
-        static double MaxColour(double, double, double);
         ///@}
+
+    		/// Finds minimum value from 3 basic colors
+    		///
+    		/// @returns minimum value of color channels
+        static double MinColour(double r, double g, double b);
+
+        /// Finds maximum value from 3 basic colors
+				///
+				/// @returns maximum value of color channels
+        static double MaxColour(double r, double g, double b);
     };
 }
 

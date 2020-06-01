@@ -14,26 +14,20 @@
 #include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/gdicmn.h>
-#include <wx/button.h>
-#include <wx/font.h>
 #include <wx/colour.h>
-#include <wx/settings.h>
 #include <wx/statline.h>
 #include <wx/sizer.h>
-#include <wx/checkbox.h>
 #include <wx/slider.h>
 #include <wx/textctrl.h>
 #include <wx/bmpbuttn.h>
-#include <wx/statbox.h>
-#include <wx/panel.h>
 #include <wx/menu.h>
 #include <wx/frame.h>
 #include <wx/tglbtn.h>
 #include <wx/clrpicker.h>
+#include <wx/statbox.h>
 
 #include "ImageView.h"
 #include "Model.h"
-#include "ImageView.h"
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -52,14 +46,14 @@ namespace GreyscaleConverter
 	protected:
 		wxToggleButton* m_grayscaleButton;
 		wxStaticLine* m_staticline1;
-		wxToggleButton* m_bichromeButton;
-		wxColourPickerCtrl* m_pickBichromeColourButton;
+		wxToggleButton* m_duotoneButton;
+		wxColourPickerCtrl* m_pickDuotoneColourButton;
 		wxStaticLine* m_staticline2;
 		wxToggleButton* m_keepHueButton;
 		wxSlider* m_hueSlider;
 		wxTextCtrl* m_hueSliderText;
-		wxSlider* m_intensivitySlider;
-		wxTextCtrl* m_intensivityText;
+		wxSlider* m_toleranceSlider;
+		wxTextCtrl* m_toleranceText;
 		wxStaticLine* m_staticline3;
 		wxBitmapButton* m_raspberriesButton;
 		wxSlider* m_redChannelSlider;
@@ -76,20 +70,19 @@ namespace GreyscaleConverter
 		wxMenuItem* m_menuItemQualityPreview;
 
 		ImageView* m_view;
-		//wxPanel* m_view;
 		Model m_model;
 
 		 //Virtual event handlers, overide them in your derived class
 		virtual void OnClose_Frame(wxCloseEvent& event) { event.Skip(); }
 		virtual void OnUpdateUI(wxUpdateUIEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event) { event.Skip(); }
-		virtual void OnButtonClick_Bichrome(wxCommandEvent& event) { event.Skip(); }
-		virtual void OnColourChanged_PickBichromeColour(wxColourPickerEvent& event) { event.Skip(); }
+		virtual void OnButtonClick_Duotone(wxCommandEvent& event) { event.Skip(); }
+		virtual void OnColourChanged_PickDuotoneColour(wxColourPickerEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_KeepOneHue(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnScrollThumbTrack_HueKept(wxScrollEvent& event) { event.Skip(); }
 		virtual void OnText_HueKept(wxCommandEvent& event) { event.Skip(); }
-		virtual void OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event) { event.Skip(); }
-		virtual void OnText_ChangeHueIntensivity(wxCommandEvent& event) { event.Skip(); }
+		virtual void OnScrollThumbTrack_HueTolerance(wxScrollEvent& event) { event.Skip(); }
+		virtual void OnText_ChangeHueTolerance(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_RaspberriesButton(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnScrollThumbTrack_ChangeRedChannel(wxScrollEvent& event) { event.Skip(); }
 		virtual void OnText_ChangeRedChannel(wxCommandEvent& event) { event.Skip(); }

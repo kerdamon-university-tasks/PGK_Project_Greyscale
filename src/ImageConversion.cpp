@@ -3,7 +3,7 @@
 
 namespace GreyscaleConverter
 {
-	void ImageConversion::ConvertToBichrome(wxImage& image, wxColour& colour, bool keepHue, int hueToKeep,
+	void ImageConversion::ConvertToDuotone(wxImage& image, wxColour& colour, bool keepHue, int hueToKeep,
 	                                        int tolerance)
 	{
 		// robie se kopie obrazka
@@ -49,7 +49,7 @@ namespace GreyscaleConverter
 					weight = hueDistance == 0 ? 0 : 1;
 				else
 				{
-					double toleratedHue{tolerance * 3.6f};
+					const double toleratedHue{static_cast<double>(tolerance) * 3.6f};
 					// przypadek zwykły - nie wychodzi poza zakres
 					weight = abs(h - hueToKeep) / toleratedHue;
 

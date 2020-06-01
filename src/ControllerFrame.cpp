@@ -37,17 +37,17 @@ namespace GreyscaleConverter
 		}
 	}
 
-	void ControllerFrame::OnButtonClick_Bichrome(wxCommandEvent& event)
+	void ControllerFrame::OnButtonClick_Duotone(wxCommandEvent& event)
 	{
-		if (m_bichromeButton->GetValue())
-			AlternateConversionButtons(Model::WorkMode::BICHROME);
+		if (m_duotoneButton->GetValue())
+			AlternateConversionButtons(Model::WorkMode::DUOTONE);
 		else
 			ClearImagePreview();
 	}
 
-	void ControllerFrame::OnColourChanged_PickBichromeColour(wxColourPickerEvent& event)
+	void ControllerFrame::OnColourChanged_PickDuotoneColour(wxColourPickerEvent& event)
 	{
-		m_model.SetBichromeColour(m_pickBichromeColourButton->GetColour());
+		m_model.SetDuotoneColour(m_pickDuotoneColourButton->GetColour());
 		m_model.ApplyParametersToThumbnail();
 		UpdatePreview();
 	}
@@ -68,45 +68,45 @@ namespace GreyscaleConverter
 		UpdatePreview();
 	}
 
-	void ControllerFrame::OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event)
+	void ControllerFrame::OnScrollThumbTrack_HueTolerance(wxScrollEvent& event)
 	{
 		wxString newText;
-		newText << m_intensivitySlider->GetValue();
-		m_intensivityText->SetValue(newText);
+		newText << m_toleranceSlider->GetValue();
+		m_toleranceText->SetValue(newText);
 
 		double value;
-		if (!m_intensivityText->GetValue().ToDouble(&value))
+		if (!m_toleranceText->GetValue().ToDouble(&value))
 			return;
 
-		m_model.SetKeptHueIntensivity(value);
+		m_model.SetKeptHueTolerance(value);
 
 		UpdatePreview();
 	}
 
-	void ControllerFrame::OnText_ChangeHueIntensivity(wxCommandEvent& event)
+	void ControllerFrame::OnText_ChangeHueTolerance(wxCommandEvent& event)
 	{
 		long value;
-		if (!m_intensivityText->GetValue().ToLong(&value))
+		if (!m_toleranceText->GetValue().ToLong(&value))
 			return;
 
-		if (value > m_intensivitySlider->GetMax())
+		if (value > m_toleranceSlider->GetMax())
 		{
-			value = m_intensivitySlider->GetMax();
+			value = m_toleranceSlider->GetMax();
 			wxString newText;
 			newText << value;
-			m_intensivityText->SetValue(newText);
+			m_toleranceText->SetValue(newText);
 		}
-		else if (value < m_intensivitySlider->GetMin())
+		else if (value < m_toleranceSlider->GetMin())
 		{
-			value = m_intensivitySlider->GetMin();
+			value = m_toleranceSlider->GetMin();
 			wxString newText;
 			newText << value;
-			m_intensivityText->SetValue(newText);
+			m_toleranceText->SetValue(newText);
 		}
 
-		m_intensivitySlider->SetValue(value);
+		m_toleranceSlider->SetValue(value);
 
-		m_model.SetKeptHueIntensivity(value);
+		m_model.SetKeptHueTolerance(value);
 
 		UpdatePreview();
 	}
@@ -485,7 +485,7 @@ namespace GreyscaleConverter
 	void ControllerFrame::AlternateConversionButtons(Model::WorkMode pressedButton)
 	{
 		m_grayscaleButton->SetValue(false);
-		m_bichromeButton->SetValue(false);
+		m_duotoneButton->SetValue(false);
 
 		DisableChannelControls();
 
@@ -496,9 +496,9 @@ namespace GreyscaleConverter
 
 		switch (pressedButton)
 		{
-		case Model::WorkMode::BICHROME:
-			m_bichromeButton->SetValue(true);
-			m_model.SetWorkMode(Model::WorkMode::BICHROME);
+		case Model::WorkMode::DUOTONE:
+			m_duotoneButton->SetValue(true);
+			m_model.SetWorkMode(Model::WorkMode::DUOTONE);
 			break;
 		case Model::WorkMode::GREYSCALE:
 			m_grayscaleButton->SetValue(true);
@@ -548,14 +548,14 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::UpdateControls()
 	{
-		m_bichromeButton->SetValue(false);
+		m_duotoneButton->SetValue(false);
 		m_grayscaleButton->SetValue(false);
 		DisableChannelControls();
 		
 		switch (m_model.GetWorkMode())
 		{
-		case Model::WorkMode::BICHROME:
-			m_bichromeButton->SetValue(true);
+		case Model::WorkMode::DUOTONE:
+			m_duotoneButton->SetValue(true);
 			break;
 		case Model::WorkMode::GREYSCALE:
 			m_grayscaleButton->SetValue(true);
@@ -569,17 +569,17 @@ namespace GreyscaleConverter
 		if (m_model.IsHueKept())
 			m_keepHueButton->SetValue(true);
 		
-		m_pickBichromeColourButton->SetColour(m_model.GetBichromeColour());
+		m_pickDuotoneColourButton->SetColour(m_model.GetDuotoneColour());
 		
 		m_hueSlider->SetValue(m_model.GetKeptHue());
 		wxString tempText;
 		tempText << m_model.GetKeptHue();
 		m_hueSliderText->SetValue(tempText);
 		
-		m_intensivitySlider->SetValue(m_model.GetKeptHueIntensivity());
+		m_toleranceSlider->SetValue(m_model.GetKeptHueTolerance());
 		wxString tempText2;
-		tempText2 << m_model.GetKeptHueIntensivity();
-		m_intensivityText->SetValue(tempText2);
+		tempText2 << m_model.GetKeptHueTolerance();
+		m_toleranceText->SetValue(tempText2);
 
 		m_redChannelSlider->SetValue(m_model.GetRedChannel());
 		wxString tempTextR;

@@ -29,13 +29,13 @@ namespace GreyscaleConverter
 		///
 		/// Toggles button state, disables appropriate controls.
 		/// Forces View to refresh (with latest parameters and work mode)
-		void OnButtonClick_Bichrome(wxCommandEvent& event) override;
+		void OnButtonClick_Duotone(wxCommandEvent& event) override;
 
 
 		/// Handles color pick via color dialog
 		///
 		/// Forces View to refresh (with latest parameters and work mode)		
-		void OnColourChanged_PickBichromeColour(wxColourPickerEvent& event) override;
+		void OnColourChanged_PickDuotoneColour(wxColourPickerEvent& event) override;
 
 
 		/// Handles Keep hue button click
@@ -47,13 +47,13 @@ namespace GreyscaleConverter
 		/// Handles hue tolerance slider interaction
 		///
 		/// Updates text showing next to slider and sets appropriate flag in model.
-		void OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event) override;
+		void OnScrollThumbTrack_HueTolerance(wxScrollEvent& event) override;
 
 
 		/// Handles Hue tolerance value change from keyboard
 		///
 		/// Updates text showing next to slider and sets appropriate hue tolerance value in model.
-		void OnText_ChangeHueIntensivity(wxCommandEvent& event) override;
+		void OnText_ChangeHueTolerance(wxCommandEvent& event) override;
 
 
 		/// Handles hue value slider interaction

@@ -2,6 +2,7 @@
 
 #include <wx/panel.h>
 #include <wx/dcbuffer.h>
+#include <wx/colour.h>
 
 #include "inc/Model.h"
 

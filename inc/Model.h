@@ -1,9 +1,14 @@
 #pragma once
-#include <wx/frame.h>
+
 #include <wx/image.h>
 #include <wx/bitmap.h>
 #include <wx/wfstream.h>
 #include <wx/log.h>
+#include <fstream>
+#include <wx/translation.h>
+
+#include "inc/ImageConversion.h"
+
 
 namespace GreyscaleConverter
 {
@@ -17,11 +22,11 @@ namespace GreyscaleConverter
 	public:
 
 		/// Enum class containing available work modes:
-		/// - BICHROME
+		/// - DUOTONE
 		/// - GREYSCALE
 		/// - ORIGINAL => original image is shown
 		/// - NOT_LOADED => no image has been loaded to a program
-		enum class WorkMode { BICHROME, GREYSCALE, ORIGINAL, NOT_LOADED, };
+		enum class WorkMode { DUOTONE, GREYSCALE, ORIGINAL, NOT_LOADED, };
 		
 		Model();
 
@@ -69,10 +74,10 @@ namespace GreyscaleConverter
 		/// @see WorkMode SetWorkMode()
 		WorkMode GetWorkMode() const { return m_mode; }
 
-		/// Returns Color which will be kept in bichrome
+		/// Returns Color which will be kept in duotone
 		///
-		/// @see SetBichromeColour()
-		wxColour GetBichromeColour() const { return m_bichromeColour; }
+		/// @see SetDuotoneColour()
+		wxColour GetDuotoneColour() const { return m_duotoneColour; }
 
 		int GetMixingFactor() const { return m_mixingFactor; }
 
@@ -83,8 +88,8 @@ namespace GreyscaleConverter
 
 		/// Returns intensivity value of kept hue
 		///
-		/// @see SetKeptHueIntensivity()
-		int GetKeptHueIntensivity() const { return m_keptHueTolerance; }
+		/// @see SetKeptHueTolerance()
+		int GetKeptHueTolerance() const { return m_keptHueTolerance; }
 
 		/// Returns value of red color channel
 		///
@@ -128,8 +133,8 @@ namespace GreyscaleConverter
 		/// Sets intensivity value of kept hue
 		///	
 		/// @param intensivity
-		/// @see GetKeptHueIntensivity()
-		void SetKeptHueIntensivity(int intensivity) { m_keptHueTolerance = intensivity; }
+		/// @see GetKeptHueTolerance()
+		void SetKeptHueTolerance(int tolerance) { m_keptHueTolerance = tolerance; }
 
 		/// Sets red channel value
 		///	
@@ -170,8 +175,8 @@ namespace GreyscaleConverter
 		/// Sets color for bichrome
 		///	
 		/// @param colour bichrome colour
-		/// @see GetBichromeColour()
-		void SetBichromeColour(const wxColour colour) { m_bichromeColour = colour; }
+		/// @see GetDuotoneColour()
+		void SetDuotoneColour(const wxColour colour) { m_duotoneColour = colour; }
 
 		/// Sets factor representing proportion between original and converted images
 		///
@@ -220,7 +225,7 @@ namespace GreyscaleConverter
 		wxImage m_imageThumbnailCopy;
 		wxImage m_imageThumbnailMixed;
 
-		wxColour m_bichromeColour{ wxColour{"Red"} };
+		wxColour m_duotoneColour{ wxColour{"Red"} };
 		WorkMode m_mode{ WorkMode::NOT_LOADED };
 
 		const int m_maxImageThumbnailSize{ 500 };
