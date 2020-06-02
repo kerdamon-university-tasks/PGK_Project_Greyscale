@@ -1,5 +1,9 @@
-#include "inc/Model.h"
+#include <wx/log.h>
+#include <fstream>
+#include <wx/translation.h>
+#include <wx/wfstream.h>
 
+#include "inc/Model.h"
 
 namespace GreyscaleConverter
 {
@@ -63,16 +67,16 @@ namespace GreyscaleConverter
 		f.close();
 
 		m_mode = static_cast<WorkMode>(tempMode);
-		m_duotoneColour = wxColour{ bichromeRed, bichromeGreen, bichromeBlue };
+		m_bichromeColour = wxColour{ bichromeRed, bichromeGreen, bichromeBlue };
 	}
 
 	void Model::SaveImageToFile(const wxString& filename)
 	{
 		switch (m_mode)
 		{
-			case WorkMode::DUOTONE:
+			case WorkMode::BICHROME:
 				m_originalImageCopy = m_originalImage.Copy();
-				ImageConversion::ConvertToDuotone(m_originalImageCopy,m_duotoneColour, m_isHueKept, m_keptHue, m_keptHueTolerance);
+				ImageConversion::ConvertToBichrome(m_originalImageCopy,m_bichromeColour, m_isHueKept, m_keptHue, m_keptHueTolerance);
 				break;
 			case WorkMode::GREYSCALE:
 				m_originalImageCopy = m_originalImage.Copy();
@@ -94,7 +98,7 @@ namespace GreyscaleConverter
 
 		f.open(filePath.ToStdString(), std::ios::out);
 		f << static_cast<int>(m_mode) << std::endl;
-		f << m_duotoneColour.Red() << " " << m_duotoneColour.Green() << " " << m_duotoneColour.Blue() << " " << std::endl;
+		f << m_bichromeColour.Red() << " " << m_bichromeColour.Green() << " " << m_bichromeColour.Blue() << " " << std::endl;
 		f << m_isHueKept << " " << m_keptHue << " " << m_keptHueTolerance << " " << std::endl;
 		f << m_redChannel << " " << m_greenChannel << " " << m_blueChannel << " " << std::endl;
 		f << m_mixingFactor << std::endl;
@@ -107,9 +111,9 @@ namespace GreyscaleConverter
 		
 		switch (m_mode)
 		{
-		case WorkMode::DUOTONE:
+		case WorkMode::BICHROME:
 			m_imageThumbnailCopy = m_imageThumbnail.Copy();
-			ImageConversion::ConvertToDuotone(m_imageThumbnailCopy, m_duotoneColour, m_isHueKept, m_keptHue, m_keptHueTolerance);
+			ImageConversion::ConvertToBichrome(m_imageThumbnailCopy, m_bichromeColour, m_isHueKept, m_keptHue, m_keptHueTolerance);
 			MixConvertedWithOriginal();
 			break;
 		case WorkMode::GREYSCALE:
@@ -143,7 +147,7 @@ namespace GreyscaleConverter
 
 		const int dataSize{ m_imageThumbnail.GetWidth() * m_imageThumbnail.GetHeight() * 3 };
 
-		const float factor = m_mixingFactor / 100.0;
+		const double factor = m_mixingFactor / 100.0;
 		
 		for(int i = 0; i < dataSize; i += 3)
 		{

@@ -2,7 +2,6 @@
 
 #include <wx/panel.h>
 #include <wx/dcbuffer.h>
-#include <wx/colour.h>
 
 #include "inc/Model.h"
 
@@ -15,7 +14,7 @@ namespace GreyscaleConverter
 	{
 	public:
 
-		/// Contructor for ImageView
+		/// Constructor for ImageView
 		///
 		/// Creates instance of View, called only once during process od program initialization
 		///

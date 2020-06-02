@@ -1,6 +1,5 @@
 #include <wx/wx.h>
 #include "inc/ControllerFrame.h"
-#include "inc/Model.h"
 
 class MyApp : public wxApp {
 

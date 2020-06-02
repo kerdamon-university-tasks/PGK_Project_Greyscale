@@ -1,20 +1,11 @@
-///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Oct 26 2018)
-// http://www.wxformbuilder.org/
-//
-// PLEASE DO *NOT* EDIT THIS FILE!
-///////////////////////////////////////////////////////////////////////////
-
 #pragma once
 
 #include <wx/artprov.h>
 #include <wx/xrc/xmlres.h>
 #include <wx/string.h>
 #include <wx/bitmap.h>
-#include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/gdicmn.h>
-#include <wx/colour.h>
 #include <wx/statline.h>
 #include <wx/sizer.h>
 #include <wx/slider.h>
@@ -24,30 +15,20 @@
 #include <wx/frame.h>
 #include <wx/tglbtn.h>
 #include <wx/clrpicker.h>
-#include <wx/statbox.h>
 
 #include "ImageView.h"
 #include "Model.h"
-
-///////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////
-/// Class Frame
-///////////////////////////////////////////////////////////////////////////////
-///
 
 namespace GreyscaleConverter
 {
 
 	class Frame : public wxFrame
 	{
-	private:
-
 	protected:
 		wxToggleButton* m_grayscaleButton;
 		wxStaticLine* m_staticline1;
-		wxToggleButton* m_duotoneButton;
-		wxColourPickerCtrl* m_pickDuotoneColourButton;
+		wxToggleButton* m_bichromeButton;
+		wxColourPickerCtrl* m_pickBichromeColourButton;
 		wxStaticLine* m_staticline2;
 		wxToggleButton* m_keepHueButton;
 		wxSlider* m_hueSlider;
@@ -65,19 +46,18 @@ namespace GreyscaleConverter
 		wxSlider* m_mixedFactorSlider;
 		wxTextCtrl* m_mixedFactorText;
 		wxMenuBar* m_menubar;
-		wxMenu* fileMenu;
+		wxMenu* m_fileMenu;
 		wxMenu* m_viewMenu;
 		wxMenuItem* m_menuItemQualityPreview;
 
 		ImageView* m_view;
 		Model m_model;
 
-		 //Virtual event handlers, overide them in your derived class
 		virtual void OnClose_Frame(wxCloseEvent& event) { event.Skip(); }
 		virtual void OnUpdateUI(wxUpdateUIEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event) { event.Skip(); }
-		virtual void OnButtonClick_Duotone(wxCommandEvent& event) { event.Skip(); }
-		virtual void OnColourChanged_PickDuotoneColour(wxColourPickerEvent& event) { event.Skip(); }
+		virtual void OnButtonClick_Bichrome(wxCommandEvent& event) { event.Skip(); }
+		virtual void OnColourChanged_PickBichromeColour(wxColourPickerEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_KeepOneHue(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnScrollThumbTrack_HueKept(wxScrollEvent& event) { event.Skip(); }
 		virtual void OnText_HueKept(wxCommandEvent& event) { event.Skip(); }
@@ -107,7 +87,6 @@ namespace GreyscaleConverter
 		Frame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Conversion to grayscale - project"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1100, 810), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
 
 		~Frame();
-
 	};
 
 }

@@ -1,9 +1,10 @@
-﻿#include "../inc/ImageConversion.h"
-#include "inc/ImageConversion.h"
+﻿#include "inc/ImageConversion.h"
+
+
 
 namespace GreyscaleConverter
 {
-	void ImageConversion::ConvertToDuotone(wxImage& image, wxColour& colour, bool keepHue, int hueToKeep,
+	void ImageConversion::ConvertToBichrome(wxImage& image, wxColour& colour, bool keepHue, int hueToKeep,
 	                                        int tolerance)
 	{
 		// robie se kopie obrazka
@@ -24,7 +25,6 @@ namespace GreyscaleConverter
 
 		lightness = lightness * 2.f - 1.f;
 
-		//dla każdego pixela w obrazku
 		for (int i = 0; i < imgDataSize; i += 3)
 		{
 			// wyciągam dane o kanałach w postaci double

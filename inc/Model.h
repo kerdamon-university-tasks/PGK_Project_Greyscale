@@ -1,11 +1,6 @@
 #pragma once
 
 #include <wx/image.h>
-#include <wx/bitmap.h>
-#include <wx/wfstream.h>
-#include <wx/log.h>
-#include <fstream>
-#include <wx/translation.h>
 
 #include "inc/ImageConversion.h"
 
@@ -22,11 +17,11 @@ namespace GreyscaleConverter
 	public:
 
 		/// Enum class containing available work modes:
-		/// - DUOTONE
+		/// - BICHROME
 		/// - GREYSCALE
 		/// - ORIGINAL => original image is shown
 		/// - NOT_LOADED => no image has been loaded to a program
-		enum class WorkMode { DUOTONE, GREYSCALE, ORIGINAL, NOT_LOADED, };
+		enum class WorkMode { BICHROME, GREYSCALE, ORIGINAL, NOT_LOADED, };
 		
 		Model();
 
@@ -77,7 +72,7 @@ namespace GreyscaleConverter
 		/// Returns Color which will be kept in duotone
 		///
 		/// @see SetDuotoneColour()
-		wxColour GetDuotoneColour() const { return m_duotoneColour; }
+		wxColour GetDuotoneColour() const { return m_bichromeColour; }
 
 		int GetMixingFactor() const { return m_mixingFactor; }
 
@@ -130,9 +125,9 @@ namespace GreyscaleConverter
 		/// @{
 		/// @name Setters
 
-		/// Sets intensivity value of kept hue
+		/// Sets tolerance value of kept hue
 		///	
-		/// @param intensivity
+		/// @param tolerance
 		/// @see GetKeptHueTolerance()
 		void SetKeptHueTolerance(int tolerance) { m_keptHueTolerance = tolerance; }
 
@@ -176,7 +171,7 @@ namespace GreyscaleConverter
 		///	
 		/// @param colour bichrome colour
 		/// @see GetDuotoneColour()
-		void SetDuotoneColour(const wxColour colour) { m_duotoneColour = colour; }
+		void SetDuotoneColour(const wxColour colour) { m_bichromeColour = colour; }
 
 		/// Sets factor representing proportion between original and converted images
 		///
@@ -201,7 +196,7 @@ namespace GreyscaleConverter
 		
 		/// Wait, what is this?
 		/// 
-		/// Dunno, ignore this. It's definately something extreamly not important...
+		/// Dunno, ignore this. It's definitely something extremely not important...
 		void TotallyNotSuspiciousLookingFunction();
 		///@}
 
@@ -213,8 +208,6 @@ namespace GreyscaleConverter
 
 		void EasterEgg();
 
-
-
 	private:
 
 		void AdjustImageThumbnail();
@@ -225,7 +218,7 @@ namespace GreyscaleConverter
 		wxImage m_imageThumbnailCopy;
 		wxImage m_imageThumbnailMixed;
 
-		wxColour m_duotoneColour{ wxColour{"Red"} };
+		wxColour m_bichromeColour{ wxColour{"Red"} };
 		WorkMode m_mode{ WorkMode::NOT_LOADED };
 
 		const int m_maxImageThumbnailSize{ 500 };
@@ -241,10 +234,6 @@ namespace GreyscaleConverter
 		bool m_isResultSaved{ true };
 		bool m_isConfigSaved{ true };
 
-		//bool m_isImageLoaded{ false };
-
-
 		int m_mixingFactor{ 0 };
-
 	};
 }

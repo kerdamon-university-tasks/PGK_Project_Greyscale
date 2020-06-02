@@ -12,7 +12,7 @@ namespace GreyscaleConverter
 	{
 	public:
 
-		ControllerFrame(wxWindow* parent);
+		explicit ControllerFrame(wxWindow* parent);
 		
 	protected:
 
@@ -29,13 +29,13 @@ namespace GreyscaleConverter
 		///
 		/// Toggles button state, disables appropriate controls.
 		/// Forces View to refresh (with latest parameters and work mode)
-		void OnButtonClick_Duotone(wxCommandEvent& event) override;
+		void OnButtonClick_Bichrome(wxCommandEvent& event) override;
 
 
 		/// Handles color pick via color dialog
 		///
 		/// Forces View to refresh (with latest parameters and work mode)		
-		void OnColourChanged_PickDuotoneColour(wxColourPickerEvent& event) override;
+		void OnColourChanged_PickBichromeColour(wxColourPickerEvent& event) override;
 
 
 		/// Handles Keep hue button click

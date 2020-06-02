@@ -3,10 +3,6 @@
 #include <wx/msgdlg.h>
 #include <wx/filedlg.h>
 #include <wx/log.h>
-#include <wx/wfstream.h>
-#include <wx/colordlg.h>
-
-//todo dodac procenty w polach tekstowych
 
 namespace GreyscaleConverter
 {
@@ -20,7 +16,6 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnClose_Frame(wxCloseEvent& event)
 	{
-		wxLogDebug("wyjscie");
 		if (WarningIfImageNotSaved() == wxNO)
 			return;
 		Destroy();
@@ -37,17 +32,17 @@ namespace GreyscaleConverter
 		}
 	}
 
-	void ControllerFrame::OnButtonClick_Duotone(wxCommandEvent& event)
+	void ControllerFrame::OnButtonClick_Bichrome(wxCommandEvent& event)
 	{
-		if (m_duotoneButton->GetValue())
-			AlternateConversionButtons(Model::WorkMode::DUOTONE);
+		if (m_bichromeButton->GetValue())
+			AlternateConversionButtons(Model::WorkMode::BICHROME);
 		else
 			ClearImagePreview();
 	}
 
-	void ControllerFrame::OnColourChanged_PickDuotoneColour(wxColourPickerEvent& event)
+	void ControllerFrame::OnColourChanged_PickBichromeColour(wxColourPickerEvent& event)
 	{
-		m_model.SetDuotoneColour(m_pickDuotoneColourButton->GetColour());
+		m_model.SetDuotoneColour(m_pickBichromeColourButton->GetColour());
 		m_model.ApplyParametersToThumbnail();
 		UpdatePreview();
 	}
@@ -74,8 +69,8 @@ namespace GreyscaleConverter
 		newText << m_toleranceSlider->GetValue();
 		m_toleranceText->SetValue(newText);
 
-		double value;
-		if (!m_toleranceText->GetValue().ToDouble(&value))
+		long value;
+		if (!m_toleranceText->GetValue().ToLong(&value))
 			return;
 
 		m_model.SetKeptHueTolerance(value);
@@ -117,8 +112,8 @@ namespace GreyscaleConverter
 		newText << m_hueSlider->GetValue();
 		m_hueSliderText->SetValue(newText);
 
-		double value;
-		if (!m_hueSliderText->GetValue().ToDouble(&value))
+		long value;
+		if (!m_hueSliderText->GetValue().ToLong(&value))
 			return;
 
 		m_model.SetKeptHue(value);
@@ -156,7 +151,7 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnButtonClick_RaspberriesButton(wxCommandEvent& event)
 	{
-		//TODO zaimplementowac
+		//todo zaklepac
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_ChangeRedChannel(wxScrollEvent& event)
@@ -165,8 +160,8 @@ namespace GreyscaleConverter
 		newText << m_redChannelSlider->GetValue();
 		m_redChannelText->SetValue(newText);
 
-		double value;
-		if (!m_redChannelText->GetValue().ToDouble(&value))
+		long value;
+		if (!m_redChannelText->GetValue().ToLong(&value))
 			return;
 
 		m_model.SetRedChannel(value);
@@ -208,8 +203,8 @@ namespace GreyscaleConverter
 		newText << m_greenChannelSlider->GetValue();
 		m_greenChannelText->SetValue(newText);
 
-		double value;
-		if (!m_greenChannelText->GetValue().ToDouble(&value))
+		long value;
+		if (!m_greenChannelText->GetValue().ToLong(&value))
 			return;
 
 		m_model.SetGreenChannel(value);
@@ -251,8 +246,8 @@ namespace GreyscaleConverter
 		newText << m_blueChannelSlider->GetValue();
 		m_blueChannelText->SetValue(newText);
 
-		double value;
-		if (!m_blueChannelText->GetValue().ToDouble(&value))
+		long value;
+		if (!m_blueChannelText->GetValue().ToLong(&value))
 			return;
 
 		m_model.SetBlueChannel(value);
@@ -294,8 +289,8 @@ namespace GreyscaleConverter
 		newText << m_mixedFactorSlider->GetValue();
 		m_mixedFactorText->SetValue(newText);
 
-		double factor;
-		if (!m_mixedFactorText->GetValue().ToDouble(&factor))
+		long factor;
+		if (!m_mixedFactorText->GetValue().ToLong(&factor))
 			return;
 
 		m_model.SetMixingFactor(factor);
@@ -340,7 +335,7 @@ namespace GreyscaleConverter
 
 		wxFileDialog openFileDialog{
 			this, _("Choose a file"), _(""), _(""),
-			_("JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png"),
+			_("JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png|GIF files (*.gif)|*.gif|BMP files(*.bmp)|*.bmp|All files (*.*)|*.*"),
 			wxFD_OPEN | wxFD_FILE_MUST_EXIST
 		};
 
@@ -396,7 +391,7 @@ namespace GreyscaleConverter
 		wxFileDialog saveFileDialog{
 			this,
 			_("Choose a folder"), "", "",
-			_("JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png"),
+			_("JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png|GIF files (*.gif)|*.gif|BMP files(*.bmp)|*.bmp|All files (*.*)|*.*"),
 			wxFD_SAVE | wxFD_OVERWRITE_PROMPT
 		};
 
@@ -485,7 +480,7 @@ namespace GreyscaleConverter
 	void ControllerFrame::AlternateConversionButtons(Model::WorkMode pressedButton)
 	{
 		m_grayscaleButton->SetValue(false);
-		m_duotoneButton->SetValue(false);
+		m_bichromeButton->SetValue(false);
 
 		DisableChannelControls();
 
@@ -496,9 +491,9 @@ namespace GreyscaleConverter
 
 		switch (pressedButton)
 		{
-		case Model::WorkMode::DUOTONE:
-			m_duotoneButton->SetValue(true);
-			m_model.SetWorkMode(Model::WorkMode::DUOTONE);
+		case Model::WorkMode::BICHROME:
+			m_bichromeButton->SetValue(true);
+			m_model.SetWorkMode(Model::WorkMode::BICHROME);
 			break;
 		case Model::WorkMode::GREYSCALE:
 			m_grayscaleButton->SetValue(true);
@@ -548,14 +543,14 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::UpdateControls()
 	{
-		m_duotoneButton->SetValue(false);
+		m_bichromeButton->SetValue(false);
 		m_grayscaleButton->SetValue(false);
 		DisableChannelControls();
 		
 		switch (m_model.GetWorkMode())
 		{
-		case Model::WorkMode::DUOTONE:
-			m_duotoneButton->SetValue(true);
+		case Model::WorkMode::BICHROME:
+			m_bichromeButton->SetValue(true);
 			break;
 		case Model::WorkMode::GREYSCALE:
 			m_grayscaleButton->SetValue(true);
@@ -569,7 +564,7 @@ namespace GreyscaleConverter
 		if (m_model.IsHueKept())
 			m_keepHueButton->SetValue(true);
 		
-		m_pickDuotoneColourButton->SetColour(m_model.GetDuotoneColour());
+		m_pickBichromeColourButton->SetColour(m_model.GetDuotoneColour());
 		
 		m_hueSlider->SetValue(m_model.GetKeptHue());
 		wxString tempText;

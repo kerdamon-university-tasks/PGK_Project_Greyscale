@@ -5,7 +5,7 @@
 namespace GreyscaleConverter
 {
 		///  Class performs two crucial for the program image conversions:
-		///  - duotone
+		///  - bichrome
 		///  - greyscale
 		///
 		///  Rest of the methods converts one color system to another forward/backward - RGB -> YUV, RGB -> HSL
@@ -22,7 +22,7 @@ namespace GreyscaleConverter
     		/// @param tolerance tolerance of kept hue
     		/// @see ConvertToGreyScale()
     		/// @note Function proceeds conversion in place! (on image passed by reference)
-        static void ConvertToDuotone(wxImage& image, wxColour& color, bool keepHue, int hueToKeep, int tolerance);
+        static void ConvertToBichrome(wxImage& image, wxColour& color, bool keepHue, int hueToKeep, int tolerance);
 
         /// Converts image to greyscale
         ///
@@ -33,7 +33,7 @@ namespace GreyscaleConverter
         /// @param keepHue flag determining if hue should be kept
         /// @param hueToKeep value of the hue to keep
         /// @param tolerance tolerance of kept hue
-        /// @see ConvertToDuotone()
+        /// @see ConvertToBichrome()
         /// @note Function proceeds conversion in place! (on image passed by reference)
         static void ConvertToGreyScale(wxImage& image, int chRed, int chGreen, int chBlue, bool keepHue, int hueToKeep, int tolerance);
 
