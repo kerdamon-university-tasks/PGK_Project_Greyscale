@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['onbuttonclick_5fbichrome_104',['OnButtonClick_Bichrome',['../class_greyscale_converter_1_1_controller_frame.html#af81c78ad22c40cf5b26fcdd46f043e92',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onbuttonclick_5fconverttograyscale_105',['OnButtonClick_ConvertToGrayscale',['../class_greyscale_converter_1_1_controller_frame.html#a54a471061378b35e2f0b60cbd189fe6c',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onbuttonclick_5fkeeponehue_106',['OnButtonClick_KeepOneHue',['../class_greyscale_converter_1_1_controller_frame.html#ace8186c892313b0c5d9008930e43b806',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onbuttonclick_5ftotallynotsuspiciouslookingbutton_107',['OnButtonClick_TotallyNotSuspiciousLookingButton',['../class_greyscale_converter_1_1_controller_frame.html#a8d38973d6be0ec44cd04afedebe4e209',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onclose_5fframe_108',['OnClose_Frame',['../class_greyscale_converter_1_1_controller_frame.html#a16b93fde5966921a1f7b2ad3672ce214',1,'GreyscaleConverter::ControllerFrame']]],
+  ['oncolourchanged_5fpickbichromecolour_109',['OnColourChanged_PickBichromeColour',['../class_greyscale_converter_1_1_controller_frame.html#a3053e677f99af241970a7ba7688c71a0',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onmenuselection_5fexit_110',['OnMenuSelection_Exit',['../class_greyscale_converter_1_1_controller_frame.html#a75a86fd2a21f7ae39c13bad9e13a079f',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onmenuselection_5fgofullscreen_111',['OnMenuSelection_GoFullscreen',['../class_greyscale_converter_1_1_controller_frame.html#aba157a8faf6db0f5b77c7d18c5063bf3',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onmenuselection_5floadconfig_112',['OnMenuSelection_LoadConfig',['../class_greyscale_converter_1_1_controller_frame.html#ab6f054a9b15ebbca6a5e7a6efeebdabc',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onmenuselection_5floadimage_113',['OnMenuSelection_LoadImage',['../class_greyscale_converter_1_1_controller_frame.html#a016087a9859de1fff279a19a8c79a1ae',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onmenuselection_5fqualitypreview_114',['OnMenuSelection_QualityPreview',['../class_greyscale_converter_1_1_controller_frame.html#a7e6380dead2101ec73497caec7128dda',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onmenuselection_5fsaveconfig_115',['OnMenuSelection_SaveConfig',['../class_greyscale_converter_1_1_controller_frame.html#a7db540fe9193e9e4507387b1986b2db3',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onmenuselection_5fsaveimage_116',['OnMenuSelection_SaveImage',['../class_greyscale_converter_1_1_controller_frame.html#a444c8e2d6f57ae95dc0ea6fad53cfd39',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onscrollthumbtrack_5fchangebluechannel_117',['OnScrollThumbTrack_ChangeBlueChannel',['../class_greyscale_converter_1_1_controller_frame.html#a9808a02ee8b530a3fc1339c232b58ee4',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onscrollthumbtrack_5fchangegreenchannel_118',['OnScrollThumbTrack_ChangeGreenChannel',['../class_greyscale_converter_1_1_controller_frame.html#a758bd951fb898085d240b77744160756',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onscrollthumbtrack_5fchangeredchannel_119',['OnScrollThumbTrack_ChangeRedChannel',['../class_greyscale_converter_1_1_controller_frame.html#acc94f378597c16d81e06fd3b0ef152a2',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onscrollthumbtrack_5fhuekept_120',['OnScrollThumbTrack_HueKept',['../class_greyscale_converter_1_1_controller_frame.html#ab7d630e95c5099439659f595d6b4ae86',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onscrollthumbtrack_5fhuetolerance_121',['OnScrollThumbTrack_HueTolerance',['../class_greyscale_converter_1_1_controller_frame.html#ab345ea8d969040cf1eabd11575138a35',1,'GreyscaleConverter::ControllerFrame']]],
+  ['onscrollthumbtrack_5fmixoriginalwithconverted_122',['OnScrollThumbTrack_MixOriginalWithConverted',['../class_greyscale_converter_1_1_controller_frame.html#a5a6c8cda253f162fef039ff4a9ccfd05',1,'GreyscaleConverter::ControllerFrame']]],
+  ['ontext_5fchangebluechannel_123',['OnText_ChangeBlueChannel',['../class_greyscale_converter_1_1_controller_frame.html#a923d777b97caa39c31e5d8032e1c6e3a',1,'GreyscaleConverter::ControllerFrame']]],
+  ['ontext_5fchangegreenchannel_124',['OnText_ChangeGreenChannel',['../class_greyscale_converter_1_1_controller_frame.html#add4b43db3d984c1028b169ed69c22aa2',1,'GreyscaleConverter::ControllerFrame']]],
+  ['ontext_5fchangehuetolerance_125',['OnText_ChangeHueTolerance',['../class_greyscale_converter_1_1_controller_frame.html#af5fc722c6866e7ca19bbf4cf6499845b',1,'GreyscaleConverter::ControllerFrame']]],
+  ['ontext_5fchangeredchannel_126',['OnText_ChangeRedChannel',['../class_greyscale_converter_1_1_controller_frame.html#a7825d58cf5a14b756af278c050e68e0c',1,'GreyscaleConverter::ControllerFrame']]],
+  ['ontext_5fhuekept_127',['OnText_HueKept',['../class_greyscale_converter_1_1_controller_frame.html#a2474fb0375e449b73473bffaad124e81',1,'GreyscaleConverter::ControllerFrame']]],
+  ['ontext_5fmixoriginalwithconverted_128',['OnText_MixOriginalWithConverted',['../class_greyscale_converter_1_1_controller_frame.html#a0ea60317e203f3e0f173de3725f33016',1,'GreyscaleConverter::ControllerFrame']]]
+];

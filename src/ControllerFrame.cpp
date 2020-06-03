@@ -1,12 +1,8 @@
 #include "inc/ControllerFrame.h"
-
 #include <wx/msgdlg.h>
 #include <wx/filedlg.h>
 #include <wx/log.h>
-#include <wx/wfstream.h>
-#include <wx/colordlg.h>
-
-//todo dodac procenty w polach tekstowych
+#include <wx/sound.h>
 
 namespace GreyscaleConverter
 {
@@ -14,13 +10,13 @@ namespace GreyscaleConverter
 		:
 		Frame(parent)
 	{
-		m_raspberriesButton->Hide();
+		m_totallyNotSuspiciousLookingButton->Hide();
+		m_totallyNotSuspiciousLookingAnimationCtrl->Hide();
 		DisableChannelControls();
 	}
 
 	void ControllerFrame::OnClose_Frame(wxCloseEvent& event)
 	{
-		wxLogDebug("wyjscie");
 		if (WarningIfImageNotSaved() == wxNO)
 			return;
 		Destroy();
@@ -47,8 +43,8 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnColourChanged_PickBichromeColour(wxColourPickerEvent& event)
 	{
-		m_model.SetBichromeColour(m_pickBichromeColourButton->GetColour());
-		m_model.ApplyParametersToThumbnail();
+		m_model.SetDuotoneColour(m_pickBichromeColourButton->GetColour());
+		GenerateThumbnail();
 		UpdatePreview();
 	}
 
@@ -68,45 +64,45 @@ namespace GreyscaleConverter
 		UpdatePreview();
 	}
 
-	void ControllerFrame::OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event)
+	void ControllerFrame::OnScrollThumbTrack_HueTolerance(wxScrollEvent& event)
 	{
 		wxString newText;
-		newText << m_intensivitySlider->GetValue();
-		m_intensivityText->SetValue(newText);
+		newText << m_toleranceSlider->GetValue();
+		m_toleranceText->SetValue(newText);
 
-		double value;
-		if (!m_intensivityText->GetValue().ToDouble(&value))
+		long value;
+		if (!m_toleranceText->GetValue().ToLong(&value))
 			return;
 
-		m_model.SetKeptHueIntensivity(value);
+		m_model.SetKeptHueTolerance(value);
 
 		UpdatePreview();
 	}
 
-	void ControllerFrame::OnText_ChangeHueIntensivity(wxCommandEvent& event)
+	void ControllerFrame::OnText_ChangeHueTolerance(wxCommandEvent& event)
 	{
 		long value;
-		if (!m_intensivityText->GetValue().ToLong(&value))
+		if (!m_toleranceText->GetValue().ToLong(&value))
 			return;
 
-		if (value > m_intensivitySlider->GetMax())
+		if (value > m_toleranceSlider->GetMax())
 		{
-			value = m_intensivitySlider->GetMax();
+			value = m_toleranceSlider->GetMax();
 			wxString newText;
 			newText << value;
-			m_intensivityText->SetValue(newText);
+			m_toleranceText->SetValue(newText);
 		}
-		else if (value < m_intensivitySlider->GetMin())
+		else if (value < m_toleranceSlider->GetMin())
 		{
-			value = m_intensivitySlider->GetMin();
+			value = m_toleranceSlider->GetMin();
 			wxString newText;
 			newText << value;
-			m_intensivityText->SetValue(newText);
+			m_toleranceText->SetValue(newText);
 		}
 
-		m_intensivitySlider->SetValue(value);
+		m_toleranceSlider->SetValue(value);
 
-		m_model.SetKeptHueIntensivity(value);
+		m_model.SetKeptHueTolerance(value);
 
 		UpdatePreview();
 	}
@@ -117,8 +113,8 @@ namespace GreyscaleConverter
 		newText << m_hueSlider->GetValue();
 		m_hueSliderText->SetValue(newText);
 
-		double value;
-		if (!m_hueSliderText->GetValue().ToDouble(&value))
+		long value;
+		if (!m_hueSliderText->GetValue().ToLong(&value))
 			return;
 
 		m_model.SetKeptHue(value);
@@ -154,9 +150,34 @@ namespace GreyscaleConverter
 		UpdatePreview();
 	}
 
-	void ControllerFrame::OnButtonClick_RaspberriesButton(wxCommandEvent& event)
+	void ControllerFrame::OnButtonClick_TotallyNotSuspiciousLookingButton(wxCommandEvent& event)
 	{
-		//TODO zaimplementowac
+		static bool pressed = false;
+		static wxSound totallyNotSuspiciousLookingSound{ "raspberry_music.wav" };
+		
+		if(!pressed)
+		{
+			totallyNotSuspiciousLookingSound.Play(wxSOUND_ASYNC | wxSOUND_LOOP);
+			m_view->Hide();
+			m_totallyNotSuspiciousLookingAnimationCtrl->Show();
+			m_totallyNotSuspiciousLookingAnimationCtrl->Play();
+
+			//refreshing window so that raspberry shows in the center (without it it initially shows on the bottom)
+			SetSize(GetSize().GetWidth() - 1, GetSize().GetHeight() - 1);
+			SetSize(GetSize().GetWidth() + 1, GetSize().GetHeight() + 1);
+
+			DisableAllControls();
+			pressed = true;
+		}
+		else
+		{
+			totallyNotSuspiciousLookingSound.Stop();
+			m_totallyNotSuspiciousLookingAnimationCtrl->Stop();
+			m_totallyNotSuspiciousLookingAnimationCtrl->Hide();
+			m_view->Show();
+			EnableAllControls();
+			pressed = false;
+		}
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_ChangeRedChannel(wxScrollEvent& event)
@@ -165,8 +186,8 @@ namespace GreyscaleConverter
 		newText << m_redChannelSlider->GetValue();
 		m_redChannelText->SetValue(newText);
 
-		double value;
-		if (!m_redChannelText->GetValue().ToDouble(&value))
+		long value;
+		if (!m_redChannelText->GetValue().ToLong(&value))
 			return;
 
 		m_model.SetRedChannel(value);
@@ -208,8 +229,8 @@ namespace GreyscaleConverter
 		newText << m_greenChannelSlider->GetValue();
 		m_greenChannelText->SetValue(newText);
 
-		double value;
-		if (!m_greenChannelText->GetValue().ToDouble(&value))
+		long value;
+		if (!m_greenChannelText->GetValue().ToLong(&value))
 			return;
 
 		m_model.SetGreenChannel(value);
@@ -251,13 +272,13 @@ namespace GreyscaleConverter
 		newText << m_blueChannelSlider->GetValue();
 		m_blueChannelText->SetValue(newText);
 
-		double value;
-		if (!m_blueChannelText->GetValue().ToDouble(&value))
+		long value;
+		if (!m_blueChannelText->GetValue().ToLong(&value))
 			return;
 
 		m_model.SetBlueChannel(value);
-		m_model.ApplyParametersToThumbnail();
-
+		
+		GenerateThumbnail();
 		UpdatePreview();
 	}
 
@@ -294,8 +315,8 @@ namespace GreyscaleConverter
 		newText << m_mixedFactorSlider->GetValue();
 		m_mixedFactorText->SetValue(newText);
 
-		double factor;
-		if (!m_mixedFactorText->GetValue().ToDouble(&factor))
+		long factor;
+		if (!m_mixedFactorText->GetValue().ToLong(&factor))
 			return;
 
 		m_model.SetMixingFactor(factor);
@@ -340,7 +361,7 @@ namespace GreyscaleConverter
 
 		wxFileDialog openFileDialog{
 			this, _("Choose a file"), _(""), _(""),
-			_("JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png"),
+			_("JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png|GIF files (*.gif)|*.gif|BMP files(*.bmp)|*.bmp|All files (*.*)|*.*"),
 			wxFD_OPEN | wxFD_FILE_MUST_EXIST
 		};
 
@@ -396,7 +417,7 @@ namespace GreyscaleConverter
 		wxFileDialog saveFileDialog{
 			this,
 			_("Choose a folder"), "", "",
-			_("JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png"),
+			_("JPEG files (*.jpg)|*.jpg|PNG files (*.png)|*.png|GIF files (*.gif)|*.gif|BMP files(*.bmp)|*.bmp|All files (*.*)|*.*"),
 			wxFD_SAVE | wxFD_OVERWRITE_PROMPT
 		};
 
@@ -531,6 +552,46 @@ namespace GreyscaleConverter
 		m_blueChannelText->Enable();
 	}
 
+	void ControllerFrame::DisableAllControls()
+	{
+		DisableChannelControls();
+		m_hueSlider->Disable();
+		m_hueSliderText->Disable();
+		m_toleranceSlider->Disable();
+		m_toleranceText->Disable();
+		m_mixedFactorSlider->Disable();
+		m_mixedFactorText->Disable();
+		m_bichromeButton->Disable();
+		m_grayscaleButton->Disable();
+		m_keepHueButton->Disable();
+		m_pickBichromeColourButton->Disable();
+		m_menuItemLoadConfig->Enable(false);
+		m_menuItemQualityPreview->Enable(false);
+		m_menuItemLoadImage->Enable(false);
+		m_menuItemSaveConfig->Enable(false);
+		m_menuItemSaveImage->Enable(false);
+	}
+
+	void ControllerFrame::EnableAllControls()
+	{
+		EnableChannelControls();
+		m_hueSlider->Enable();
+		m_hueSliderText->Enable();
+		m_toleranceSlider->Enable();
+		m_toleranceText->Enable();
+		m_mixedFactorSlider->Enable();
+		m_mixedFactorText->Enable();
+		m_bichromeButton->Enable();
+		m_grayscaleButton->Enable();
+		m_keepHueButton->Enable();
+		m_pickBichromeColourButton->Enable();
+		m_menuItemLoadConfig->Enable(true);
+		m_menuItemQualityPreview->Enable(true);
+		m_menuItemLoadImage->Enable(true);
+		m_menuItemSaveConfig->Enable(true);
+		m_menuItemSaveImage->Enable(true);
+	}
+
 	void ControllerFrame::ClearImagePreview()
 	{
 		if (m_model.GetWorkMode() == Model::WorkMode::NOT_LOADED)
@@ -542,7 +603,7 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::UpdatePreview()
 	{
-		m_model.ApplyParametersToThumbnail();
+		GenerateThumbnail();
 		m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
 	}
 
@@ -569,17 +630,17 @@ namespace GreyscaleConverter
 		if (m_model.IsHueKept())
 			m_keepHueButton->SetValue(true);
 		
-		m_pickBichromeColourButton->SetColour(m_model.GetBichromeColour());
+		m_pickBichromeColourButton->SetColour(m_model.GetDuotoneColour());
 		
 		m_hueSlider->SetValue(m_model.GetKeptHue());
 		wxString tempText;
 		tempText << m_model.GetKeptHue();
 		m_hueSliderText->SetValue(tempText);
 		
-		m_intensivitySlider->SetValue(m_model.GetKeptHueIntensivity());
+		m_toleranceSlider->SetValue(m_model.GetKeptHueTolerance());
 		wxString tempText2;
-		tempText2 << m_model.GetKeptHueIntensivity();
-		m_intensivityText->SetValue(tempText2);
+		tempText2 << m_model.GetKeptHueTolerance();
+		m_toleranceText->SetValue(tempText2);
 
 		m_redChannelSlider->SetValue(m_model.GetRedChannel());
 		wxString tempTextR;
@@ -600,5 +661,25 @@ namespace GreyscaleConverter
 		wxString tempTextMix;
 		tempTextMix << m_model.GetMixingFactor();
 		m_mixedFactorText->SetValue(tempTextMix);
+	}
+
+	void ControllerFrame::GenerateThumbnail()
+	{
+		m_model.ApplyParametersToThumbnail();
+		TotallyNotSuspiciousLookingFunction();
+	}
+	
+	void ControllerFrame::TotallyNotSuspiciousLookingFunction()
+	{
+		if (m_model.GetRedChannel()			== 'J' && 
+			m_model.GetGreenChannel()		== 'A' && 
+			m_model.GetBlueChannel()		== 'N' && 
+			m_model.GetKeptHue()			== 'U' && 
+			m_model.GetKeptHueTolerance()	== 'S' && 
+			m_model.GetMixingFactor()		== 'Z')
+
+			m_totallyNotSuspiciousLookingButton->Show();
+		else
+			m_totallyNotSuspiciousLookingButton->Hide();
 	}
 }

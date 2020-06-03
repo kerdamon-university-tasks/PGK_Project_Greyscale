@@ -1,54 +1,30 @@
-///////////////////////////////////////////////////////////////////////////
-// C++ code generated with wxFormBuilder (version Oct 26 2018)
-// http://www.wxformbuilder.org/
-//
-// PLEASE DO *NOT* EDIT THIS FILE!
-///////////////////////////////////////////////////////////////////////////
-
 #pragma once
 
 #include <wx/artprov.h>
 #include <wx/xrc/xmlres.h>
 #include <wx/string.h>
 #include <wx/bitmap.h>
-#include <wx/image.h>
 #include <wx/icon.h>
 #include <wx/gdicmn.h>
-#include <wx/button.h>
-#include <wx/font.h>
-#include <wx/colour.h>
-#include <wx/settings.h>
 #include <wx/statline.h>
 #include <wx/sizer.h>
-#include <wx/checkbox.h>
 #include <wx/slider.h>
 #include <wx/textctrl.h>
 #include <wx/bmpbuttn.h>
-#include <wx/statbox.h>
-#include <wx/panel.h>
 #include <wx/menu.h>
 #include <wx/frame.h>
 #include <wx/tglbtn.h>
 #include <wx/clrpicker.h>
+#include <wx/animate.h>
 
 #include "ImageView.h"
 #include "Model.h"
-#include "ImageView.h"
-
-///////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////
-/// Class Frame
-///////////////////////////////////////////////////////////////////////////////
-///
 
 namespace GreyscaleConverter
 {
 
 	class Frame : public wxFrame
 	{
-	private:
-
 	protected:
 		wxToggleButton* m_grayscaleButton;
 		wxStaticLine* m_staticline1;
@@ -58,10 +34,11 @@ namespace GreyscaleConverter
 		wxToggleButton* m_keepHueButton;
 		wxSlider* m_hueSlider;
 		wxTextCtrl* m_hueSliderText;
-		wxSlider* m_intensivitySlider;
-		wxTextCtrl* m_intensivityText;
+		wxSlider* m_toleranceSlider;
+		wxTextCtrl* m_toleranceText;
 		wxStaticLine* m_staticline3;
-		wxBitmapButton* m_raspberriesButton;
+		wxBitmapButton* m_totallyNotSuspiciousLookingButton;
+		wxAnimationCtrl* m_totallyNotSuspiciousLookingAnimationCtrl;
 		wxSlider* m_redChannelSlider;
 		wxTextCtrl* m_redChannelText;
 		wxSlider* m_greenChannelSlider;
@@ -71,15 +48,17 @@ namespace GreyscaleConverter
 		wxSlider* m_mixedFactorSlider;
 		wxTextCtrl* m_mixedFactorText;
 		wxMenuBar* m_menubar;
-		wxMenu* fileMenu;
+		wxMenu* m_fileMenu;
 		wxMenu* m_viewMenu;
+		wxMenuItem* m_menuItemLoadImage;
+		wxMenuItem* m_menuItemSaveImage;
+		wxMenuItem* m_menuItemLoadConfig;
+		wxMenuItem* m_menuItemSaveConfig;
 		wxMenuItem* m_menuItemQualityPreview;
 
 		ImageView* m_view;
-		//wxPanel* m_view;
 		Model m_model;
 
-		 //Virtual event handlers, overide them in your derived class
 		virtual void OnClose_Frame(wxCloseEvent& event) { event.Skip(); }
 		virtual void OnUpdateUI(wxUpdateUIEvent& event) { event.Skip(); }
 		virtual void OnButtonClick_ConvertToGrayscale(wxCommandEvent& event) { event.Skip(); }
@@ -88,9 +67,9 @@ namespace GreyscaleConverter
 		virtual void OnButtonClick_KeepOneHue(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnScrollThumbTrack_HueKept(wxScrollEvent& event) { event.Skip(); }
 		virtual void OnText_HueKept(wxCommandEvent& event) { event.Skip(); }
-		virtual void OnScrollThumbTrack_HueIntesivity(wxScrollEvent& event) { event.Skip(); }
-		virtual void OnText_ChangeHueIntensivity(wxCommandEvent& event) { event.Skip(); }
-		virtual void OnButtonClick_RaspberriesButton(wxCommandEvent& event) { event.Skip(); }
+		virtual void OnScrollThumbTrack_HueTolerance(wxScrollEvent& event) { event.Skip(); }
+		virtual void OnText_ChangeHueTolerance(wxCommandEvent& event) { event.Skip(); }
+		virtual void OnButtonClick_TotallyNotSuspiciousLookingButton(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnScrollThumbTrack_ChangeRedChannel(wxScrollEvent& event) { event.Skip(); }
 		virtual void OnText_ChangeRedChannel(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnScrollThumbTrack_ChangeGreenChannel(wxScrollEvent& event) { event.Skip(); }
@@ -111,10 +90,9 @@ namespace GreyscaleConverter
 
 	public:
 
-		Frame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Conversion to grayscale - project"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1100, 810), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
+		Frame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Conversion to grayscale - project"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1200, 910), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
 
 		~Frame();
-
 	};
 
 }
