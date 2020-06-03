@@ -140,9 +140,9 @@ namespace GreyscaleConverter
 		m_totallyNotSuspiciousLookingButton = new wxBitmapButton(this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 		wxImage::AddHandler(new wxPNGHandler);
-		m_totallyNotSuspiciousLookingButton->SetBitmap(wxBitmap(wxT("res/buttonRaspberries.png"), wxBITMAP_TYPE_ANY));
-		m_totallyNotSuspiciousLookingButton->SetBitmapPressed(wxBitmap(wxT("res/buttonRaspberriesClicked.png"), wxBITMAP_TYPE_ANY));
-		m_totallyNotSuspiciousLookingButton->SetBitmapCurrent(wxBitmap(wxT("res/buttonRaspberriesHover.png"), wxBITMAP_TYPE_ANY));
+		m_totallyNotSuspiciousLookingButton->SetBitmap(wxBitmap(wxT("res/totallyNotSuspiciousLookingButton.png"), wxBITMAP_TYPE_ANY));
+		m_totallyNotSuspiciousLookingButton->SetBitmapPressed(wxBitmap(wxT("res/totallyNotSuspiciousLookingButtonClicked.png"), wxBITMAP_TYPE_ANY));
+		m_totallyNotSuspiciousLookingButton->SetBitmapCurrent(wxBitmap(wxT("res/totallyNotSuspiciousLookingButtonHover.png"), wxBITMAP_TYPE_ANY));
 		m_totallyNotSuspiciousLookingButton->SetMaxSize(wxSize(100, 100));
 
 		totallyNotSuspiciousLookingSizer->Add(m_totallyNotSuspiciousLookingButton, 0, wxALIGN_CENTER | wxALL | wxSHAPED | wxEXPAND, 5);
@@ -161,7 +161,7 @@ namespace GreyscaleConverter
 		
 		drawAreaSizer->Add(m_view, 1, wxEXPAND | wxALL, 0);
 
-		m_totallyNotSuspiciousLookingAnimationCtrl = new wxAnimationCtrl{ this, wxID_ANY, wxAnimation{ "res/raspberry_thumbnail.gif" } };
+		m_totallyNotSuspiciousLookingAnimationCtrl = new wxAnimationCtrl{ this, wxID_ANY, wxAnimation{ "res/totallyNotSuspiciousLookingAnimation.gif" } };
 		m_totallyNotSuspiciousLookingAnimationCtrl->SetBackgroundColour(wxColour{ "White" });
 
 		auto* m_totallyNotSuspiciousLookingSizer = new wxBoxSizer(wxHORIZONTAL);

@@ -153,7 +153,7 @@ namespace GreyscaleConverter
 	void ControllerFrame::OnButtonClick_TotallyNotSuspiciousLookingButton(wxCommandEvent& event)
 	{
 		static bool pressed = false;
-		static wxSound totallyNotSuspiciousLookingSound{ "raspberry_music.wav" };
+		static wxSound totallyNotSuspiciousLookingSound{ "res/totallyNotSuspiciousLookingMusic.wav" };
 		
 		if(!pressed)
 		{
