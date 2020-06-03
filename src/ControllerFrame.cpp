@@ -1,5 +1,4 @@
 #include "inc/ControllerFrame.h"
-
 #include <wx/msgdlg.h>
 #include <wx/filedlg.h>
 #include <wx/log.h>
@@ -45,7 +44,6 @@ namespace GreyscaleConverter
 	void ControllerFrame::OnColourChanged_PickBichromeColour(wxColourPickerEvent& event)
 	{
 		m_model.SetDuotoneColour(m_pickBichromeColourButton->GetColour());
-		//m_model.ApplyParametersToThumbnail();
 		GenerateThumbnail();
 		UpdatePreview();
 	}
@@ -280,7 +278,6 @@ namespace GreyscaleConverter
 
 		m_model.SetBlueChannel(value);
 		
-		//m_model.ApplyParametersToThumbnail();
 		GenerateThumbnail();
 		UpdatePreview();
 	}

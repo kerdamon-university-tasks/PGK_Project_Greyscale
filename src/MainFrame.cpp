@@ -101,12 +101,12 @@ namespace GreyscaleConverter
 
 		auto* m_HUEToleranceSizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("HUE Tolerance")), wxHORIZONTAL);
 
-		m_toleranceSlider = new wxSlider(m_HUEToleranceSizer->GetStaticBox(), wxID_ANY, 80, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+		m_toleranceSlider = new wxSlider(m_HUEToleranceSizer->GetStaticBox(), wxID_ANY, 20, 0, 100, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 		m_toleranceSlider->SetMinSize(wxSize(200, -1));
 
 		m_HUEToleranceSizer->Add(m_toleranceSlider, 1, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
-		m_toleranceText = new wxTextCtrl(m_HUEToleranceSizer->GetStaticBox(), wxID_ANY, wxT("80"), wxDefaultPosition, wxSize(40, -1), 0);
+		m_toleranceText = new wxTextCtrl(m_HUEToleranceSizer->GetStaticBox(), wxID_ANY, wxT("20"), wxDefaultPosition, wxSize(40, -1), 0);
 		m_toleranceText->SetMaxLength(3);
 
 		m_HUEToleranceSizer->Add(m_toleranceText, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
@@ -162,6 +162,7 @@ namespace GreyscaleConverter
 		drawAreaSizer->Add(m_view, 1, wxEXPAND | wxALL, 0);
 
 		m_totallyNotSuspiciousLookingAnimationCtrl = new wxAnimationCtrl{ this, wxID_ANY, wxAnimation{ "res/raspberry_thumbnail.gif" } };
+		m_totallyNotSuspiciousLookingAnimationCtrl->SetBackgroundColour(wxColour{ "White" });
 
 		auto* m_totallyNotSuspiciousLookingSizer = new wxBoxSizer(wxHORIZONTAL);
 		m_totallyNotSuspiciousLookingSizer->Add(m_totallyNotSuspiciousLookingAnimationCtrl, 0, wxALIGN_CENTER, 5);

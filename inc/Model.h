@@ -1,7 +1,6 @@
 #pragma once
 
 #include <wx/image.h>
-#include <wx/bmpbuttn.h>
 
 #include "inc/ImageConversion.h"
 
@@ -118,10 +117,6 @@ namespace GreyscaleConverter
 		bool IsHueKept() const { return m_isHueKept; }
 
 		///@}
-
-
-
-
 		
 		/// @{
 		/// @name Setters
@@ -198,8 +193,6 @@ namespace GreyscaleConverter
 		/// @see IsResultImageSaved()
 		void IsResultImageSaved(const bool isSaved) { m_isResultSaved = isSaved; }
 
-		void EasterEgg();
-
 	private:
 
 		void AdjustImageThumbnail();
@@ -216,7 +209,7 @@ namespace GreyscaleConverter
 		const int m_maxImageThumbnailSize{ 500 };
 		
 		int m_keptHue{ 180 };
-		int m_keptHueTolerance{ 80 };
+		int m_keptHueTolerance{ 20 };
 		
 		int m_redChannel{ 0 };
 		int m_blueChannel{ 0 };

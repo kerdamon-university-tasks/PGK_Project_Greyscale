@@ -132,10 +132,6 @@ namespace GreyscaleConverter
 		}
 	}
 
-	void Model::EasterEgg()
-	{
-	}
-
 	void Model::MixConvertedWithOriginal()
 	{
 		if (m_mode == WorkMode::NOT_LOADED)
