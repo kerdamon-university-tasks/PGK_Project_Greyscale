@@ -38,19 +38,7 @@ namespace GreyscaleConverter
         static void ConvertToGreyScale(wxImage& image, int chRed, int chGreen, int chBlue, bool keepHue, int hueToKeep, int tolerance);
 
     private:
-				///@{
-				/// @name Color conversions
-				
-				/// Converts RGB color system to YUV
-				/// @see YUVtoRGB()
-        static void RGBtoYUV(double& Y, double& U, double& V, const double R, const double G, const double B);
 
-        /// Converts YUV color system to RGB
-        /// @see RGBtoYUV()
-        static void YUVtoRGB(double& R, double& G, double& B, double Y, double U, double V);
-
-    		/// Converts RGB color system to HSL
-    		/// @see HSLtoRGB()
         static void RGBtoHSL(double& H, double& S, double& L, const double R, const double G, const double B);
 
         /// Converts HSL color system to RGB
