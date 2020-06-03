@@ -71,7 +71,7 @@ namespace GreyscaleConverter
 		/// Handles some mystery button click
 		///
 		/// No one knows what it does.
-		void OnButtonClick_RaspberriesButton(wxCommandEvent& event) override;
+		void OnButtonClick_TotallyNotSuspiciousLookingButton(wxCommandEvent& event) override;
 
 
 		/// Handles Hue tolerance value change from keyboard
@@ -185,6 +185,25 @@ namespace GreyscaleConverter
 
 		/// Enables color channels controls
 		void EnableChannelControls();
+
+		// Disables all sliders and corresponding text fields
+		void DisableAllControls();
+
+		// Enables all sliders and corresponding text fields
+		void EnableAllControls();
+
+		/// Sends message to model to apply parameters to thumbnail
+		void GenerateThumbnail();
+
+		///@{
+		/// @name Some not suspicious functions...
+
+		/// Wait, what is this?
+		/// 
+		/// Dunno, ignore this. It's definitely something extremely not important...
+		void TotallyNotSuspiciousLookingFunction();
+		///@}
+
 
 	};
 }

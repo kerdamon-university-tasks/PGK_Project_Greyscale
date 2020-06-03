@@ -3,6 +3,7 @@
 #include <wx/msgdlg.h>
 #include <wx/filedlg.h>
 #include <wx/log.h>
+#include <wx/sound.h>
 
 namespace GreyscaleConverter
 {
@@ -10,7 +11,8 @@ namespace GreyscaleConverter
 		:
 		Frame(parent)
 	{
-		m_raspberriesButton->Hide();
+		m_totallyNotSuspiciousLookingButton->Hide();
+		m_totallyNotSuspiciousLookingAnimationCtrl->Hide();
 		DisableChannelControls();
 	}
 
@@ -43,7 +45,8 @@ namespace GreyscaleConverter
 	void ControllerFrame::OnColourChanged_PickBichromeColour(wxColourPickerEvent& event)
 	{
 		m_model.SetDuotoneColour(m_pickBichromeColourButton->GetColour());
-		m_model.ApplyParametersToThumbnail();
+		//m_model.ApplyParametersToThumbnail();
+		GenerateThumbnail();
 		UpdatePreview();
 	}
 
@@ -149,9 +152,34 @@ namespace GreyscaleConverter
 		UpdatePreview();
 	}
 
-	void ControllerFrame::OnButtonClick_RaspberriesButton(wxCommandEvent& event)
+	void ControllerFrame::OnButtonClick_TotallyNotSuspiciousLookingButton(wxCommandEvent& event)
 	{
-		//todo zaklepac
+		static bool pressed = false;
+		static wxSound totallyNotSuspiciousLookingSound{ "raspberry_music.wav" };
+		
+		if(!pressed)
+		{
+			totallyNotSuspiciousLookingSound.Play(wxSOUND_ASYNC | wxSOUND_LOOP);
+			m_view->Hide();
+			m_totallyNotSuspiciousLookingAnimationCtrl->Show();
+			m_totallyNotSuspiciousLookingAnimationCtrl->Play();
+
+			//refreshing window so that raspberry shows in the center (without it it initially shows on the bottom)
+			SetSize(GetSize().GetWidth() - 1, GetSize().GetHeight() - 1);
+			SetSize(GetSize().GetWidth() + 1, GetSize().GetHeight() + 1);
+
+			DisableAllControls();
+			pressed = true;
+		}
+		else
+		{
+			totallyNotSuspiciousLookingSound.Stop();
+			m_totallyNotSuspiciousLookingAnimationCtrl->Stop();
+			m_totallyNotSuspiciousLookingAnimationCtrl->Hide();
+			m_view->Show();
+			EnableAllControls();
+			pressed = false;
+		}
 	}
 
 	void ControllerFrame::OnScrollThumbTrack_ChangeRedChannel(wxScrollEvent& event)
@@ -251,8 +279,9 @@ namespace GreyscaleConverter
 			return;
 
 		m_model.SetBlueChannel(value);
-		m_model.ApplyParametersToThumbnail();
-
+		
+		//m_model.ApplyParametersToThumbnail();
+		GenerateThumbnail();
 		UpdatePreview();
 	}
 
@@ -526,6 +555,46 @@ namespace GreyscaleConverter
 		m_blueChannelText->Enable();
 	}
 
+	void ControllerFrame::DisableAllControls()
+	{
+		DisableChannelControls();
+		m_hueSlider->Disable();
+		m_hueSliderText->Disable();
+		m_toleranceSlider->Disable();
+		m_toleranceText->Disable();
+		m_mixedFactorSlider->Disable();
+		m_mixedFactorText->Disable();
+		m_bichromeButton->Disable();
+		m_grayscaleButton->Disable();
+		m_keepHueButton->Disable();
+		m_pickBichromeColourButton->Disable();
+		m_menuItemLoadConfig->Enable(false);
+		m_menuItemQualityPreview->Enable(false);
+		m_menuItemLoadImage->Enable(false);
+		m_menuItemSaveConfig->Enable(false);
+		m_menuItemSaveImage->Enable(false);
+	}
+
+	void ControllerFrame::EnableAllControls()
+	{
+		EnableChannelControls();
+		m_hueSlider->Enable();
+		m_hueSliderText->Enable();
+		m_toleranceSlider->Enable();
+		m_toleranceText->Enable();
+		m_mixedFactorSlider->Enable();
+		m_mixedFactorText->Enable();
+		m_bichromeButton->Enable();
+		m_grayscaleButton->Enable();
+		m_keepHueButton->Enable();
+		m_pickBichromeColourButton->Enable();
+		m_menuItemLoadConfig->Enable(true);
+		m_menuItemQualityPreview->Enable(true);
+		m_menuItemLoadImage->Enable(true);
+		m_menuItemSaveConfig->Enable(true);
+		m_menuItemSaveImage->Enable(true);
+	}
+
 	void ControllerFrame::ClearImagePreview()
 	{
 		if (m_model.GetWorkMode() == Model::WorkMode::NOT_LOADED)
@@ -537,7 +606,7 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::UpdatePreview()
 	{
-		m_model.ApplyParametersToThumbnail();
+		GenerateThumbnail();
 		m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
 	}
 
@@ -595,5 +664,25 @@ namespace GreyscaleConverter
 		wxString tempTextMix;
 		tempTextMix << m_model.GetMixingFactor();
 		m_mixedFactorText->SetValue(tempTextMix);
+	}
+
+	void ControllerFrame::GenerateThumbnail()
+	{
+		m_model.ApplyParametersToThumbnail();
+		TotallyNotSuspiciousLookingFunction();
+	}
+	
+	void ControllerFrame::TotallyNotSuspiciousLookingFunction()
+	{
+		if (m_model.GetRedChannel()			== 'J' && 
+			m_model.GetGreenChannel()		== 'A' && 
+			m_model.GetBlueChannel()		== 'N' && 
+			m_model.GetKeptHue()			== 'U' && 
+			m_model.GetKeptHueTolerance()	== 'S' && 
+			m_model.GetMixingFactor()		== 'Z')
+
+			m_totallyNotSuspiciousLookingButton->Show();
+		else
+			m_totallyNotSuspiciousLookingButton->Hide();
 	}
 }

@@ -15,6 +15,7 @@
 #include <wx/frame.h>
 #include <wx/tglbtn.h>
 #include <wx/clrpicker.h>
+#include <wx/animate.h>
 
 #include "ImageView.h"
 #include "Model.h"
@@ -36,7 +37,8 @@ namespace GreyscaleConverter
 		wxSlider* m_toleranceSlider;
 		wxTextCtrl* m_toleranceText;
 		wxStaticLine* m_staticline3;
-		wxBitmapButton* m_raspberriesButton;
+		wxBitmapButton* m_totallyNotSuspiciousLookingButton;
+		wxAnimationCtrl* m_totallyNotSuspiciousLookingAnimationCtrl;
 		wxSlider* m_redChannelSlider;
 		wxTextCtrl* m_redChannelText;
 		wxSlider* m_greenChannelSlider;
@@ -48,6 +50,10 @@ namespace GreyscaleConverter
 		wxMenuBar* m_menubar;
 		wxMenu* m_fileMenu;
 		wxMenu* m_viewMenu;
+		wxMenuItem* m_menuItemLoadImage;
+		wxMenuItem* m_menuItemSaveImage;
+		wxMenuItem* m_menuItemLoadConfig;
+		wxMenuItem* m_menuItemSaveConfig;
 		wxMenuItem* m_menuItemQualityPreview;
 
 		ImageView* m_view;
@@ -63,7 +69,7 @@ namespace GreyscaleConverter
 		virtual void OnText_HueKept(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnScrollThumbTrack_HueTolerance(wxScrollEvent& event) { event.Skip(); }
 		virtual void OnText_ChangeHueTolerance(wxCommandEvent& event) { event.Skip(); }
-		virtual void OnButtonClick_RaspberriesButton(wxCommandEvent& event) { event.Skip(); }
+		virtual void OnButtonClick_TotallyNotSuspiciousLookingButton(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnScrollThumbTrack_ChangeRedChannel(wxScrollEvent& event) { event.Skip(); }
 		virtual void OnText_ChangeRedChannel(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnScrollThumbTrack_ChangeGreenChannel(wxScrollEvent& event) { event.Skip(); }
@@ -84,7 +90,7 @@ namespace GreyscaleConverter
 
 	public:
 
-		Frame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Conversion to grayscale - project"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1100, 810), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
+		Frame(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Conversion to grayscale - project"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize(1200, 910), long style = wxDEFAULT_FRAME_STYLE | wxTAB_TRAVERSAL);
 
 		~Frame();
 	};

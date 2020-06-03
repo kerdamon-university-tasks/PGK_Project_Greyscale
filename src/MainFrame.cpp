@@ -135,30 +135,39 @@ namespace GreyscaleConverter
 		barSizer->Add(m_staticline4, 0, wxEXPAND | wxALL, 5);
 		
 
-		auto* raspberriesSizer = new wxBoxSizer(wxVERTICAL);
+		auto* totallyNotSuspiciousLookingSizer = new wxBoxSizer(wxVERTICAL);
 
-		m_raspberriesButton = new wxBitmapButton(this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
+		m_totallyNotSuspiciousLookingButton = new wxBitmapButton(this, wxID_ANY, wxNullBitmap, wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW | 0);
 
 		wxImage::AddHandler(new wxPNGHandler);
-		m_raspberriesButton->SetBitmap(wxBitmap(wxT("res/buttonRaspberries.png"), wxBITMAP_TYPE_ANY));
-		m_raspberriesButton->SetBitmapPressed(wxBitmap(wxT("res/buttonRaspberriesClicked.png"), wxBITMAP_TYPE_ANY));
-		m_raspberriesButton->SetBitmapCurrent(wxBitmap(wxT("res/buttonRaspberriesHover.png"), wxBITMAP_TYPE_ANY));
-		m_raspberriesButton->SetMaxSize(wxSize(100, 100));
+		m_totallyNotSuspiciousLookingButton->SetBitmap(wxBitmap(wxT("res/buttonRaspberries.png"), wxBITMAP_TYPE_ANY));
+		m_totallyNotSuspiciousLookingButton->SetBitmapPressed(wxBitmap(wxT("res/buttonRaspberriesClicked.png"), wxBITMAP_TYPE_ANY));
+		m_totallyNotSuspiciousLookingButton->SetBitmapCurrent(wxBitmap(wxT("res/buttonRaspberriesHover.png"), wxBITMAP_TYPE_ANY));
+		m_totallyNotSuspiciousLookingButton->SetMaxSize(wxSize(100, 100));
 
-		raspberriesSizer->Add(m_raspberriesButton, 0, wxALIGN_CENTER | wxALL | wxSHAPED | wxEXPAND, 5);
+		totallyNotSuspiciousLookingSizer->Add(m_totallyNotSuspiciousLookingButton, 0, wxALIGN_CENTER | wxALL | wxSHAPED | wxEXPAND, 5);
 
-		barSizer->Add(raspberriesSizer, 1, wxEXPAND|wxRESERVE_SPACE_EVEN_IF_HIDDEN, 5);
+		barSizer->Add(totallyNotSuspiciousLookingSizer, 1, wxEXPAND|wxRESERVE_SPACE_EVEN_IF_HIDDEN, 5);
 
 		mainSizer->Add(barSizer, 0, wxEXPAND, 5);
 
 
 		auto* drawAreaSizer = new wxBoxSizer(wxVERTICAL);
 
+
 		m_view = new ImageView(this, m_model, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
 		m_view->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOW));
 		m_view->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHTTEXT));
-
+		
 		drawAreaSizer->Add(m_view, 1, wxEXPAND | wxALL, 0);
+
+		m_totallyNotSuspiciousLookingAnimationCtrl = new wxAnimationCtrl{ this, wxID_ANY, wxAnimation{ "res/raspberry_thumbnail.gif" } };
+
+		auto* m_totallyNotSuspiciousLookingSizer = new wxBoxSizer(wxHORIZONTAL);
+		m_totallyNotSuspiciousLookingSizer->Add(m_totallyNotSuspiciousLookingAnimationCtrl, 0, wxALIGN_CENTER, 5);
+		drawAreaSizer->Add(m_totallyNotSuspiciousLookingSizer, 1, wxALIGN_CENTER, 5);
+
+		
 		mainSizer->Add(drawAreaSizer, 1, wxEXPAND, 5);
 
 		
@@ -167,20 +176,20 @@ namespace GreyscaleConverter
 		m_menubar = new wxMenuBar(0);
 		m_fileMenu = new wxMenu();
 
-		auto* m_loadImage = new wxMenuItem(m_fileMenu, wxID_ANY, wxString(wxT("Load Image...")), wxEmptyString, wxITEM_NORMAL);
-		m_fileMenu->Append(m_loadImage);
+		m_menuItemLoadImage = new wxMenuItem(m_fileMenu, wxID_ANY, wxString(wxT("Load Image...")), wxEmptyString, wxITEM_NORMAL);
+		m_fileMenu->Append(m_menuItemLoadImage);
 
-		auto* m_loadConfig = new wxMenuItem(m_fileMenu, wxID_ANY, wxString(wxT("Load Config...")), wxEmptyString, wxITEM_NORMAL);
-		
-		m_fileMenu->Append(m_loadConfig);
+		m_menuItemSaveImage = new wxMenuItem(m_fileMenu, wxID_ANY, wxString(wxT("Save Image...")), wxEmptyString, wxITEM_NORMAL);
+		m_fileMenu->Append(m_menuItemSaveImage);
+
 		m_fileMenu->AppendSeparator();
 
-		auto* m_saveImage = new wxMenuItem(m_fileMenu, wxID_ANY, wxString(wxT("Save Image...")), wxEmptyString, wxITEM_NORMAL);
-		m_fileMenu->Append(m_saveImage);
-
-		auto* m_saveConfig = new wxMenuItem(m_fileMenu, wxID_ANY, wxString(wxT("Save Config...")), wxEmptyString, wxITEM_NORMAL);
+		m_menuItemLoadConfig = new wxMenuItem(m_fileMenu, wxID_ANY, wxString(wxT("Load Config...")), wxEmptyString, wxITEM_NORMAL);
+		m_fileMenu->Append(m_menuItemLoadConfig);
 		
-		m_fileMenu->Append(m_saveConfig);
+		m_menuItemSaveConfig = new wxMenuItem(m_fileMenu, wxID_ANY, wxString(wxT("Save Config...")), wxEmptyString, wxITEM_NORMAL);
+		m_fileMenu->Append(m_menuItemSaveConfig);
+		
 		m_fileMenu->AppendSeparator();
 
 		auto* m_exit = new wxMenuItem(m_fileMenu, wxID_ANY, wxString(wxT("Exit")) + wxT('\t') + wxT("Alt+F4"), wxEmptyString, wxITEM_NORMAL);
@@ -216,7 +225,7 @@ namespace GreyscaleConverter
 		m_hueSlider->Connect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueKept), NULL, this);
 		m_hueSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueKept), NULL, this);
 		m_hueSliderText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_HueKept), NULL, this);
-		m_raspberriesButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_RaspberriesButton), NULL, this);
+		m_totallyNotSuspiciousLookingButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_TotallyNotSuspiciousLookingButton), NULL, this);
 		m_redChannelSlider->Connect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeRedChannel), NULL, this);
 		m_redChannelSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeRedChannel), NULL, this);
 		m_redChannelText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeRedChannel), NULL, this);
@@ -229,10 +238,10 @@ namespace GreyscaleConverter
 		m_mixedFactorSlider->Connect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_MixOriginalWithConverted), NULL, this);
 		m_mixedFactorSlider->Connect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_MixOriginalWithConverted), NULL, this);
 		m_mixedFactorText->Connect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_MixOriginalWithConverted), NULL, this);
-		m_fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_LoadImage), this, m_loadImage->GetId());
-		m_fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_LoadConfig), this, m_loadConfig->GetId());
-		m_fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_SaveImage), this, m_saveImage->GetId());
-		m_fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_SaveConfig), this, m_saveConfig->GetId());
+		m_fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_LoadImage), this, m_menuItemLoadImage->GetId());
+		m_fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_LoadConfig), this, m_menuItemLoadConfig->GetId());
+		m_fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_SaveImage), this, m_menuItemSaveImage->GetId());
+		m_fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_SaveConfig), this, m_menuItemSaveConfig->GetId());
 		m_fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_Exit), this, m_exit->GetId());
 		m_viewMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_GoFullscreen), this, m_fullscreen->GetId());
 		m_viewMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_QualityPreview), this, m_menuItemQualityPreview->GetId());
@@ -253,7 +262,7 @@ namespace GreyscaleConverter
 		m_hueSlider->Disconnect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueKept), NULL, this);
 		m_hueSlider->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_HueKept), NULL, this);
 		m_hueSliderText->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_HueKept), NULL, this);
-		m_raspberriesButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_RaspberriesButton), NULL, this);
+		m_totallyNotSuspiciousLookingButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Frame::OnButtonClick_TotallyNotSuspiciousLookingButton), NULL, this);
 		m_redChannelSlider->Disconnect(wxEVT_SCROLL_CHANGED, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeRedChannel), NULL, this);
 		m_redChannelSlider->Disconnect(wxEVT_SCROLL_THUMBTRACK, wxScrollEventHandler(Frame::OnScrollThumbTrack_ChangeRedChannel), NULL, this);
 		m_redChannelText->Disconnect(wxEVT_COMMAND_TEXT_UPDATED, wxCommandEventHandler(Frame::OnText_ChangeRedChannel), NULL, this);

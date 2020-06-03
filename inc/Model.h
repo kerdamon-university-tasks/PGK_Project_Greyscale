@@ -1,6 +1,7 @@
 #pragma once
 
 #include <wx/image.h>
+#include <wx/bmpbuttn.h>
 
 #include "inc/ImageConversion.h"
 
@@ -190,15 +191,6 @@ namespace GreyscaleConverter
 		/// It is accesible with:
 		/// @see GetMixingFactor() SetMixingFactor()
 		void MixConvertedWithOriginal();
-
-		///@{
-		/// @name Some not suspicious functions...
-		
-		/// Wait, what is this?
-		/// 
-		/// Dunno, ignore this. It's definitely something extremely not important...
-		void TotallyNotSuspiciousLookingFunction();
-		///@}
 
 		/// Sets state of ResultImage (saved / not saved) as boolean flag
 		///
