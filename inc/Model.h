@@ -11,7 +11,7 @@ namespace GreyscaleConverter
 	///
 	/// Model holds all user input parameters and image with it's copies and thumbnails.
 	///
-	/// Model is used by Controller @see Controller
+	/// Model is used by Controller @see ControllerFrame
 	class Model
 	{
 	public:
