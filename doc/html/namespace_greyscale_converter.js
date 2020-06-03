@@ -1,6 +1,5 @@
 var namespace_greyscale_converter =
 [
-    [ "Some text in user guide section3", "tutorial.html#autotoc_md4", null ],
     [ "ControllerFrame", "class_greyscale_converter_1_1_controller_frame.html", "class_greyscale_converter_1_1_controller_frame" ],
     [ "Frame", "class_greyscale_converter_1_1_frame.html", "class_greyscale_converter_1_1_frame" ],
     [ "ImageConversion", "class_greyscale_converter_1_1_image_conversion.html", "class_greyscale_converter_1_1_image_conversion" ],

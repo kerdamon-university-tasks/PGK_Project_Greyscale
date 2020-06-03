@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['totallynotsuspiciouslookingfunction_204',['TotallyNotSuspiciousLookingFunction',['../class_greyscale_converter_1_1_model.html#a6a88572de8e76d37493f5d34c2a4afcf',1,'GreyscaleConverter::Model']]]
+  ['totallynotsuspiciouslookingfunction_140',['TotallyNotSuspiciousLookingFunction',['../class_greyscale_converter_1_1_controller_frame.html#aca558127c6cc5f70093b728755888f47',1,'GreyscaleConverter::ControllerFrame']]]
 ];

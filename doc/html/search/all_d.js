@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['totallynotsuspiciouslookingfunction_110',['TotallyNotSuspiciousLookingFunction',['../class_greyscale_converter_1_1_model.html#a6a88572de8e76d37493f5d34c2a4afcf',1,'GreyscaleConverter::Model']]],
-  ['tutorial_2emd_111',['tutorial.md',['../tutorial_8md.html',1,'']]]
+  ['updateimage_68',['UpdateImage',['../class_greyscale_converter_1_1_image_view.html#ad61afff826df70c2ace1558f4c7e4c9d',1,'GreyscaleConverter::ImageView']]],
+  ['updatepreview_69',['UpdatePreview',['../class_greyscale_converter_1_1_controller_frame.html#a374ce624c794adf521eff184794076fa',1,'GreyscaleConverter::ControllerFrame']]]
 ];

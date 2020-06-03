@@ -95,41 +95,49 @@ $(document).ready(function(){initNavTree('class_greyscale_converter_1_1_image_co
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="class_greyscale_converter_1_1_image_conversion-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">GreyscaleConverter::ImageConversion Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Class handles two image convertions:  
+<p>Class performs two crucial for the program image conversions:  
  <a href="class_greyscale_converter_1_1_image_conversion.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_image_conversion_8h_source.html">ImageConversion.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ab9ac7cc3fa5fd85f4db8ae70978cb339"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_image_conversion.html#ab9ac7cc3fa5fd85f4db8ae70978cb339">ConvertToBichrome</a> (wxImage &amp;image, wxColour &amp;color, bool, int, int)</td></tr>
-<tr class="memdesc:ab9ac7cc3fa5fd85f4db8ae70978cb339"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts image to bichrome.  <a href="class_greyscale_converter_1_1_image_conversion.html#ab9ac7cc3fa5fd85f4db8ae70978cb339">More...</a><br /></td></tr>
-<tr class="separator:ab9ac7cc3fa5fd85f4db8ae70978cb339"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7934aeeb3e92594903af147ca6d0ec28"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_image_conversion.html#a7934aeeb3e92594903af147ca6d0ec28">ConvertToGreyScale</a> (wxImage &amp;, int, int, int, bool, int, int)</td></tr>
-<tr class="memdesc:a7934aeeb3e92594903af147ca6d0ec28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts image to greyscale.  <a href="class_greyscale_converter_1_1_image_conversion.html#a7934aeeb3e92594903af147ca6d0ec28">More...</a><br /></td></tr>
-<tr class="separator:a7934aeeb3e92594903af147ca6d0ec28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d276e181a123b7d604ad5ac4cd29081"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_image_conversion.html#a4d276e181a123b7d604ad5ac4cd29081">ConvertToBichrome</a> (wxImage &amp;image, wxColour &amp;color, bool keepHue, int hueToKeep, int tolerance)</td></tr>
+<tr class="memdesc:a4d276e181a123b7d604ad5ac4cd29081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts image to doutone.  <a href="class_greyscale_converter_1_1_image_conversion.html#a4d276e181a123b7d604ad5ac4cd29081">More...</a><br /></td></tr>
+<tr class="separator:a4d276e181a123b7d604ad5ac4cd29081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7be4be6381d8965df5f8ae61804ab8dd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_image_conversion.html#a7be4be6381d8965df5f8ae61804ab8dd">ConvertToGreyScale</a> (wxImage &amp;image, int chRed, int chGreen, int chBlue, bool keepHue, int hueToKeep, int tolerance)</td></tr>
+<tr class="memdesc:a7be4be6381d8965df5f8ae61804ab8dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts image to greyscale.  <a href="class_greyscale_converter_1_1_image_conversion.html#a7be4be6381d8965df5f8ae61804ab8dd">More...</a><br /></td></tr>
+<tr class="separator:a7be4be6381d8965df5f8ae61804ab8dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:ab649295c5033d2618f5427fd72ae124f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_image_conversion.html#ab649295c5033d2618f5427fd72ae124f">HSLtoRGB</a> (double &amp;R, double &amp;G, double &amp;B, const double H, const double S, const double L)</td></tr>
+<tr class="memdesc:ab649295c5033d2618f5427fd72ae124f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts HSL color system to RGB.  <a href="class_greyscale_converter_1_1_image_conversion.html#ab649295c5033d2618f5427fd72ae124f">More...</a><br /></td></tr>
+<tr class="separator:ab649295c5033d2618f5427fd72ae124f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5839dd127bce20ab869ccc3d6bfbb344"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_image_conversion.html#a5839dd127bce20ab869ccc3d6bfbb344">MinColour</a> (double r, double g, double b)</td></tr>
+<tr class="memdesc:a5839dd127bce20ab869ccc3d6bfbb344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds minimum value from 3 basic colors.  <a href="class_greyscale_converter_1_1_image_conversion.html#a5839dd127bce20ab869ccc3d6bfbb344">More...</a><br /></td></tr>
+<tr class="separator:a5839dd127bce20ab869ccc3d6bfbb344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab83845f40a922e96d8ad4ad4773aa76a"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_image_conversion.html#ab83845f40a922e96d8ad4ad4773aa76a">MaxColour</a> (double r, double g, double b)</td></tr>
+<tr class="memdesc:ab83845f40a922e96d8ad4ad4773aa76a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds maximum value from 3 basic colors.  <a href="class_greyscale_converter_1_1_image_conversion.html#ab83845f40a922e96d8ad4ad4773aa76a">More...</a><br /></td></tr>
+<tr class="separator:ab83845f40a922e96d8ad4ad4773aa76a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class handles two image convertions: </p>
+<div class="textblock"><p>Class performs two crucial for the program image conversions: </p>
 <ul>
 <li>bichrome</li>
 <li>greyscale</li>
 </ul>
-<p>Other functions converts one color system to another:</p><ul>
-<li>RGB =&gt; YUV</li>
-<li>YUV =&gt; RGB</li>
-<li>RGB =&gt; HSL</li>
-<li>HSL =&gt; RGB </li>
-</ul>
+<p>Rest of the methods converts one color system to another forward/backward - RGB -&gt; YUV, RGB -&gt; HSL </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab9ac7cc3fa5fd85f4db8ae70978cb339"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9ac7cc3fa5fd85f4db8ae70978cb339">&#9670;&nbsp;</a></span>ConvertToBichrome()</h2>
+<a id="a4d276e181a123b7d604ad5ac4cd29081"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d276e181a123b7d604ad5ac4cd29081">&#9670;&nbsp;</a></span>ConvertToBichrome()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,7 +188,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Converts image to bichrome. </p>
+<p>Converts image to doutone. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">image</td><td>iamge that will be converted </td></tr>
@@ -191,13 +199,13 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_greyscale_converter_1_1_image_conversion.html#a7934aeeb3e92594903af147ca6d0ec28" title="Converts image to greyscale.">ConvertToGreyScale()</a> </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Function proceed convrtion in place! (on image passed by reference) </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_greyscale_converter_1_1_image_conversion.html#a7be4be6381d8965df5f8ae61804ab8dd" title="Converts image to greyscale.">ConvertToGreyScale()</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Function proceeds conversion in place! (on image passed by reference) </dd></dl>
 
 </div>
 </div>
-<a id="a7934aeeb3e92594903af147ca6d0ec28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7934aeeb3e92594903af147ca6d0ec28">&#9670;&nbsp;</a></span>ConvertToGreyScale()</h2>
+<a id="a7be4be6381d8965df5f8ae61804ab8dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7be4be6381d8965df5f8ae61804ab8dd">&#9670;&nbsp;</a></span>ConvertToGreyScale()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -263,7 +271,7 @@ Static Public Member Functions</h2></td></tr>
 <p>Converts image to greyscale. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">image</td><td>iamge that will be converted </td></tr>
+    <tr><td class="paramname">image</td><td>image that will be converted </td></tr>
     <tr><td class="paramname">chRed</td><td>red channel value </td></tr>
     <tr><td class="paramname">chGreen</td><td>green channel value </td></tr>
     <tr><td class="paramname">chBlue</td><td>blue channel value </td></tr>
@@ -273,8 +281,161 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_greyscale_converter_1_1_image_conversion.html#ab9ac7cc3fa5fd85f4db8ae70978cb339" title="Converts image to bichrome.">ConvertToBichrome()</a> </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Function proceed convrtion in place! (on image passed by reference) </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_greyscale_converter_1_1_image_conversion.html#a4d276e181a123b7d604ad5ac4cd29081" title="Converts image to doutone.">ConvertToBichrome()</a> </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Function proceeds conversion in place! (on image passed by reference) </dd></dl>
+
+</div>
+</div>
+<a id="ab649295c5033d2618f5427fd72ae124f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab649295c5033d2618f5427fd72ae124f">&#9670;&nbsp;</a></span>HSLtoRGB()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GreyscaleConverter::ImageConversion::HSLtoRGB </td>
+          <td>(</td>
+          <td class="paramtype">double &amp;&#160;</td>
+          <td class="paramname"><em>R</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double &amp;&#160;</td>
+          <td class="paramname"><em>G</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double &amp;&#160;</td>
+          <td class="paramname"><em>B</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>H</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>S</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double&#160;</td>
+          <td class="paramname"><em>L</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts HSL color system to RGB. </p>
+<dl class="section see"><dt>See also</dt><dd>RGBtoHSL() </dd></dl>
+
+</div>
+</div>
+<a id="ab83845f40a922e96d8ad4ad4773aa76a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab83845f40a922e96d8ad4ad4773aa76a">&#9670;&nbsp;</a></span>MaxColour()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double GreyscaleConverter::ImageConversion::MaxColour </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>g</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Finds maximum value from 3 basic colors. </p>
+<dl class="section return"><dt>Returns</dt><dd>maximum value of color channels </dd></dl>
+
+</div>
+</div>
+<a id="a5839dd127bce20ab869ccc3d6bfbb344"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5839dd127bce20ab869ccc3d6bfbb344">&#9670;&nbsp;</a></span>MinColour()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double GreyscaleConverter::ImageConversion::MinColour </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>g</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Finds minimum value from 3 basic colors. </p>
+<dl class="section return"><dt>Returns</dt><dd>minimum value of color channels </dd></dl>
 
 </div>
 </div>
@@ -283,7 +444,7 @@ Static Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespace_greyscale_converter.html">GreyscaleConverter</a></li><li class="navelem"><a class="el" href="class_greyscale_converter_1_1_image_conversion.html">ImageConversion</a></li>
+    <li class="navelem"><b>GreyscaleConverter</b></li><li class="navelem"><a class="el" href="class_greyscale_converter_1_1_image_conversion.html">ImageConversion</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

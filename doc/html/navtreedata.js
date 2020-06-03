@@ -25,39 +25,6 @@
 var NAVTREE =
 [
   [ "Greyscale convertion", "index.html", [
-    [ "MAIN", "index.html", [
-      [ "introduction", "index.html#mainpage_introduction", null ],
-      [ "initial assumptions and requirements", "index.html#mainpage_requirements", null ],
-      [ "data structures", "index.html#mainpage_data_structures", null ],
-      [ "tools", "index.html#mainpage_tools", null ],
-      [ "algorithms", "index.html#mainpage_data_algorithms", null ],
-      [ "report", "index.html#mainpage_data_report", null ]
-    ] ],
-    [ "work organization", "organization.html", [
-      [ "tasks", "organization.html#organization_tasks", null ],
-      [ "work split", "organization.html#organization_work_split", null ],
-      [ "time analysis", "organization.html#organization_time", null ],
-      [ "testing", "organization.html#organization_testing", null ]
-    ] ],
-    [ "user guide", "tutorial.html", [
-      [ "I/O Specification", "tutorial.html#user_guide_iospecification", null ],
-      [ "User Interface", "tutorial.html#user_guide_user-interface", [
-        [ "GUI presentation", "tutorial.html#user_guide__user-interface__gui", [
-          [ "Input specification", "tutorial.html#autotoc_md1", null ],
-          [ "Output specification", "tutorial.html#autotoc_md2", null ],
-          [ "GUI PRESENTATION", "tutorial.html#autotoc_md3", null ]
-        ] ],
-        [ "sidebar menu", "tutorial.html#user_guide__user-interface__legend", null ]
-      ] ],
-      [ "input/output specification", "tutorial.html#user_guide_section3", null ]
-    ] ],
-    [ "Namespaces", "namespaces.html", [
-      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
-      [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ]
-      ] ]
-    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -65,23 +32,18 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ],
         [ "Enumerations", "functions_enum.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ],
-      [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ]
-      ] ]
+      [ "File List", "files.html", "files_dup" ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"_controller_frame_8cpp.html"
+".html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

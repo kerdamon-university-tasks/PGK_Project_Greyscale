@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['frame_143',['Frame',['../class_greyscale_converter_1_1_frame.html#aa4538eb85194b3f8b2431c2fe0e514ed',1,'GreyscaleConverter::Frame']]]
+  ['disablechannelcontrols_83',['DisableChannelControls',['../class_greyscale_converter_1_1_controller_frame.html#ab5790aaa2952d263e1a0682fbc5e0a4c',1,'GreyscaleConverter::ControllerFrame']]]
 ];

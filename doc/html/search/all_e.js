@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['user_20guide_112',['user guide',['../tutorial.html',1,'']]],
-  ['updateimage_113',['UpdateImage',['../class_greyscale_converter_1_1_image_view.html#ad61afff826df70c2ace1558f4c7e4c9d',1,'GreyscaleConverter::ImageView']]]
+  ['warningifimagenotsaved_70',['WarningIfImageNotSaved',['../class_greyscale_converter_1_1_controller_frame.html#a38f71233ef65f326ad62fbb35dd073d2',1,'GreyscaleConverter::ControllerFrame']]],
+  ['workmode_71',['WorkMode',['../class_greyscale_converter_1_1_model.html#a0ed3644f313bf1ce43f950226548954b',1,'GreyscaleConverter::Model']]]
 ];
