@@ -43,7 +43,7 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnColourChanged_PickBichromeColour(wxColourPickerEvent& event)
 	{
-		m_model.SetDuotoneColour(m_pickBichromeColourButton->GetColour());
+		m_model.SetBichromeColour(m_pickBichromeColourButton->GetColour());
 		GenerateThumbnail();
 		UpdatePreview();
 	}
@@ -630,7 +630,7 @@ namespace GreyscaleConverter
 		if (m_model.IsHueKept())
 			m_keepHueButton->SetValue(true);
 		
-		m_pickBichromeColourButton->SetColour(m_model.GetDuotoneColour());
+		m_pickBichromeColourButton->SetColour(m_model.GetBichromeColour());
 		
 		m_hueSlider->SetValue(m_model.GetKeptHue());
 		wxString tempText;

@@ -11,7 +11,7 @@ namespace GreyscaleConverter
 	///
 	/// Model holds all user input parameters and image with it's copies and thumbnails.
 	///
-	/// ### Model is used by Controller @see Controller
+	/// Model is used by Controller @see Controller
 	class Model
 	{
 	public:
@@ -69,11 +69,14 @@ namespace GreyscaleConverter
 		/// @see WorkMode SetWorkMode()
 		WorkMode GetWorkMode() const { return m_mode; }
 
-		/// Returns Color which will be kept in duotone
+		/// Returns Color which will be kept in bichrome
 		///
-		/// @see SetDuotoneColour()
-		wxColour GetDuotoneColour() const { return m_bichromeColour; }
+		/// @see SetBichromeColour()
+		wxColour GetBichromeColour() const { return m_bichromeColour; }
 
+		/// Returns factor by which original image is mixed with converted image
+		///
+		/// @see SetMixingFactor()
 		int GetMixingFactor() const { return m_mixingFactor; }
 
 		/// Returns value of kept hue
@@ -166,8 +169,8 @@ namespace GreyscaleConverter
 		/// Sets color for bichrome
 		///	
 		/// @param colour bichrome colour
-		/// @see GetDuotoneColour()
-		void SetDuotoneColour(const wxColour colour) { m_bichromeColour = colour; }
+		/// @see GetBichromeColour()
+		void SetBichromeColour(const wxColour colour) { m_bichromeColour = colour; }
 
 		/// Sets factor representing proportion between original and converted images
 		///
