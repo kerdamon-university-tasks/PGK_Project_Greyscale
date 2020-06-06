@@ -1,4 +1,4 @@
-#1. Project’s title and authors
+# 1. Project’s title and authors
 
 Title of the project is Grayscale Conversion and it was realized by a team of 3 members:
 
@@ -6,11 +6,11 @@ Title of the project is Grayscale Conversion and it was realized by a team of 3 
 2. Marcin Filipek
 3. Adrian Furman
 
-#2. Project description
+# 2. Project description
 
 Reasons to use grayscale conversion are various, for example artistics or in order to extract some details from photos in special medicine visualisations. In most cases basic functions built in numerous simple graphics editors are not enough to obtain satisfying results. Main idea of the project is to allow user to decide how much informations from red, green, blue channels should be included in brightness of the final photo. Moreover program allows user to decide if he/she want to keep any color and it’s hue.
 
-#3. Initial assumptions and requirements
+# 3. Initial assumptions and requirements
 
 #### Basic:
 
@@ -29,7 +29,7 @@ Reasons to use grayscale conversion are various, for example artistics or in ord
 
 
 
-#4. Project analysis
+# 4. Project analysis
 
 ## 4.1    Input specification
 
@@ -80,7 +80,7 @@ Since aim of the program is image manipulation and conversions, main data struct
 
 All sliders have a text field to their right that displays current value and also can be used to set value manually.
 
-##4.5 Modules extraction and definition
+## 4.5 Modules extraction and definition
 
 Since we decided to apply MVC design pattern to our program, natural division on Model, Controller and View appeared.
 
@@ -106,7 +106,7 @@ Since there was 3 project members and MVC pattern has 3 segments it was natural 
 
 **Adrian Furman** - Model class and documentation
 
-#6. Algorithms
+# 6. Algorithms
 
 ## 6.1    Greyscale conversion
 
@@ -147,13 +147,13 @@ There is also a special case when tolerance i 0. We cannot divite by 0 so in tha
 where *C* is the colour of converted pixel and *C'* is the colour of original pixel. This algorithm is in fact the implementation of the transparency mask.
 
 
-#7. Coding
+# 7. Coding
 
 Whole code and structure is documented in Doxygen.
 This documentation is also hosted 
 [here](https://kerdamon-university-tasks.github.io/PGK_Project_Greyscale/).
 
-#8. Testing
+# 8. Testing
 
 Every module functionality was tested shortly after it was finished to ensure ourselves that everything worked fine so we could move forward without worrying about already implemented features.
 
@@ -175,7 +175,7 @@ The original images are shown below:
 
 ![](https://raw.githubusercontent.com/kerdamon-university-tasks/PGK_Project_Greyscale/master/docs/images_for_markdown/original_test_image_2.png)
 
-#9. Deployment, conclusions, report
+# 9. Deployment, conclusions, report
 
 Program is working correctly, all goals was reached. 
 
