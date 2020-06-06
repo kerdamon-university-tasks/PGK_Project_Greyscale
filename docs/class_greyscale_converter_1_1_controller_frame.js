@@ -18,6 +18,7 @@ var class_greyscale_converter_1_1_controller_frame =
     [ "OnMenuSelection_QualityPreview", "class_greyscale_converter_1_1_controller_frame.html#a7e6380dead2101ec73497caec7128dda", null ],
     [ "OnMenuSelection_SaveConfig", "class_greyscale_converter_1_1_controller_frame.html#a7db540fe9193e9e4507387b1986b2db3", null ],
     [ "OnMenuSelection_SaveImage", "class_greyscale_converter_1_1_controller_frame.html#a444c8e2d6f57ae95dc0ea6fad53cfd39", null ],
+    [ "OnMenuSelection_SetConfigToDefault", "class_greyscale_converter_1_1_controller_frame.html#abc79fe656f2109c0847f8dbe54badc53", null ],
     [ "OnScrollThumbTrack_ChangeBlueChannel", "class_greyscale_converter_1_1_controller_frame.html#a9808a02ee8b530a3fc1339c232b58ee4", null ],
     [ "OnScrollThumbTrack_ChangeGreenChannel", "class_greyscale_converter_1_1_controller_frame.html#a758bd951fb898085d240b77744160756", null ],
     [ "OnScrollThumbTrack_ChangeRedChannel", "class_greyscale_converter_1_1_controller_frame.html#acc94f378597c16d81e06fd3b0ef152a2", null ],
@@ -30,6 +31,7 @@ var class_greyscale_converter_1_1_controller_frame =
     [ "OnText_ChangeRedChannel", "class_greyscale_converter_1_1_controller_frame.html#a7825d58cf5a14b756af278c050e68e0c", null ],
     [ "OnText_HueKept", "class_greyscale_converter_1_1_controller_frame.html#a2474fb0375e449b73473bffaad124e81", null ],
     [ "OnText_MixOriginalWithConverted", "class_greyscale_converter_1_1_controller_frame.html#a0ea60317e203f3e0f173de3725f33016", null ],
+    [ "SetDefaultConfig", "class_greyscale_converter_1_1_controller_frame.html#a573b1a374327bc7953986193b42812d8", null ],
     [ "TotallyNotSuspiciousLookingFunction", "class_greyscale_converter_1_1_controller_frame.html#aca558127c6cc5f70093b728755888f47", null ],
     [ "UpdatePreview", "class_greyscale_converter_1_1_controller_frame.html#a374ce624c794adf521eff184794076fa", null ],
     [ "WarningIfImageNotSaved", "class_greyscale_converter_1_1_controller_frame.html#a38f71233ef65f326ad62fbb35dd073d2", null ]

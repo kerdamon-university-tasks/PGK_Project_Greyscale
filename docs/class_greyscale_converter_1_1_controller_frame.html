@@ -192,6 +192,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:aba157a8faf6db0f5b77c7d18c5063bf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_controller_frame.html#aba157a8faf6db0f5b77c7d18c5063bf3">OnMenuSelection_GoFullscreen</a> (wxCommandEvent &amp;event) override</td></tr>
 <tr class="memdesc:aba157a8faf6db0f5b77c7d18c5063bf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles full screen menu selection.  <a href="class_greyscale_converter_1_1_controller_frame.html#aba157a8faf6db0f5b77c7d18c5063bf3">More...</a><br /></td></tr>
 <tr class="separator:aba157a8faf6db0f5b77c7d18c5063bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc79fe656f2109c0847f8dbe54badc53"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_controller_frame.html#abc79fe656f2109c0847f8dbe54badc53">OnMenuSelection_SetConfigToDefault</a> (wxCommandEvent &amp;event) override</td></tr>
+<tr class="memdesc:abc79fe656f2109c0847f8dbe54badc53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles setting config to default menu selection.  <a href="class_greyscale_converter_1_1_controller_frame.html#abc79fe656f2109c0847f8dbe54badc53">More...</a><br /></td></tr>
+<tr class="separator:abc79fe656f2109c0847f8dbe54badc53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e6380dead2101ec73497caec7128dda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_controller_frame.html#a7e6380dead2101ec73497caec7128dda">OnMenuSelection_QualityPreview</a> (wxCommandEvent &amp;event) override</td></tr>
 <tr class="memdesc:a7e6380dead2101ec73497caec7128dda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles preview quality change.  <a href="class_greyscale_converter_1_1_controller_frame.html#a7e6380dead2101ec73497caec7128dda">More...</a><br /></td></tr>
 <tr class="separator:a7e6380dead2101ec73497caec7128dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,6 +228,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_controller_frame.html#a4795f770e219a3ac4e5d99340de712b4">GenerateThumbnail</a> ()</td></tr>
 <tr class="memdesc:a4795f770e219a3ac4e5d99340de712b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends message to model to apply parameters to thumbnail. <br /></td></tr>
 <tr class="separator:a4795f770e219a3ac4e5d99340de712b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a573b1a374327bc7953986193b42812d8"><td class="memItemLeft" align="right" valign="top"><a id="a573b1a374327bc7953986193b42812d8"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_controller_frame.html#a573b1a374327bc7953986193b42812d8">SetDefaultConfig</a> ()</td></tr>
+<tr class="memdesc:a573b1a374327bc7953986193b42812d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets configuration do default. <br /></td></tr>
+<tr class="separator:a573b1a374327bc7953986193b42812d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Some not suspicious functions...</div></td></tr>
 <tr class="memitem:aca558127c6cc5f70093b728755888f47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_controller_frame.html#aca558127c6cc5f70093b728755888f47">TotallyNotSuspiciousLookingFunction</a> ()</td></tr>
 <tr class="memdesc:aca558127c6cc5f70093b728755888f47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wait, what is this?  <a href="class_greyscale_converter_1_1_controller_frame.html#aca558127c6cc5f70093b728755888f47">More...</a><br /></td></tr>
@@ -571,6 +578,37 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Handles save image menu selection. </p>
 <p>Opens file dialog and orders model to save current result image under given path. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_greyscale_converter_1_1_model.html#a5c03789dbd0963906f71732773d1ea14" title="Saves image to a file.">Model::SaveImageToFile()</a> <a class="el" href="class_greyscale_converter_1_1_model.html#a1ba7203437baad721b737135897d1973" title="Loads image from a file.">Model::LoadImageFromFile()</a> </dd></dl>
+
+<p>Reimplemented from <a class="el" href="class_greyscale_converter_1_1_frame.html">GreyscaleConverter::Frame</a>.</p>
+
+</div>
+</div>
+<a id="abc79fe656f2109c0847f8dbe54badc53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc79fe656f2109c0847f8dbe54badc53">&#9670;&nbsp;</a></span>OnMenuSelection_SetConfigToDefault()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GreyscaleConverter::ControllerFrame::OnMenuSelection_SetConfigToDefault </td>
+          <td>(</td>
+          <td class="paramtype">wxCommandEvent &amp;&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handles setting config to default menu selection. </p>
+<p>Sets all configuration to their default value </p>
 
 <p>Reimplemented from <a class="el" href="class_greyscale_converter_1_1_frame.html">GreyscaleConverter::Frame</a>.</p>
 

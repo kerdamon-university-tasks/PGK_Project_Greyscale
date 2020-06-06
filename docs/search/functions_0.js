@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['alternateconversionbuttons_79',['AlternateConversionButtons',['../class_greyscale_converter_1_1_controller_frame.html#a4521e5f2dbb23a239524637fb570b87d',1,'GreyscaleConverter::ControllerFrame']]],
-  ['applyparameterstothumbnail_80',['ApplyParametersToThumbnail',['../class_greyscale_converter_1_1_model.html#a8a75f8f61b3a6c1c5ba173e92d8dbffb',1,'GreyscaleConverter::Model']]]
+  ['alternateconversionbuttons_81',['AlternateConversionButtons',['../class_greyscale_converter_1_1_controller_frame.html#a4521e5f2dbb23a239524637fb570b87d',1,'GreyscaleConverter::ControllerFrame']]],
+  ['applyparameterstothumbnail_82',['ApplyParametersToThumbnail',['../class_greyscale_converter_1_1_model.html#a8a75f8f61b3a6c1c5ba173e92d8dbffb',1,'GreyscaleConverter::Model']]]
 ];

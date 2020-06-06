@@ -196,9 +196,9 @@ const wxImage &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class=
 <tr class="memitem:a81a44b0f6ae2f6050fdbed316f06ac7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_model.html#a81a44b0f6ae2f6050fdbed316f06ac7b">SetWorkMode</a> (<a class="el" href="class_greyscale_converter_1_1_model.html#a0ed3644f313bf1ce43f950226548954b">WorkMode</a> mode)</td></tr>
 <tr class="memdesc:a81a44b0f6ae2f6050fdbed316f06ac7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets work mode.  <a href="class_greyscale_converter_1_1_model.html#a81a44b0f6ae2f6050fdbed316f06ac7b">More...</a><br /></td></tr>
 <tr class="separator:a81a44b0f6ae2f6050fdbed316f06ac7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09ec5518279ea03c23cd88b1e2ae08ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_model.html#a09ec5518279ea03c23cd88b1e2ae08ae">SetIsKeptHue</a> (bool flag)</td></tr>
-<tr class="memdesc:a09ec5518279ea03c23cd88b1e2ae08ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets boolean flag of kept hue.  <a href="class_greyscale_converter_1_1_model.html#a09ec5518279ea03c23cd88b1e2ae08ae">More...</a><br /></td></tr>
-<tr class="separator:a09ec5518279ea03c23cd88b1e2ae08ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46bc4363747b306e8a6fa65dfd9b2f17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_model.html#a46bc4363747b306e8a6fa65dfd9b2f17">IsKeptHue</a> (bool flag)</td></tr>
+<tr class="memdesc:a46bc4363747b306e8a6fa65dfd9b2f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets boolean flag of kept hue.  <a href="class_greyscale_converter_1_1_model.html#a46bc4363747b306e8a6fa65dfd9b2f17">More...</a><br /></td></tr>
+<tr class="separator:a46bc4363747b306e8a6fa65dfd9b2f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c093319cb9a9a9647cbb0f76a172ef6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_greyscale_converter_1_1_model.html#a8c093319cb9a9a9647cbb0f76a172ef6">SetBichromeColour</a> (const wxColour colour)</td></tr>
 <tr class="memdesc:a8c093319cb9a9a9647cbb0f76a172ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets color for bichrome.  <a href="class_greyscale_converter_1_1_model.html#a8c093319cb9a9a9647cbb0f76a172ef6">More...</a><br /></td></tr>
 <tr class="separator:a8c093319cb9a9a9647cbb0f76a172ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -522,6 +522,41 @@ const wxImage &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class=
 
 </div>
 </div>
+<a id="a46bc4363747b306e8a6fa65dfd9b2f17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46bc4363747b306e8a6fa65dfd9b2f17">&#9670;&nbsp;</a></span>IsKeptHue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GreyscaleConverter::Model::IsKeptHue </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>flag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets boolean flag of kept hue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flag</td><td>flag </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_greyscale_converter_1_1_model.html#a0f70cbf8fc4ed4a852091e382d281c2a" title="Returns true if specific hue have to be kept, false otherwise.">IsHueKept()</a> </dd></dl>
+
+</div>
+</div>
 <a id="a1da03ae31e82094ffb05d5e52fa4a406"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1da03ae31e82094ffb05d5e52fa4a406">&#9670;&nbsp;</a></span>IsResultImageSaved() <span class="overload">[1/2]</span></h2>
 
@@ -817,41 +852,6 @@ const wxImage &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class=
   </dd>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_greyscale_converter_1_1_model.html#aada4db73451b2adcccd4deaae6ed58a7" title="Returns value of green color channel.">GetGreenChannel()</a> </dd></dl>
-
-</div>
-</div>
-<a id="a09ec5518279ea03c23cd88b1e2ae08ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09ec5518279ea03c23cd88b1e2ae08ae">&#9670;&nbsp;</a></span>SetIsKeptHue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void GreyscaleConverter::Model::SetIsKeptHue </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>flag</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets boolean flag of kept hue. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">flag</td><td>flag </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_greyscale_converter_1_1_model.html#a0f70cbf8fc4ed4a852091e382d281c2a" title="Returns true if specific hue have to be kept, false otherwise.">IsHueKept()</a> </dd></dl>
 
 </div>
 </div>
