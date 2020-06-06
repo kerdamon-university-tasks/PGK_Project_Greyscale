@@ -164,7 +164,7 @@ namespace GreyscaleConverter
 		///	
 		/// @param flag flag
 		/// @see IsHueKept()
-		void SetIsKeptHue(bool flag) { m_isHueKept = flag; }
+		void IsKeptHue(bool flag) { m_isHueKept = flag; }
 
 		/// Sets color for bichrome
 		///	
@@ -214,9 +214,9 @@ namespace GreyscaleConverter
 		int m_keptHue{ 180 };
 		int m_keptHueTolerance{ 20 };
 		
-		int m_redChannel{ 0 };
-		int m_blueChannel{ 0 };
-		int m_greenChannel{ 0 };
+		int m_redChannel{ 100 };
+		int m_blueChannel{ 100 };
+		int m_greenChannel{ 100 };
 		
 		bool m_isHueKept{ false };
 		bool m_isResultSaved{ true };

@@ -21,12 +21,12 @@ namespace GreyscaleConverter
 		
 		auto* redChannelSizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("Red")), wxHORIZONTAL);
 		
-		m_redChannelSlider = new wxSlider(redChannelSizer->GetStaticBox(), wxID_ANY, 0, -200, 200, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+		m_redChannelSlider = new wxSlider(redChannelSizer->GetStaticBox(), wxID_ANY, 100, -200, 200, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 		m_redChannelSlider->SetMinSize(wxSize(200, -1));
 
 		redChannelSizer->Add(m_redChannelSlider, 1, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
-		m_redChannelText = new wxTextCtrl(redChannelSizer->GetStaticBox(), wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(40, -1), 0);
+		m_redChannelText = new wxTextCtrl(redChannelSizer->GetStaticBox(), wxID_ANY, wxT("100"), wxDefaultPosition, wxSize(40, -1), 0);
 		m_redChannelText->SetMaxLength(4);
 
 		redChannelSizer->Add(m_redChannelText, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
@@ -36,12 +36,12 @@ namespace GreyscaleConverter
 		
 		auto* greenChannelSizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("Green")), wxHORIZONTAL);
 
-		m_greenChannelSlider = new wxSlider(greenChannelSizer->GetStaticBox(), wxID_ANY, 0, -200, 200, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+		m_greenChannelSlider = new wxSlider(greenChannelSizer->GetStaticBox(), wxID_ANY, 100, -200, 200, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 		m_greenChannelSlider->SetMinSize(wxSize(200, -1));
 
 		greenChannelSizer->Add(m_greenChannelSlider, 1, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
-		m_greenChannelText = new wxTextCtrl(greenChannelSizer->GetStaticBox(), wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(40, -1), 0);
+		m_greenChannelText = new wxTextCtrl(greenChannelSizer->GetStaticBox(), wxID_ANY, wxT("100"), wxDefaultPosition, wxSize(40, -1), 0);
 		m_greenChannelText->SetMaxLength(4);
 
 		greenChannelSizer->Add(m_greenChannelText, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
@@ -51,12 +51,12 @@ namespace GreyscaleConverter
 		
 		auto* blueChannelSizer = new wxStaticBoxSizer(new wxStaticBox(this, wxID_ANY, wxT("Blue")), wxHORIZONTAL);
 
-		m_blueChannelSlider = new wxSlider(blueChannelSizer->GetStaticBox(), wxID_ANY, 0, -200, 200, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
+		m_blueChannelSlider = new wxSlider(blueChannelSizer->GetStaticBox(), wxID_ANY, 100, -200, 200, wxDefaultPosition, wxDefaultSize, wxSL_HORIZONTAL);
 		m_blueChannelSlider->SetMinSize(wxSize(200, -1));
 
 		blueChannelSizer->Add(m_blueChannelSlider, 1, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 
-		m_blueChannelText = new wxTextCtrl(blueChannelSizer->GetStaticBox(), wxID_ANY, wxT("0"), wxDefaultPosition, wxSize(40, -1), 0);
+		m_blueChannelText = new wxTextCtrl(blueChannelSizer->GetStaticBox(), wxID_ANY, wxT("100"), wxDefaultPosition, wxSize(40, -1), 0);
 		m_blueChannelText->SetMaxLength(4);
 
 		blueChannelSizer->Add(m_blueChannelText, 0, wxALIGN_CENTER_VERTICAL | wxALL, 5);
@@ -203,8 +203,10 @@ namespace GreyscaleConverter
 		auto* m_fullscreen = new wxMenuItem(m_viewMenu, wxID_ANY, wxString(wxT("Fullscreen")) + wxT('\t') + wxT("F12"), wxEmptyString, wxITEM_NORMAL);
 		m_viewMenu->Append(m_fullscreen);
 
-
-		m_menuItemQualityPreview = new wxMenuItem(m_fileMenu, wxID_ANY, wxString(wxT("Render high quality preview")), wxEmptyString, wxITEM_CHECK);
+		m_menuItemSetDefaultConfig = new wxMenuItem(m_viewMenu, wxID_ANY, wxString(wxT("Reset config to default")), wxEmptyString, wxITEM_NORMAL);
+		m_viewMenu->Append(m_menuItemSetDefaultConfig);
+		
+		m_menuItemQualityPreview = new wxMenuItem(m_viewMenu, wxID_ANY, wxString(wxT("Render high quality preview")), wxEmptyString, wxITEM_CHECK);
 		m_viewMenu->Append(m_menuItemQualityPreview);
 
 		m_menubar->Append(m_viewMenu, wxT("View"));
@@ -245,6 +247,7 @@ namespace GreyscaleConverter
 		m_fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_SaveConfig), this, m_menuItemSaveConfig->GetId());
 		m_fileMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_Exit), this, m_exit->GetId());
 		m_viewMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_GoFullscreen), this, m_fullscreen->GetId());
+		m_viewMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_SetConfigToDefault), this, m_menuItemSetDefaultConfig->GetId());
 		m_viewMenu->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(Frame::OnMenuSelection_QualityPreview), this, m_menuItemQualityPreview->GetId());
 		Bind(wxEVT_PAINT, wxPaintEventHandler(Frame::OnPaint_RefreshImage), this);
 	}

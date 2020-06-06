@@ -57,9 +57,9 @@ namespace GreyscaleConverter
 		}
 		
 		if (m_keepHueButton->GetValue())
-			m_model.SetIsKeptHue(true);
+			m_model.IsKeptHue(true);
 		else
-			m_model.SetIsKeptHue(false);
+			m_model.IsKeptHue(false);
 
 		UpdatePreview();
 	}
@@ -373,8 +373,8 @@ namespace GreyscaleConverter
 		if (showResult == wxID_OK)
 		{
 			m_model.LoadImageFromFile(openFileDialog.GetPath());
-			m_model.SetWorkMode(Model::WorkMode::ORIGINAL);
-			m_view->UpdateImage(m_menuItemQualityPreview->IsChecked());
+			SetDefaultConfig();
+			UpdatePreview();
 		}
 	}
 
@@ -477,6 +477,11 @@ namespace GreyscaleConverter
 		}
 	}
 
+	void ControllerFrame::OnMenuSelection_SetConfigToDefault(wxCommandEvent& event)
+	{
+		SetDefaultConfig();
+	}
+
 	void ControllerFrame::OnMenuSelection_QualityPreview(wxCommandEvent& event)
 	{
 		UpdatePreview();
@@ -570,6 +575,7 @@ namespace GreyscaleConverter
 		m_menuItemLoadImage->Enable(false);
 		m_menuItemSaveConfig->Enable(false);
 		m_menuItemSaveImage->Enable(false);
+		m_menuItemSetDefaultConfig->Enable(false);
 	}
 
 	void ControllerFrame::EnableAllControls()
@@ -590,6 +596,7 @@ namespace GreyscaleConverter
 		m_menuItemLoadImage->Enable(true);
 		m_menuItemSaveConfig->Enable(true);
 		m_menuItemSaveImage->Enable(true);
+		m_menuItemSetDefaultConfig->Enable(true);
 	}
 
 	void ControllerFrame::ClearImagePreview()
@@ -668,7 +675,45 @@ namespace GreyscaleConverter
 		m_model.ApplyParametersToThumbnail();
 		TotallyNotSuspiciousLookingFunction();
 	}
-	
+
+	void ControllerFrame::SetDefaultConfig()
+	{
+		m_model.SetWorkMode(Model::WorkMode::ORIGINAL);
+		
+		m_grayscaleButton->SetValue(false);
+		
+		m_redChannelSlider->SetValue(100);
+		m_redChannelText->SetValue("100");
+		m_model.SetRedChannel(100);
+		
+		m_greenChannelSlider->SetValue(100);
+		m_greenChannelText->SetValue("100");
+		m_model.SetGreenChannel(100);
+
+		m_blueChannelSlider->SetValue(100);
+		m_blueChannelText->SetValue("100");
+		m_model.SetBlueChannel(100);
+		
+		m_bichromeButton->SetValue(false);
+		m_pickBichromeColourButton->SetColour(wxColour{ "Red" });
+		m_model.SetBichromeColour(wxColour{ "Red" });
+
+		m_keepHueButton->SetValue(false);
+		m_model.IsKeptHue(false);
+
+		m_hueSlider->SetValue(180);
+		m_hueSliderText->SetValue("180");
+		m_model.SetKeptHue(180);
+
+		m_toleranceSlider->SetValue(20);
+		m_toleranceText->SetValue("20");
+		m_model.SetKeptHueTolerance(20);
+
+		m_mixedFactorSlider->SetValue(0);
+		m_mixedFactorText->SetValue("0");
+		m_model.SetMixingFactor(0);
+	}
+
 	void ControllerFrame::TotallyNotSuspiciousLookingFunction()
 	{
 		if (m_model.GetRedChannel()			== 'J' && 

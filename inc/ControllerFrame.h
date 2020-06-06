@@ -152,6 +152,11 @@ namespace GreyscaleConverter
 		/// Displays program in full screen mode
 		void OnMenuSelection_GoFullscreen(wxCommandEvent& event) override;
 
+		/// Handles setting config to default menu selection
+		///
+		/// Sets all configuration to their default value
+		void OnMenuSelection_SetConfigToDefault(wxCommandEvent& event) override;
+		
 		/// Handles preview quality change
 		///
 		/// Toggles flag determining if preview should be displayed in high quality.
@@ -194,6 +199,9 @@ namespace GreyscaleConverter
 
 		/// Sends message to model to apply parameters to thumbnail
 		void GenerateThumbnail();
+
+		/// Sets configuration do default
+		void SetDefaultConfig();
 
 		///@{
 		/// @name Some not suspicious functions...

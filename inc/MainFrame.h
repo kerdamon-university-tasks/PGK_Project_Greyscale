@@ -55,6 +55,7 @@ namespace GreyscaleConverter
 		wxMenuItem* m_menuItemLoadConfig;
 		wxMenuItem* m_menuItemSaveConfig;
 		wxMenuItem* m_menuItemQualityPreview;
+		wxMenuItem* m_menuItemSetDefaultConfig;
 
 		ImageView* m_view;
 		Model m_model;
@@ -84,6 +85,7 @@ namespace GreyscaleConverter
 		virtual void OnMenuSelection_SaveConfig(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnMenuSelection_Exit(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnMenuSelection_GoFullscreen(wxCommandEvent& event) { event.Skip(); }
+		virtual void OnMenuSelection_SetConfigToDefault(wxCommandEvent& event) { event.Skip(); }
 		virtual void OnMenuSelection_QualityPreview(wxCommandEvent& event) { event.Skip(); }
 		
 		virtual void OnPaint_RefreshImage(wxPaintEvent& event) { event.Skip(); }
