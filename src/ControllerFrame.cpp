@@ -479,7 +479,8 @@ namespace GreyscaleConverter
 
 	void ControllerFrame::OnMenuSelection_SetConfigToDefault(wxCommandEvent& event)
 	{
-		SetDefaultConfig();
+		if(m_model.GetWorkMode() != Model::WorkMode::NOT_LOADED)
+			SetDefaultConfig();
 	}
 
 	void ControllerFrame::OnMenuSelection_QualityPreview(wxCommandEvent& event)
